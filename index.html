@@ -11,11 +11,16 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: linear-gradient(135deg, #2D4C33 0%, #203524 100%);
             min-height: 100vh;
-            line-height: 1.6;
+            line-height: 1.3;
+            font-size: 12px;
         }
 
         /* Landing Page */
@@ -47,7 +52,7 @@
 
         .strategy-buttons {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 2rem;
             margin-bottom: 2rem;
         }
@@ -1035,6 +1040,393 @@
             margin: 0;
             size: auto;
         }
+
+        /* Dashboard Styles - Compact Layout */
+        /* Content Pages */
+        .content-page {
+            display: none;
+            min-height: 100vh;
+            background: #f5f5f5;
+        }
+
+        .content-page.active {
+            display: block !important;
+            min-height: 100vh !important;
+            height: auto !important;
+        }
+
+        #aiProspectsPage, #p1Page {
+            min-height: 100vh;
+        }
+
+        #aiProspectsPage .page-content, #p1Page .page-content {
+            padding: 3rem !important;
+            min-height: 50vh;
+        }
+
+        .nav-bar {
+            background: linear-gradient(135deg, #2D4C33 0%, #1F3D2B 100%);
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-bar h2 {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .back-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .page-content {
+            padding: 0.75rem 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section {
+            background: white;
+            padding: 0.75rem;
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+
+        .region-filter-btn {
+            padding: 0.3rem 0.6rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.7rem;
+            background: white;
+            color: #2D4C33;
+            transition: all 0.2s;
+        }
+
+        .region-filter-btn.active {
+            background: linear-gradient(135deg, #2D4C33 0%, #1F3D2B 100%);
+            color: white;
+            border-color: #2D4C33;
+        }
+
+        .region-filter-btn:hover {
+            border-color: #2D4C33;
+        }
+
+        .date-range-selector {
+            padding: 0.3rem 0.6rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            background: white;
+            color: #2D4C33;
+            font-weight: 600;
+            font-size: 0.7rem;
+            cursor: pointer;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 5px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 0.3rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            transition: width 0.5s ease;
+        }
+
+        .progress-fill.on-track {
+            background: linear-gradient(90deg, #28a745, #34d058);
+        }
+
+        .progress-fill.at-risk {
+            background: linear-gradient(90deg, #ffc107, #ffda44);
+        }
+
+        .progress-fill.behind {
+            background: linear-gradient(90deg, #dc3545, #ff6b6b);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.6rem;
+            padding: 0.15rem 0.35rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .status-badge.on-track {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .status-badge.at-risk {
+            background: rgba(255, 193, 7, 0.1);
+            color: #d97706;
+        }
+
+        .status-badge.behind {
+            background: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
+
+        .metric-card {
+            background: white;
+            border-radius: 6px;
+            padding: 0.6rem;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            border-top: 2px solid;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .account-list {
+            max-height: 240px;
+            overflow-y: auto;
+        }
+
+        .account-item {
+            padding: 0.5rem;
+            background: #f8f9fa;
+            border-radius: 4px;
+            margin-bottom: 0.3rem;
+            font-size: 0.7rem;
+            border-left: 2px solid;
+            transition: background 0.2s;
+        }
+
+        .account-item:hover {
+            background: #e9ecef;
+        }
+
+        .account-item.untouched {
+            border-left-color: #dc3545;
+        }
+
+        .account-item.engaging {
+            border-left-color: #28a745;
+        }
+
+        /* Compact all content */
+        .section h1 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .section h2 {
+            font-size: 1rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .section h3 {
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .section h4 {
+            font-size: 0.8rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .section p {
+            font-size: 0.75rem;
+            line-height: 1.4;
+            margin-bottom: 0.4rem;
+        }
+
+        .section label {
+            font-size: 0.7rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .section select,
+        .section input,
+        .section textarea {
+            padding: 0.4rem 0.5rem;
+            font-size: 0.75rem;
+            border-radius: 4px;
+        }
+
+        .section button {
+            padding: 0.4rem 0.75rem;
+            font-size: 0.75rem;
+            border-radius: 4px;
+        }
+
+        .highlight-box {
+            background: #f8f9fa;
+            padding: 0.5rem 0.6rem;
+            border-radius: 4px;
+            border-left: 2px solid #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card {
+            background: #f8f9fa;
+            padding: 0.5rem;
+            border-radius: 4px;
+            border-top: 2px solid #667eea;
+        }
+
+        .card h4 {
+            font-size: 0.8rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .card p {
+            font-size: 0.7rem;
+            line-height: 1.3;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Compact tables */
+        .account-table th,
+        .account-table td {
+            padding: 0.4rem 0.6rem;
+            font-size: 0.75rem;
+        }
+
+        .account-filters {
+            gap: 0.5rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .filter-group label {
+            font-size: 0.7rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 0.35rem 0.5rem;
+            font-size: 0.75rem;
+        }
+
+        .account-count {
+            font-size: 0.75rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .stage-badge,
+        .segment-badge {
+            padding: 0.15rem 0.4rem;
+            font-size: 0.65rem;
+        }
+
+        /* Left Sidebar Navigation Menu */
+        .quick-nav {
+            position: fixed;
+            left: 0;
+            top: 53px;
+            width: 240px;
+            height: calc(100vh - 53px);
+            background: white;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+            z-index: 99;
+            overflow-y: auto;
+            padding: 1.5rem 0.75rem;
+            display: none;
+        }
+
+        #top250Page.active .quick-nav {
+            display: block;
+        }
+
+        .quick-nav::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .quick-nav::-webkit-scrollbar-thumb {
+            background: #2D4C33;
+            border-radius: 2px;
+        }
+
+        .quick-nav-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .quick-nav-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #2D4C33;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+            cursor: pointer;
+            background: #f8f9fa;
+            text-align: left;
+            border-left: 3px solid transparent;
+        }
+
+        .quick-nav-link:hover {
+            background: #2D4C33;
+            color: white;
+            border-left-color: #D1F470;
+        }
+
+        .quick-nav-link.active {
+            background: linear-gradient(135deg, #2D4C33 0%, #1F3D2B 100%);
+            color: white;
+            border-left-color: #D1F470;
+        }
+
+        /* Add left margin to page content when sidebar is present */
+        #top250Page .page-content {
+            margin-left: 260px;
+            padding-top: 0.75rem;
+        }
+
+        /* Sub-page sections */
+        .top250-section {
+            display: none;
+        }
+
+        .top250-section.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -1042,7 +1434,7 @@
     <div class="landing-page" id="landingPage">
         <div class="landing-content">
             <h1>ABM Command Center</h1>
-            <p>Your FY27 Playbook for Top 250 & P1 Industry Targeting</p>
+            <p>Your FY27 Playbook for Top 250, AI Prospects & 1:Many Targeting</p>
 
             <div class="strategy-buttons">
                 <div class="strategy-card" onclick="showPage('top250Page')">
@@ -1052,11 +1444,18 @@
                     <div class="strategy-meta">252 Accounts | $10M Pipeline Goal</div>
                 </div>
 
+                <div class="strategy-card" onclick="showPage('aiProspectsPage')">
+                    <div class="strategy-icon">🤖</div>
+                    <h2>Top 100 AI Prospects</h2>
+                    <p>High-priority AI-native companies with personalized account plans and aggressive promotional offers</p>
+                    <div class="strategy-meta">139 Prospects | $19M ARR Target</div>
+                </div>
+
                 <div class="strategy-card" onclick="showPage('p1Page')">
                     <div class="strategy-icon">🌍</div>
-                    <h2>P1 Industry Strategy</h2>
+                    <h2>1:Many</h2>
                     <p>Industry-specific targeting with regional playbooks, customer stories, and field execution guides</p>
-                    <div class="strategy-meta">4 Industries | Regional Playbooks</div>
+                    <div class="strategy-meta">4000 P1 Industries | Regional Playbooks</div>
                 </div>
             </div>
 
@@ -1138,34 +1537,48 @@
             <button class="back-btn" onclick="showLanding()">← Back to Home</button>
         </div>
 
-        <div class="page-content">
-            <!-- Condensed Program Introduction -->
-            <section class="section" style="background: linear-gradient(135deg, #2D4C33 0%, #1F3D2B 100%); color: white; padding: 1rem;">
-                <h1 style="font-size: 1.4rem; margin-bottom: 0.3rem; color: white;">Top 250 ABM Program</h1>
-                <p style="font-size: 0.8rem; margin-bottom: 0.75rem; color: rgba(255,255,255,0.8);">252 highest-value accounts • Multi-channel engagement • Influ2 + Marketo + Groove</p>
+        <!-- Quick Navigation Menu -->
+        <nav class="quick-nav">
+            <ul class="quick-nav-list">
+                <li><a onclick="showTop250Section('dashboard')" class="quick-nav-link active" id="nav-dashboard">📊 Dashboard</a></li>
+                <li><a onclick="showTop250Section('journey')" class="quick-nav-link" id="nav-journey">🎯 Signal-Based Workflow</a></li>
+                <li><a onclick="showTop250Section('influ2')" class="quick-nav-link" id="nav-influ2">📱 Influ2 Ads</a></li>
+                <li><a onclick="showTop250Section('marketo')" class="quick-nav-link" id="nav-marketo">📧 Marketo Emails</a></li>
+                <li><a onclick="showTop250Section('cadence')" class="quick-nav-link" id="nav-cadence">📞 Sales Cadence</a></li>
+                <li><a onclick="showTop250Section('browse')" class="quick-nav-link" id="nav-browse">📋 Browse Accounts</a></li>
+            </ul>
+        </nav>
 
-                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem;">
-                    <div style="text-align: center; background: rgba(255,255,255,0.1); padding: 0.6rem; border-radius: 6px;">
-                        <div style="font-size: 1.4rem; font-weight: 700; color: #D1F470; margin-bottom: 0.15rem;">252</div>
-                        <div style="font-size: 0.7rem; color: rgba(255,255,255,0.8);">Total Accounts</div>
+        <div class="page-content">
+            <!-- Dashboard Section -->
+            <div class="top250-section active" id="section-dashboard">
+                <!-- Condensed Program Introduction -->
+                <section class="section" style="background: linear-gradient(135deg, #2D4C33 0%, #1F3D2B 100%); color: white; padding: 1rem;">
+                    <h1 style="font-size: 1.4rem; margin-bottom: 0.3rem; color: white;">Top 250 ABM Program</h1>
+                    <p style="font-size: 0.8rem; margin-bottom: 0.75rem; color: rgba(255,255,255,0.8);">252 highest-value accounts • Multi-channel engagement • Influ2 + Marketo + Groove</p>
+
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem;">
+                        <div style="text-align: center; background: rgba(255,255,255,0.1); padding: 0.6rem; border-radius: 6px;">
+                            <div style="font-size: 1.4rem; font-weight: 700; color: #D1F470; margin-bottom: 0.15rem;">252</div>
+                            <div style="font-size: 0.7rem; color: rgba(255,255,255,0.8);">Total Accounts</div>
+                        </div>
+                        <div style="text-align: center; background: rgba(255,255,255,0.1); padding: 0.6rem; border-radius: 6px;">
+                            <div style="font-size: 1.4rem; font-weight: 700; color: #D1F470; margin-bottom: 0.15rem;">$30M</div>
+                            <div style="font-size: 0.7rem; color: rgba(255,255,255,0.8);">Pipeline Target</div>
+                        </div>
+                        <div style="text-align: center; background: rgba(255,255,255,0.1); padding: 0.6rem; border-radius: 6px;">
+                            <div style="font-size: 1.4rem; font-weight: 700; color: #D1F470; margin-bottom: 0.15rem;">60</div>
+                            <div style="font-size: 0.7rem; color: rgba(255,255,255,0.8);">Email Templates</div>
+                        </div>
+                        <div style="text-align: center; background: rgba(255,255,255,0.1); padding: 0.6rem; border-radius: 6px;">
+                            <div style="font-size: 1.4rem; font-weight: 700; color: #D1F470; margin-bottom: 0.15rem;">4</div>
+                            <div style="font-size: 0.7rem; color: rgba(255,255,255,0.8);">Regions</div>
+                        </div>
                     </div>
-                    <div style="text-align: center; background: rgba(255,255,255,0.1); padding: 0.6rem; border-radius: 6px;">
-                        <div style="font-size: 1.4rem; font-weight: 700; color: #D1F470; margin-bottom: 0.15rem;">$30M</div>
-                        <div style="font-size: 0.7rem; color: rgba(255,255,255,0.8);">Pipeline Target</div>
-                    </div>
-                    <div style="text-align: center; background: rgba(255,255,255,0.1); padding: 0.6rem; border-radius: 6px;">
-                        <div style="font-size: 1.4rem; font-weight: 700; color: #D1F470; margin-bottom: 0.15rem;">60</div>
-                        <div style="font-size: 0.7rem; color: rgba(255,255,255,0.8);">Email Templates</div>
-                    </div>
-                    <div style="text-align: center; background: rgba(255,255,255,0.1); padding: 0.6rem; border-radius: 6px;">
-                        <div style="font-size: 1.4rem; font-weight: 700; color: #D1F470; margin-bottom: 0.15rem;">4</div>
-                        <div style="font-size: 0.7rem; color: rgba(255,255,255,0.8);">Regions</div>
-                    </div>
-                </div>
-            </section>
+                </section>
 
             <!-- Performance Dashboard -->
-            <section class="section" style="padding: 1rem;">
+            <section id="performance-dashboard" class="section" style="padding: 1rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
                     <div>
                         <h2 style="color: #2D4C33; font-size: 1.2rem; margin-bottom: 0.1rem;">📊 Performance Dashboard</h2>
@@ -1338,48 +1751,227 @@
                 </div>
 
             </section>
+            </div>
 
+            <!-- Journey Section -->
+            <div class="top250-section" id="section-journey">
+            <section id="personalized-journey" class="section">
+<!-- Cleaner Signal-Based Workflow Section -->
+
+<h2 style="margin-bottom: 0.5rem; text-align: center;">Signal-Based Workflow</h2>
+<p style="margin-bottom: 3rem; color: #666; font-size: 1.1rem; text-align: center;">Multi-touch campaigns activate only when accounts show buying intent</p>
+
+<!-- Quick Stats -->
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 3rem;">
+    <div style="text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 12px;">
+        <div style="font-size: 2.5rem; font-weight: 800; color: #667eea; margin-bottom: 0.5rem;">$3K</div>
+        <div style="color: #666; font-size: 0.95rem;">Monthly Budget</div>
+    </div>
+    <div style="text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 12px;">
+        <div style="font-size: 2.5rem; font-weight: 800; color: #11998e; margin-bottom: 0.5rem;">$3.45</div>
+        <div style="color: #666; font-size: 0.95rem;">Per Contact</div>
+    </div>
+    <div style="text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 12px;">
+        <div style="font-size: 2.5rem; font-weight: 800; color: #F37335; margin-bottom: 0.5rem;">300-400</div>
+        <div style="color: #666; font-size: 0.95rem;">Active Contacts</div>
+    </div>
+    <div style="text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 12px;">
+        <div style="font-size: 2.5rem; font-weight: 800; color: #2E7D32; margin-bottom: 0.5rem;">3-4 wks</div>
+        <div style="color: #666; font-size: 0.95rem;">Signal → Opp</div>
+    </div>
+</div>
+
+<!-- Buying Signals -->
+<div style="background: #fff3cd; padding: 2rem; border-radius: 12px; margin-bottom: 3rem;">
+    <h3 style="text-align: center; margin-bottom: 2rem; color: #856404;">🎯 What Are Buying Signals?</h3>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;">
+        <div style="text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 0.5rem;">📈</div>
+            <div style="font-weight: 700; font-size: 1.2rem; color: #667eea; margin-bottom: 0.75rem;">Intent Spike</div>
+            <div style="font-size: 0.95rem; line-height: 1.6;">5+ people researching CX software, visiting competitor sites</div>
+        </div>
+        <div style="text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 0.5rem;">💰</div>
+            <div style="font-weight: 700; font-size: 1.2rem; color: #11998e; margin-bottom: 0.75rem;">Pricing Visit</div>
+            <div style="font-size: 0.95rem; line-height: 1.6;">VP spent 3+ min on pricing page, evaluating cost</div>
+        </div>
+        <div style="text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 0.5rem;">📧</div>
+            <div style="font-weight: 700; font-size: 1.2rem; color: #F37335; margin-bottom: 0.75rem;">Email Click</div>
+            <div style="font-size: 0.95rem; line-height: 1.6;">Opened + clicked email, read case study, engaged</div>
         </div>
     </div>
+</div>
 
+<div style="text-align: center; margin-bottom: 3rem;">
+    <a href="signal-workflow-diagram.html" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 0.9rem 2rem; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 1rem; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);">
+        📊 View Visual Workflow Diagram
+    </a>
+</div>
 
-            <section id="personalized-journey" class="section">
-                <h2>The Personalized Account Journey</h2>
+<!-- The Workflow -->
+<h3 style="text-align: center; margin-bottom: 3rem; font-size: 1.6rem; color: #2D4C33;">The 5-Step Workflow</h3>
 
-                <div class="highlight-box">
-                    <h4>One List. Three Touchpoints. Fully Coordinated.</h4>
-                    <p>Every Top 250 account lives in a single SFDC list and receives a personalized, multi-channel journey orchestrated across three key touchpoints:</p>
+<!-- Step 1 -->
+<div style="display: flex; gap: 2rem; margin-bottom: 2.5rem; align-items: start;">
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 800; flex-shrink: 0; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);">1</div>
+    <div style="flex: 1;">
+        <h4 style="margin: 0 0 0.75rem 0; font-size: 1.4rem; color: #2D4C33;">Signal Detection</h4>
+        <div style="background: #f8f9fa; padding: 1.25rem; border-radius: 10px; border-left: 4px solid #667eea;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div>
+                    <strong>📊 Data Sources:</strong>
+                    <ul style="margin: 0.5rem 0 0 1.25rem; line-height: 1.8; font-size: 0.95rem;">
+                        <li>6sense intent spikes</li>
+                        <li>Marketo web visits</li>
+                        <li>Email engagement</li>
+                    </ul>
                 </div>
-
-                <div class="cards-grid">
-                    <div class="card">
-                        <h4>1. Influ2 Contact-Level Ads</h4>
-                        <p>Named individuals at target accounts see personalized ads tailored to their buying stage. Ads auto-rotate as 6Sense detects stage changes.</p>
-                        <p><strong>Message:</strong> Challenge-based (Consideration) → Product-focused (Decision) → Offer-driven (Purchase)</p>
-                    </div>
-                    <div class="card">
-                        <h4>2. Marketo Nurture Sequences</h4>
-                        <p>Automated email nurture tracks deliver relevant content based on industry, buying stage, and engagement signals.</p>
-                        <p><strong>Content:</strong> Industry playbooks, customer stories, product demos, ROI calculators</p>
-                    </div>
-                    <div class="card">
-                        <h4>3. Rep Direct Outreach</h4>
-                        <p>AEs and BDRs reach out with personalized event invites (Relate, Exec Roundtables, AI Masterclass) and 1:1 meeting requests.</p>
-                        <p><strong>Powered by:</strong> CommonRoom signals + Groove pre-drafted emails + Field event calendar</p>
-                    </div>
+                <div>
+                    <strong>✅ Output:</strong>
+                    <div style="margin-top: 0.5rem; font-size: 0.95rem;">50-100 contacts with signals</div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                <div class="highlight-box">
-                    <h4>Coordinated Messaging</h4>
-                    <p>All three channels reference the same industry challenge, customer story, and outcome stat. If an account sees a Retail ad about peak season volume, the Marketo email highlights Staples Canada's 94% FCR, and the AE's invite mentions solving Black Friday spikes.</p>
+<!-- Step 2 -->
+<div style="display: flex; gap: 2rem; margin-bottom: 2.5rem; align-items: start;">
+    <div style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 800; flex-shrink: 0; box-shadow: 0 4px 12px rgba(17, 153, 142, 0.3);">2</div>
+    <div style="flex: 1;">
+        <h4 style="margin: 0 0 0.75rem 0; font-size: 1.4rem; color: #2D4C33;">Prioritization</h4>
+        <div style="background: #f8f9fa; padding: 1.25rem; border-radius: 10px; border-left: 4px solid #11998e;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div>
+                    <strong>🔢 Priority Order:</strong>
+                    <ol style="margin: 0.5rem 0 0 1.25rem; line-height: 1.8; font-size: 0.95rem;">
+                        <li>Intent Spike 🔥</li>
+                        <li>Pricing Visit</li>
+                        <li>Email Engagement</li>
+                    </ol>
                 </div>
+                <div>
+                    <strong>✅ Output:</strong>
+                    <div style="margin-top: 0.5rem; font-size: 0.95rem;">50-75 top contacts<br>Budget check complete</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Step 3 -->
+<div style="display: flex; gap: 2rem; margin-bottom: 2.5rem; align-items: start;">
+    <div style="background: linear-gradient(135deg, #F37335 0%, #FDC830 100%); color: white; width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 800; flex-shrink: 0; box-shadow: 0 4px 12px rgba(243, 115, 53, 0.3);">3</div>
+    <div style="flex: 1;">
+        <h4 style="margin: 0 0 0.75rem 0; font-size: 1.4rem; color: #2D4C33;">Multi-Touch Launch</h4>
+        <div style="background: #f8f9fa; padding: 1.25rem; border-radius: 10px; border-left: 4px solid #F37335;">
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                <div style="text-align: center; padding: 0.75rem; background: white; border-radius: 8px;">
+                    <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">🎨</div>
+                    <strong style="font-size: 0.9rem;">Influ2 Ads</strong>
+                    <div style="font-size: 0.85rem; color: #666; margin-top: 0.25rem;">10 touches start</div>
+                </div>
+                <div style="text-align: center; padding: 0.75rem; background: white; border-radius: 8px;">
+                    <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">📧</div>
+                    <strong style="font-size: 0.9rem;">Marketo Email</strong>
+                    <div style="font-size: 0.85rem; color: #666; margin-top: 0.25rem;">Signal-specific</div>
+                </div>
+                <div style="text-align: center; padding: 0.75rem; background: white; border-radius: 8px;">
+                    <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">📋</div>
+                    <strong style="font-size: 0.9rem;">xDR Tasks</strong>
+                    <div style="font-size: 0.85rem; color: #666; margin-top: 0.25rem;">Created in SFDC</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Step 4 -->
+<div style="display: flex; gap: 2rem; margin-bottom: 2.5rem; align-items: start;">
+    <div style="background: linear-gradient(135deg, #d53369 0%, #daae51 100%); color: white; width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 800; flex-shrink: 0; box-shadow: 0 4px 12px rgba(213, 51, 105, 0.3);">4</div>
+    <div style="flex: 1;">
+        <h4 style="margin: 0 0 0.75rem 0; font-size: 1.4rem; color: #2D4C33;">xDR Outreach</h4>
+        <div style="background: #f8f9fa; padding: 1.25rem; border-radius: 10px; border-left: 4px solid #d53369;">
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                <div style="text-align: center; padding: 0.75rem; background: white; border-radius: 8px; border: 2px solid #667eea;">
+                    <div style="font-weight: 700; color: #667eea; margin-bottom: 0.5rem;">Intent Spike 🔥</div>
+                    <div style="font-size: 0.85rem; color: #666;">Call within 48hrs</div>
+                </div>
+                <div style="text-align: center; padding: 0.75rem; background: white; border-radius: 8px; border: 2px solid #11998e;">
+                    <div style="font-weight: 700; color: #11998e; margin-bottom: 0.5rem;">Pricing Visit</div>
+                    <div style="font-size: 0.85rem; color: #666;">Email within 24hrs</div>
+                </div>
+                <div style="text-align: center; padding: 0.75rem; background: white; border-radius: 8px; border: 2px solid #F37335;">
+                    <div style="font-weight: 700; color: #F37335; margin-bottom: 0.5rem;">Email Click</div>
+                    <div style="font-size: 0.85rem; color: #666;">Nurture within 1 week</div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 1rem; padding: 0.75rem; background: #fff3cd; border-radius: 8px;">
+                <strong>Goal:</strong> Book discovery call or event invite
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Step 5 -->
+<div style="display: flex; gap: 2rem; margin-bottom: 3rem; align-items: start;">
+    <div style="background: linear-gradient(135deg, #2E7D32 0%, #66BB6A 100%); color: white; width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 800; flex-shrink: 0; box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);">5</div>
+    <div style="flex: 1;">
+        <h4 style="margin: 0 0 0.75rem 0; font-size: 1.4rem; color: #2D4C33;">Meeting → Opportunity</h4>
+        <div style="background: #f8f9fa; padding: 1.25rem; border-radius: 10px; border-left: 4px solid #2E7D32;">
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                <div style="text-align: center; padding: 0.75rem; background: white; border-radius: 8px;">
+                    <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">✅</div>
+                    <strong style="font-size: 0.9rem;">xDR Books Meeting</strong>
+                    <div style="font-size: 0.85rem; color: #666; margin-top: 0.25rem;">Week 2-3</div>
+                </div>
+                <div style="text-align: center; padding: 0.75rem; background: white; border-radius: 8px;">
+                    <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">💼</div>
+                    <strong style="font-size: 0.9rem;">AE Qualifies</strong>
+                    <div style="font-size: 0.85rem; color: #666; margin-top: 0.25rem;">Discovery + BANT</div>
+                </div>
+                <div style="text-align: center; padding: 0.75rem; background: white; border-radius: 8px;">
+                    <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">🎯</div>
+                    <strong style="font-size: 0.9rem;">Opp Created</strong>
+                    <div style="font-size: 0.85rem; color: #666; margin-top: 0.25rem;">Week 3-4</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Metrics -->
+<div style="background: linear-gradient(135deg, #2D4C33 0%, #4A7C59 100%); padding: 2.5rem; border-radius: 12px; color: white; text-align: center;">
+    <h3 style="margin-bottom: 2rem; font-size: 1.6rem;">🎯 Success Metrics</h3>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;">
+        <div>
+            <div style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem;">5-10%</div>
+            <div style="font-size: 0.95rem; opacity: 0.95;">Signal → Meeting</div>
+        </div>
+        <div>
+            <div style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem;">40-60%</div>
+            <div style="font-size: 0.95rem; opacity: 0.95;">Meeting → Opp</div>
+        </div>
+        <div>
+            <div style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem;">50-75</div>
+            <div style="font-size: 0.95rem; opacity: 0.95;">Contacts/Week</div>
+        </div>
+        <div>
+            <div style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem;">10</div>
+            <div style="font-size: 0.95rem; opacity: 0.95;">Ad Touches Max</div>
+        </div>
+    </div>
+</div>
 
             </section>
+            </div>
 
-            <!-- Ad Automation Demo -->
+            <!-- Influ2 Ads Section -->
+            <div class="top250-section" id="section-influ2">
             <section id="generate-ads" class="section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
-                <h2 style="color: white; text-align: center; margin-bottom: 1rem;">Generate Influ2 Display Ads</h2>
-                <p style="text-align: center; margin-bottom: 2rem; opacity: 0.95;">Enter account details and generate all 5 ad sizes ready to upload to Influ2</p>
+                <h2 style="color: white; margin-bottom: 1rem;">Generate Influ2 Display Ads</h2>
+                <p style="margin-bottom: 2rem; opacity: 0.95; color: white;">Enter account details and generate all 5 ad sizes ready to upload to Influ2</p>
 
                 <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem;">
                     <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
@@ -1607,20 +2199,22 @@
                 </div>
 
             </section>
+            </div>
 
-            <!-- Marketo Email Generator -->
+            <!-- Marketo Emails Section -->
+            <div class="top250-section" id="section-marketo">
             <section id="generate-emails" class="section" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white;">
-                <h2 style="color: white;">Generate Signal-Based Marketo Email</h2>
-                <p style="color: rgba(255,255,255,0.9);">Create personalized email content triggered by Common Room signals</p>
+                <h2 style="color: white; margin-bottom: 1rem;">Generate Signal-Based Marketo Email</h2>
+                <p style="margin-bottom: 2rem; opacity: 0.95; color: white;">Create personalized email content triggered by Common Room signals</p>
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
                     <div>
-                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Contact Name</label>
-                        <input type="text" id="emailContact" value="Sarah" style="width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-size: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem;">Contact Name</label>
+                        <input type="text" id="emailContact" value="Sarah" style="width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-size: 0.9rem;">
                     </div>
                     <div>
-                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Account Name</label>
-                        <select id="emailAccount" style="width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-size: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem;">Account Name</label>
+                        <select id="emailAccount" style="width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-size: 0.9rem;">
                             <option value="Amwins">Amwins</option>
                             <option value="ThirdLove">ThirdLove</option>
                             <option value="AO Globe Life">AO Globe Life</option>
@@ -1720,8 +2314,8 @@
                         </select>
                     </div>
                     <div>
-                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Signal Type</label>
-                        <select id="emailSignal" style="width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-size: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem;">Signal Type</label>
+                        <select id="emailSignal" style="width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-size: 0.9rem;">
                             <option value="job_change">Job Change (LinkedIn)</option>
                             <option value="repo_activity">Repo Activity (GitHub)</option>
                             <option value="intent_spike">Intent Spike (6Sense)</option>
@@ -1735,8 +2329,8 @@
                 </div>
 
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-                    <button onclick="generateEmailSequence()" style="background: #D1F470; color: #11110D; border: none; padding: 0.75rem 2rem; border-radius: 25px; font-weight: 600; cursor: pointer; font-size: 1rem;">Generate 5-Email Sequence</button>
-                    <button onclick="downloadEmailText()" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white; padding: 0.75rem 2rem; border-radius: 25px; font-weight: 600; cursor: pointer; font-size: 1rem;">Download Email Text</button>
+                    <button onclick="generateEmailSequence()" style="background: #D1F470; color: #11110D; border: none; padding: 0.75rem 2rem; border-radius: 25px; font-weight: 600; cursor: pointer; font-size: 0.9rem;">Generate 5-Email Sequence</button>
+                    <button onclick="downloadEmailText()" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white; padding: 0.75rem 2rem; border-radius: 25px; font-weight: 600; cursor: pointer; font-size: 0.9rem;">Download Email Text</button>
                 </div>
 
                 <div style="overflow-x: auto; margin-bottom: 2rem;">
@@ -1749,20 +2343,22 @@
                     <div id="copyConfirm" style="margin-top: 0.75rem; font-size: 0.9rem; color: #D1F470; font-weight: 600; display: none;">✓ Sequence ready to download!</div>
                 </div>
             </section>
+            </div>
 
-            <!-- Complete Sales Cadence Generator -->
+            <!-- Sales Cadence Section -->
+            <div class="top250-section" id="section-cadence">
             <section id="generate-groove" class="section" style="background: linear-gradient(135deg, #F37335 0%, #FDC830 100%); color: white;">
-                <h2 style="color: white;">Generate Complete Sales Cadence</h2>
-                <p style="color: rgba(255,255,255,0.9);">Multi-event waterfall cadence with 3 outcomes: Attended Event 1 (fast track) | Attended Event 2 (second chance) | No events (demo path)</p>
+                <h2 style="color: white; margin-bottom: 1rem;">Generate Complete Sales Cadence</h2>
+                <p style="margin-bottom: 2rem; opacity: 0.95; color: white;">Multi-event waterfall cadence with 3 outcomes: Attended Event 1 (fast track) | Attended Event 2 (second chance) | No events (demo path)</p>
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
                     <div>
-                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Contact Name</label>
-                        <input type="text" id="outreachContact" value="Sarah" style="width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-size: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem;">Contact Name</label>
+                        <input type="text" id="outreachContact" value="Sarah" style="width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-size: 0.9rem;">
                     </div>
                     <div>
-                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Account Name</label>
-                        <select id="outreachAccount" style="width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-size: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem;">Account Name</label>
+                        <select id="outreachAccount" style="width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-size: 0.9rem;">
                             <option value="Amwins">Amwins</option>
                             <option value="ThirdLove">ThirdLove</option>
                             <option value="AO Globe Life">AO Globe Life</option>
@@ -1862,8 +2458,8 @@
                         </select>
                     </div>
                     <div>
-                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Region</label>
-                        <select id="outreachRegion" onchange="updateRegionalEvents()" style="width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-size: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem;">Region</label>
+                        <select id="outreachRegion" onchange="updateRegionalEvents()" style="width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-size: 0.9rem;">
                             <option value="na">NA (North America)</option>
                             <option value="emea">EMEA (Europe/Middle East/Africa)</option>
                             <option value="apac">APAC (Asia Pacific)</option>
@@ -1874,8 +2470,8 @@
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
                     <div>
-                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Signal Type</label>
-                        <select id="outreachSignal" style="width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-size: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem;">Signal Type</label>
+                        <select id="outreachSignal" style="width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-size: 0.9rem;">
                             <option value="job_change">Job Change (LinkedIn)</option>
                             <option value="repo_activity">Repo Activity (GitHub)</option>
                             <option value="intent_spike">Intent Spike (6Sense)</option>
@@ -1887,8 +2483,8 @@
                         </select>
                     </div>
                     <div>
-                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;" id="eventLabel1">First Event (Q2)</label>
-                        <select id="outreachEvent1" style="width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-size: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem;" id="eventLabel1">First Event (Q2)</label>
+                        <select id="outreachEvent1" style="width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-size: 0.9rem;">
                             <option value="relate">Relate (May 18-21)</option>
                             <option value="palo_alto">Exec Roundtable Palo Alto (May 27)</option>
                             <option value="sf_aws">Exec Roundtable SF/AWS (Jun 17)</option>
@@ -1898,8 +2494,8 @@
                         </select>
                     </div>
                     <div>
-                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;" id="eventLabel2">Second Event (Q2 Backup)</label>
-                        <select id="outreachEvent2" style="width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-size: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem;" id="eventLabel2">Second Event (Q2 Backup)</label>
+                        <select id="outreachEvent2" style="width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-size: 0.9rem;">
                             <option value="palo_alto">Exec Roundtable Palo Alto (May 27)</option>
                             <option value="sf_aws">Exec Roundtable SF/AWS (Jun 17)</option>
                             <option value="ccw">CCW Las Vegas (Jun 22-25)</option>
@@ -1909,8 +2505,8 @@
                 </div>
 
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-                    <button onclick="generateGrooveTemplates()" style="background: white; color: #F37335; border: none; padding: 0.75rem 2rem; border-radius: 25px; font-weight: 600; cursor: pointer; font-size: 1rem;">Generate Full Cadence</button>
-                    <button onclick="downloadGrooveText()" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white; padding: 0.75rem 2rem; border-radius: 25px; font-weight: 600; cursor: pointer; font-size: 1rem;">Download Complete Cadence</button>
+                    <button onclick="generateGrooveTemplates()" style="background: white; color: #F37335; border: none; padding: 0.75rem 2rem; border-radius: 25px; font-weight: 600; cursor: pointer; font-size: 0.9rem;">Generate Full Cadence</button>
+                    <button onclick="downloadGrooveText()" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white; padding: 0.75rem 2rem; border-radius: 25px; font-weight: 600; cursor: pointer; font-size: 0.9rem;">Download Complete Cadence</button>
                 </div>
 
                 <div style="overflow-x: auto; margin-bottom: 2rem;">
@@ -1919,144 +2515,68 @@
                     </div>
                 </div>
             </section>
+            </div>
 
-            <!-- Browse Top 250 Accounts -->
+            <!-- Browse Accounts Section -->
+            <div class="top250-section" id="section-browse">
             <section id="browse-accounts" class="section">
-                <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">Browse Top 250 Accounts</h2>
-                <p style="color: #555; font-size: 1rem; margin-bottom: 1.5rem;">96 NA Top Accounts: Enterprise-focused with key players in Finserv, Tech, Retail, and Media</p>
+                <h2 style="margin-bottom: 1rem; color: #2D4C33;">Browse Top 250 Accounts</h2>
+                <p style="margin-bottom: 2rem; color: #666;">116 NA Top Accounts: Enterprise-focused with key players in Financial Services, Technology, Retail, and Media</p>
 
                 <div class="account-filters">
                     <div class="filter-group">
                         <label>Search</label>
-                        <input type="text" placeholder="Search by account name...">
+                        <input type="text" id="accountSearch" placeholder="Search by account name..." onkeyup="filterAccounts()">
                     </div>
                     <div class="filter-group">
-                        <label>Region</label>
-                        <select>
-                            <option>All Regions</option>
-                            <option>NA</option>
-                            <option>EMEA</option>
-                            <option>APAC</option>
-                            <option>LATAM</option>
+                        <label>Segment</label>
+                        <select id="segmentFilter" onchange="filterAccounts()">
+                            <option value="">All Segments</option>
+                            <option value="Enterprise">Enterprise</option>
+                            <option value="Commercial">Commercial</option>
+                            <option value="SMB">SMB</option>
                         </select>
                     </div>
                     <div class="filter-group">
                         <label>Industry</label>
-                        <select>
-                            <option>All Industries</option>
-                            <option>Retail</option>
-                            <option>Finserv</option>
-                            <option>Tech</option>
-                            <option>Media & Entertainment</option>
+                        <select id="industryFilter" onchange="filterAccounts()">
+                            <option value="">All Industries</option>
+                            <option value="Financial Services">Financial Services</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Retail, Distribution & CPG">Retail & CPG</option>
+                            <option value="Media & Entertainment">Media & Entertainment</option>
                         </select>
                     </div>
                     <div class="filter-group">
                         <label>Buying Stage</label>
-                        <select>
-                            <option>All Stages</option>
-                            <option>Consideration</option>
-                            <option>Decision</option>
-                            <option>Purchase</option>
+                        <select id="stageFilter" onchange="filterAccounts()">
+                            <option value="">All Stages</option>
+                            <option value="Target">Target</option>
+                            <option value="Consideration">Consideration</option>
+                            <option value="Decision">Decision</option>
+                            <option value="Purchase">Purchase</option>
                         </select>
                     </div>
                 </div>
+
+                <p class="account-count" id="accountCount" style="margin-bottom: 0.75rem; color: #666;">Showing 116 of 116 accounts</p>
 
                 <table class="account-table">
                     <thead>
                         <tr>
                             <th>Account Name</th>
                             <th>Industry</th>
-                            <th>Region</th>
                             <th>Segment</th>
                             <th>Buying Stage</th>
                             <th>Account Owner</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Amwins</strong></td>
-                            <td>Finserv</td>
-                            <td>NA</td>
-                            <td><span class="segment-badge">Enterprise</span></td>
-                            <td><span class="stage-badge stage-decision">Decision</span></td>
-                            <td>Sarah Johnson</td>
-                        </tr>
-                        <tr>
-                            <td><strong>ThirdLove</strong></td>
-                            <td>Retail</td>
-                            <td>NA</td>
-                            <td><span class="segment-badge">Commercial</span></td>
-                            <td><span class="stage-badge stage-purchase">Purchase</span></td>
-                            <td>Michael Chen</td>
-                        </tr>
-                        <tr>
-                            <td><strong>ByteDance</strong></td>
-                            <td>Tech</td>
-                            <td>NA</td>
-                            <td><span class="segment-badge">Enterprise</span></td>
-                            <td><span class="stage-badge stage-consideration">Consideration</span></td>
-                            <td>Carlos Rodriguez</td>
-                        </tr>
-                        <tr>
-                            <td><strong>LA Times</strong></td>
-                            <td>Media & Entertainment</td>
-                            <td>NA</td>
-                            <td><span class="segment-badge">Enterprise</span></td>
-                            <td><span class="stage-badge stage-decision">Decision</span></td>
-                            <td>Amanda Foster</td>
-                        </tr>
-                        <tr>
-                            <td><strong>USAA</strong></td>
-                            <td>Finserv</td>
-                            <td>NA</td>
-                            <td><span class="segment-badge">Enterprise</span></td>
-                            <td><span class="stage-badge stage-purchase">Purchase</span></td>
-                            <td>Kevin Walsh</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Spanx</strong></td>
-                            <td>Retail</td>
-                            <td>NA</td>
-                            <td><span class="segment-badge">Commercial</span></td>
-                            <td><span class="stage-badge stage-decision">Decision</span></td>
-                            <td>Jennifer Liu</td>
-                        </tr>
-                        <tr>
-                            <td><strong>TIAA</strong></td>
-                            <td>Finserv</td>
-                            <td>NA</td>
-                            <td><span class="segment-badge">Enterprise</span></td>
-                            <td><span class="stage-badge stage-consideration">Consideration</span></td>
-                            <td>Robert Taylor</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Mutual of Omaha Insurance Company</strong></td>
-                            <td>Finserv</td>
-                            <td>NA</td>
-                            <td><span class="segment-badge">Enterprise</span></td>
-                            <td><span class="stage-badge stage-purchase">Purchase</span></td>
-                            <td>Patricia Moore</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Wiley</strong></td>
-                            <td>Media & Entertainment</td>
-                            <td>NA</td>
-                            <td><span class="segment-badge">Enterprise</span></td>
-                            <td><span class="stage-badge stage-consideration">Consideration</span></td>
-                            <td>Thomas Anderson</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Trek</strong></td>
-                            <td>Retail</td>
-                            <td>NA</td>
-                            <td><span class="segment-badge">Commercial</span></td>
-                            <td><span class="stage-badge stage-decision">Decision</span></td>
-                            <td>Nicole Adams</td>
-                        </tr>
+                    <tbody id="accountTableBody">
                     </tbody>
                 </table>
 
-                <p class="account-count" style="margin-top: 1rem; text-align: center;">Showing 10 of 96 NA Top Accounts (full list available in Salesforce)</p>
+                <p class="account-count" id="accountCount" style="margin-top: 1rem; text-align: center;">Showing 116 of 116 NA Top Accounts</p>
 
                 <div style="text-align: center; margin-top: 1.5rem;">
                     <a href="#" class="sfdc-btn" style="padding: 0.6rem 1.5rem; font-size: 0.95rem;">
@@ -2064,13 +2584,12 @@
                     </a>
                 </div>
             </section>
-        </div>
-    </div>
+            </div>
 
-    <!-- P1 Industry Strategy Page -->
+    <!-- 1:Many Strategy Page -->
     <div class="content-page" id="p1Page">
         <div class="nav-bar">
-            <h2>P1 Industry Strategy</h2>
+            <h2>1:Many</h2>
             <button class="back-btn" onclick="showLanding()">← Back to Home</button>
         </div>
 
@@ -2459,6 +2978,224 @@ chaos</div>
         </div>
     </div>
 
+    <!-- Top 100 AI Prospects Page -->
+    <div class="content-page" id="aiProspectsPage">
+        <div class="nav-bar">
+            <h2>Top 100 AI Prospects Program</h2>
+            <button class="back-btn" onclick="showLanding()">← Back to Home</button>
+        </div>
+
+        <div class="page-content">
+            <section class="section">
+                <h2 style="margin-bottom: 1rem;">Program Overview</h2>
+                <p style="margin-bottom: 2rem;">After identifying the top AI-native companies in the market and mapping them to perceived CX needs and our CRM, 139 are not yet Zendesk customers. Here's the plan to win them.</p>
+
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1.5rem; border-radius: 12px; color: white; text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem;">139</div>
+                        <div style="font-size: 0.95rem; opacity: 0.95;">High Priority AI Prospects</div>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); padding: 1.5rem; border-radius: 12px; color: white; text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem;">93</div>
+                        <div style="font-size: 0.95rem; opacity: 0.95;">Bay Area Prospects</div>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #F37335 0%, #FDC830 100%); padding: 1.5rem; border-radius: 12px; color: white; text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem;">32</div>
+                        <div style="font-size: 0.95rem; opacity: 0.95;">Win-Back Opportunities</div>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #d53369 0%, #daae51 100%); padding: 1.5rem; border-radius: 12px; color: white; text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem;">$19M</div>
+                        <div style="font-size: 0.95rem; opacity: 0.95;">Total ARR Target</div>
+                    </div>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem;">
+                    <h3 style="margin-bottom: 1rem;">📊 Portfolio Breakdown</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div>
+                            <strong>Non-Startup Prospects:</strong> 103 accounts → 38 unique AEs
+                        </div>
+                        <div>
+                            <strong>Startup Prospects:</strong> 36 accounts → 13 unique AEs
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 style="margin-bottom: 1rem;">Activation Plan</h2>
+
+                <div style="margin-bottom: 2rem;">
+                    <h3 style="color: #667eea; margin-bottom: 1rem;">Non-Startup Accounts (103 accounts)</h3>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="margin-bottom: 0.75rem;">Phase 1: AE Notification & Account Planning</h4>
+                        <ol style="margin-left: 1.5rem; line-height: 1.8;">
+                            <li><strong>CTA Email from CRO</strong> to each of 38 AEs: "You have been identified as the owner of a high-potential Top AI prospect account..."</li>
+                            <li><strong>AE works with FLM</strong> to develop targeted account plan within two weeks, including strategy to secure exec-level engagement</li>
+                            <li><strong>SVP-level review</strong> of all submitted account plans</li>
+                        </ol>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="margin-bottom: 0.75rem;">Phase 2: Live Enablement Sessions</h4>
+                        <ol style="margin-left: 1.5rem; line-height: 1.8;">
+                            <li><strong>Live session in SF</strong> hosted by SVP leaders (Jim, Adrian, Diana)</li>
+                            <li><strong>Strategic narrative:</strong> "AI companies are scaling support faster than anyone, here's how Zendesk handles that differently"</li>
+                            <li><strong>Deliver promotional offer details</strong> (see below)</li>
+                            <li><strong>Dedicated prospecting time</strong> - custom, targeted outreach only (no mass Groove flows)</li>
+                        </ol>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="margin-bottom: 0.75rem;">Phase 3: Ongoing Tracking & Review</h4>
+                        <ol style="margin-left: 1.5rem; line-height: 1.8;">
+                            <li>Weekly progress tracking on outreach and pipeline creation</li>
+                            <li>Bi-weekly SVP review of top accounts and blockers</li>
+                            <li>Surface win-back opportunities for 32 churned prospects</li>
+                            <li>Escalation path for high-value accounts needing exec engagement</li>
+                            <li>Monthly reporting on conversion from prospect → pipeline → closed-won</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div style="background: #fff3cd; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #ffc107;">
+                    <h3 style="margin-bottom: 1rem;">Startup Accounts (36 accounts)</h3>
+                    <ul style="margin-left: 1.5rem; line-height: 1.8;">
+                        <li>Route to Startups team - fold into existing activation program and promo offers</li>
+                        <li>Coordinate with Leadership to similarly prioritize these as Tier 1 AI targets</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 style="margin-bottom: 1rem;">Promotional Offers (Non-Startup Only)</h2>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+                    <div style="background: #e8f5e9; padding: 1.5rem; border-radius: 12px; border: 2px solid #4caf50;">
+                        <div style="background: #4caf50; color: white; padding: 0.5rem; border-radius: 6px; text-align: center; margin-bottom: 1rem; font-weight: 600;">OPTION A - RECOMMENDED</div>
+                        <h4 style="margin-bottom: 0.75rem;">Fold into Existing NB Promo</h4>
+                        <p style="margin-bottom: 0.75rem;"><strong>Offer:</strong> 20% off current competitor contract (minimum 12-month term)</p>
+                        <p style="margin-bottom: 0.75rem;"><strong>Effective discount:</strong> ~40% off list price based on historical usage</p>
+                        <p style="color: #2e7d32; font-weight: 600;">✓ Already approved - no additional approvals needed</p>
+                    </div>
+
+                    <div style="background: #fff3e0; padding: 1.5rem; border-radius: 12px; border: 2px solid #ff9800;">
+                        <div style="background: #ff9800; color: white; padding: 0.5rem; border-radius: 6px; text-align: center; margin-bottom: 1rem; font-weight: 600;">OPTION B - MID-RANGE</div>
+                        <h4 style="margin-bottom: 0.75rem;">60% off Suite + 6mo Free AI Agents</h4>
+                        <p style="margin-bottom: 0.75rem;"><strong>Terms:</strong> Minimum 12-month commitment</p>
+                        <p style="margin-bottom: 0.75rem;"><strong>Requirement:</strong> Must be referenceable and allow external posting</p>
+                        <p style="color: #e65100;">⚠ Needs RevOps & Pricing approval</p>
+                    </div>
+
+                    <div style="background: #ffebee; padding: 1.5rem; border-radius: 12px; border: 2px solid #f44336;">
+                        <div style="background: #f44336; color: white; padding: 0.5rem; border-radius: 6px; text-align: center; margin-bottom: 1rem; font-weight: 600;">OPTION C - MOST AGGRESSIVE</div>
+                        <h4 style="margin-bottom: 0.75rem;">90% off Suite + 1yr Free AI Agents</h4>
+                        <p style="margin-bottom: 0.75rem;"><strong>Benchmark:</strong> Matches Intercom's startup program</p>
+                        <p style="margin-bottom: 0.75rem;"><strong>Requirement:</strong> Must be referenceable and allow external posting</p>
+                        <p style="color: #c62828;">⚠ Needs RevOps & Pricing approval</p>
+                    </div>
+                </div>
+
+                <div style="background: #e3f2fd; padding: 1.5rem; border-radius: 12px; margin-top: 1.5rem;">
+                    <p><strong>📝 Note:</strong> All closed deals should receive white-glove onboarding similar to Startup program (may help close deals as well)</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 style="margin-bottom: 1rem;">Methodology</h2>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div>
+                        <h4 style="margin-bottom: 0.75rem;">🔍 Deep Research & Sourcing</h4>
+                        <p>Synthesized multiple leading AI company lists:</p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem; line-height: 1.6;">
+                            <li>Forbes AI 50</li>
+                            <li>CB Insights AI 100</li>
+                            <li>LinkedIn Top Startups</li>
+                            <li>CRN AI 100</li>
+                            <li>TechCrunch AI funding roundups</li>
+                            <li>SVP team nominations</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 style="margin-bottom: 0.75rem;">📊 Scoring & Ranking</h4>
+                        <p>Each company scored on two dimensions:</p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem; line-height: 1.6;">
+                            <li><strong>CX Likelihood (0-10):</strong> Weighted towards B2C/prosumer, high-support verticals, Bay Area HQ, well-funded private companies</li>
+                            <li><strong>Brand Score (1-10):</strong> Market visibility, funding scale, media presence</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 style="margin-bottom: 0.75rem;">🚫 Competitor Exclusion</h4>
+                        <p>Excluded all direct and adjacent Zendesk competitors:</p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem; line-height: 1.6;">
+                            <li>Help desk & ticketing platforms</li>
+                            <li>CRM & contact center software</li>
+                            <li>Support automation tools</li>
+                            <li>AI customer support agents</li>
+                        </ul>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Examples excluded: Salesforce, ServiceNow, Intercom, Freshworks, Yellow.ai, Sierra</p>
+                    </div>
+
+                    <div>
+                        <h4 style="margin-bottom: 0.75rem;">💾 CRM Enrichment</h4>
+                        <p>Each company matched to Zendesk Salesforce:</p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem; line-height: 1.6;">
+                            <li>Account owner & VP hierarchy</li>
+                            <li>ARR, segment, region</li>
+                            <li>Open opportunities</li>
+                            <li>Churn history</li>
+                            <li>Startup classification</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; margin-top: 1.5rem;">
+                    <h4 style="margin-bottom: 0.75rem;">✓ Validation & Quality Checks</h4>
+                    <ul style="margin-left: 1.5rem; line-height: 1.6;">
+                        <li>HQ vs. CRM region cross-check - corrected 10 accounts matched to wrong international subsidiary</li>
+                        <li>False positive detection - caught and removed incorrect CRM matches</li>
+                        <li>Domain-first matching with minimum confidence threshold</li>
+                        <li>Manual review of all 216 companies for competitor exclusion and data accuracy</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 style="margin-bottom: 1rem;">Key Execution Principles</h2>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1.5rem; border-radius: 12px; color: white;">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🎯</div>
+                        <h4 style="margin-bottom: 0.5rem;">Custom Outreach Only</h4>
+                        <p style="font-size: 0.9rem; opacity: 0.95;">No mass Groove sequences. Personalized messaging to achieve exec-level engagement.</p>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); padding: 1.5rem; border-radius: 12px; color: white;">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">👥</div>
+                        <h4 style="margin-bottom: 0.5rem;">SVP-Led Enablement</h4>
+                        <p style="font-size: 0.9rem; opacity: 0.95;">Live sessions in SF with Jim, Adrian, Diana to communicate strategic importance.</p>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, #F37335 0%, #FDC830 100%); padding: 1.5rem; border-radius: 12px; color: white;">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">💰</div>
+                        <h4 style="margin-bottom: 0.5rem;">Aggressive Promos</h4>
+                        <p style="font-size: 0.9rem; opacity: 0.95;">Promotional offers designed to accelerate conversion and compete with Intercom.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" style="text-align: center;">
+                <a href="#" class="sfdc-btn" style="padding: 0.75rem 2rem; font-size: 1rem; display: inline-block;">
+                    View Full Account List in Salesforce →
+                </a>
+            </section>
+        </div>
+    </div>
+
     <!-- Knowledge Base Page -->
     <div class="content-page" id="knowledgePage">
         <div class="nav-bar">
@@ -2566,13 +3303,492 @@ chaos</div>
     </div>
 
     <script>
+        // Date Range Management
+        const dateRanges = {
+            '30': { start: 'Feb 24', end: 'Mar 25, 2026' },
+            '60': { start: 'Jan 25', end: 'Mar 25, 2026' },
+            '90': { start: 'Jan 1', end: 'Mar 25, 2026' },
+            'ytd': { start: 'Jan 1', end: 'Mar 25, 2026' }
+        };
+
+        function updateDateRange() {
+            const selector = document.getElementById('dateRangeSelector');
+            const range = dateRanges[selector.value];
+            document.getElementById('date-display').textContent = `${range.start} - ${range.end}`;
+        }
+
         // Page Navigation
         function showLanding() {
             document.getElementById('landingPage').style.display = 'flex';
             document.getElementById('top250Page').classList.remove('active');
             document.getElementById('p1Page').classList.remove('active');
+            document.getElementById('aiProspectsPage').classList.remove('active');
             document.getElementById('knowledgePage').classList.remove('active');
         }
+
+        function showPage(pageId) {
+            document.getElementById('landingPage').style.display = 'none';
+            document.getElementById('top250Page').classList.remove('active');
+            document.getElementById('p1Page').classList.remove('active');
+            document.getElementById('aiProspectsPage').classList.remove('active');
+            document.getElementById('knowledgePage').classList.remove('active');
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0);
+
+            // Draw chart when page is shown and show dashboard by default
+            if (pageId === 'top250Page') {
+                setTimeout(() => {
+                    drawPipelineChart('global');
+                    showTop250Section('dashboard');
+                }, 100);
+            }
+
+            // Initialize ads when opening P1 page
+            if (pageId === 'p1Page') {
+                setTimeout(function() {
+                    if (typeof updateAdsP1 === 'function') {
+                        updateAdsP1();
+                    }
+                }, 100);
+            }
+        }
+
+        // Top 250 Sub-section Navigation
+        function showTop250Section(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.top250-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active from all nav links
+            document.querySelectorAll('.quick-nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById('section-' + sectionId).classList.add('active');
+
+            // Set nav link as active
+            document.getElementById('nav-' + sectionId).classList.add('active');
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+
+            // Draw chart if dashboard is shown
+            if (sectionId === 'dashboard') {
+                setTimeout(() => drawPipelineChart('global'), 100);
+            }
+        }
+
+        // Regional Data
+        const regionalData = {
+            global: {
+                pipeline: '$21.3M',
+                pipelineTarget: '$30M',
+                pipelinePercent: 71,
+                pipelineRemaining: '$8.7M',
+                engagement: '39%',
+                engagementTarget: '42%',
+                engagementPercent: 93,
+                engagementCount: 98,
+                engagementTotal: 252,
+                reach: '68%',
+                reachTarget: '65%',
+                reachPercent: 105,
+                reachCount: 171,
+                reachTotal: 252,
+                intent: '25%',
+                intentTarget: '23%',
+                intentPercent: 109,
+                intentCount: 63,
+                pipelineBreakdown: [
+                    { region: 'NA', value: 7.2, color: '#667eea' },
+                    { region: 'EMEA', value: 8.4, color: '#11998e' },
+                    { region: 'APAC', value: 3.6, color: '#FDC830' },
+                    { region: 'LATAM', value: 2.1, color: '#F37335' }
+                ],
+                activities: [
+                    { account: 'Manulife Financial', industry: 'Finserv', activity: '3 contacts engaged pricing page', time: '2h ago' },
+                    { account: 'ByteDance', industry: 'Tech', activity: 'VP requested demo + 2 stakeholders joined Relate', time: '5h ago' },
+                    { account: 'USAA', industry: 'Finserv', activity: 'Buying stage: Consideration → Decision (score: 74)', time: '12h ago' }
+                ],
+                untouchedAccounts: [
+                    { name: 'Accenture', region: 'NA', industry: 'Tech', lastTouch: '45 days ago' },
+                    { name: 'Deutsche Bank', region: 'EMEA', industry: 'Finserv', lastTouch: '38 days ago' },
+                    { name: 'Sony', region: 'APAC', industry: 'Tech', lastTouch: '52 days ago' },
+                    { name: 'Toyota', region: 'APAC', industry: 'Manufacturing', lastTouch: '41 days ago' },
+                    { name: 'Santander', region: 'EMEA', industry: 'Finserv', lastTouch: '35 days ago' },
+                    { name: 'Vodafone', region: 'EMEA', industry: 'Telecom', lastTouch: '48 days ago' }
+                ],
+                engagingAccounts: [
+                    { name: 'Manulife Financial', region: 'NA', industry: 'Finserv', score: 89, activities: 24 },
+                    { name: 'ByteDance', region: 'APAC', industry: 'Tech', score: 87, activities: 22 },
+                    { name: 'USAA', region: 'NA', industry: 'Finserv', score: 84, activities: 19 },
+                    { name: 'Starling Bank', region: 'EMEA', industry: 'Finserv', score: 82, activities: 18 },
+                    { name: 'Rakuten', region: 'APAC', industry: 'Tech', score: 79, activities: 16 },
+                    { name: 'Capital One', region: 'NA', industry: 'Finserv', score: 76, activities: 14 }
+                ]
+            },
+            na: {
+                pipeline: '$7.2M',
+                pipelineTarget: '$10M',
+                pipelinePercent: 72,
+                pipelineRemaining: '$2.8M',
+                engagement: '41%',
+                engagementTarget: '45%',
+                engagementPercent: 91,
+                engagementCount: 39,
+                engagementTotal: 96,
+                reach: '73%',
+                reachTarget: '70%',
+                reachPercent: 104,
+                reachCount: 70,
+                reachTotal: 96,
+                intent: '28%',
+                intentTarget: '25%',
+                intentPercent: 112,
+                intentCount: 27,
+                pipelineBreakdown: [
+                    { region: 'Stage 2', value: 2.1, color: '#667eea' },
+                    { region: 'Stage 3', value: 2.8, color: '#11998e' },
+                    { region: 'Stage 4', value: 1.6, color: '#FDC830' },
+                    { region: 'Stage 5', value: 0.7, color: '#F37335' }
+                ],
+                activities: [
+                    { account: 'Manulife Financial', industry: 'Finserv', activity: '3 contacts engaged pricing page', time: '2h ago' },
+                    { account: 'ByteDance', industry: 'Tech', activity: 'VP requested demo + 2 stakeholders joined Relate', time: '5h ago' },
+                    { account: 'USAA', industry: 'Finserv', activity: 'Buying stage: Consideration → Decision', time: '12h ago' }
+                ],
+                untouchedAccounts: [
+                    { name: 'Accenture', region: 'NA', industry: 'Tech', lastTouch: '45 days ago' },
+                    { name: 'Wells Fargo', region: 'NA', industry: 'Finserv', lastTouch: '39 days ago' },
+                    { name: 'Target', region: 'NA', industry: 'Retail', lastTouch: '33 days ago' }
+                ],
+                engagingAccounts: [
+                    { name: 'Manulife Financial', region: 'NA', industry: 'Finserv', score: 89, activities: 24 },
+                    { name: 'USAA', region: 'NA', industry: 'Finserv', score: 84, activities: 19 },
+                    { name: 'Capital One', region: 'NA', industry: 'Finserv', score: 76, activities: 14 }
+                ]
+            },
+            emea: {
+                pipeline: '$8.4M',
+                pipelineTarget: '$12M',
+                pipelinePercent: 70,
+                pipelineRemaining: '$3.6M',
+                engagement: '38%',
+                engagementTarget: '40%',
+                engagementPercent: 95,
+                engagementCount: 34,
+                engagementTotal: 90,
+                reach: '68%',
+                reachTarget: '65%',
+                reachPercent: 105,
+                reachCount: 61,
+                reachTotal: 90,
+                intent: '24%',
+                intentTarget: '22%',
+                intentPercent: 109,
+                intentCount: 22,
+                pipelineBreakdown: [
+                    { region: 'Stage 2', value: 2.9, color: '#667eea' },
+                    { region: 'Stage 3', value: 3.2, color: '#11998e' },
+                    { region: 'Stage 4', value: 1.8, color: '#FDC830' },
+                    { region: 'Stage 5', value: 0.5, color: '#F37335' }
+                ],
+                activities: [
+                    { account: 'Starling Bank', industry: 'Finserv', activity: 'Downloaded compliance whitepaper', time: '3h ago' },
+                    { account: 'Zalando', industry: 'Retail', activity: '4 stakeholders attended webinar', time: '8h ago' }
+                ],
+                untouchedAccounts: [
+                    { name: 'Deutsche Bank', region: 'EMEA', industry: 'Finserv', lastTouch: '38 days ago' },
+                    { name: 'Santander', region: 'EMEA', industry: 'Finserv', lastTouch: '35 days ago' },
+                    { name: 'Vodafone', region: 'EMEA', industry: 'Telecom', lastTouch: '42 days ago' }
+                ],
+                engagingAccounts: [
+                    { name: 'Starling Bank', region: 'EMEA', industry: 'Finserv', score: 82, activities: 18 },
+                    { name: 'Zalando', region: 'EMEA', industry: 'Retail', score: 78, activities: 15 },
+                    { name: 'ING', region: 'EMEA', industry: 'Finserv', score: 74, activities: 13 }
+                ]
+            },
+            apac: {
+                pipeline: '$3.6M',
+                pipelineTarget: '$5M',
+                pipelinePercent: 72,
+                pipelineRemaining: '$1.4M',
+                engagement: '36%',
+                engagementTarget: '38%',
+                engagementPercent: 95,
+                engagementCount: 15,
+                engagementTotal: 42,
+                reach: '62%',
+                reachTarget: '60%',
+                reachPercent: 103,
+                reachCount: 26,
+                reachTotal: 42,
+                intent: '21%',
+                intentTarget: '20%',
+                intentPercent: 105,
+                intentCount: 9,
+                pipelineBreakdown: [
+                    { region: 'Stage 2', value: 1.2, color: '#667eea' },
+                    { region: 'Stage 3', value: 1.5, color: '#11998e' },
+                    { region: 'Stage 4', value: 0.7, color: '#FDC830' },
+                    { region: 'Stage 5', value: 0.2, color: '#F37335' }
+                ],
+                activities: [
+                    { account: 'Rakuten', industry: 'Tech', activity: 'Pricing page visit + ROI calculator', time: '1h ago' },
+                    { account: 'DBS Bank', industry: 'Finserv', activity: 'New CTO hire detected (LinkedIn)', time: '6h ago' }
+                ],
+                untouchedAccounts: [
+                    { name: 'Sony', region: 'APAC', industry: 'Tech', lastTouch: '52 days ago' },
+                    { name: 'Toyota', region: 'APAC', industry: 'Manufacturing', lastTouch: '41 days ago' },
+                    { name: 'Samsung', region: 'APAC', industry: 'Tech', lastTouch: '36 days ago' }
+                ],
+                engagingAccounts: [
+                    { name: 'ByteDance', region: 'APAC', industry: 'Tech', score: 87, activities: 22 },
+                    { name: 'Rakuten', region: 'APAC', industry: 'Tech', score: 79, activities: 16 },
+                    { name: 'DBS Bank', region: 'APAC', industry: 'Finserv', score: 72, activities: 12 }
+                ]
+            },
+            latam: {
+                pipeline: '$2.1M',
+                pipelineTarget: '$3M',
+                pipelinePercent: 70,
+                pipelineRemaining: '$0.9M',
+                engagement: '33%',
+                engagementTarget: '35%',
+                engagementPercent: 94,
+                engagementCount: 8,
+                engagementTotal: 24,
+                reach: '58%',
+                reachTarget: '55%',
+                reachPercent: 105,
+                reachCount: 14,
+                reachTotal: 24,
+                intent: '19%',
+                intentTarget: '18%',
+                intentPercent: 106,
+                intentCount: 5,
+                pipelineBreakdown: [
+                    { region: 'Stage 2', value: 0.8, color: '#667eea' },
+                    { region: 'Stage 3', value: 0.9, color: '#11998e' },
+                    { region: 'Stage 4', value: 0.3, color: '#FDC830' },
+                    { region: 'Stage 5', value: 0.1, color: '#F37335' }
+                ],
+                activities: [
+                    { account: 'Banco Inter', industry: 'Finserv', activity: 'Series C funding announced', time: '4h ago' },
+                    { account: 'MercadoLibre', industry: 'Tech', activity: 'Intent spike detected (6Sense)', time: '10h ago' }
+                ],
+                untouchedAccounts: [
+                    { name: 'Petrobras', region: 'LATAM', industry: 'Energy', lastTouch: '44 days ago' },
+                    { name: 'América Móvil', region: 'LATAM', industry: 'Telecom', lastTouch: '37 days ago' }
+                ],
+                engagingAccounts: [
+                    { name: 'MercadoLibre', region: 'LATAM', industry: 'Tech', score: 81, activities: 17 },
+                    { name: 'Banco Inter', region: 'LATAM', industry: 'Finserv', score: 75, activities: 14 }
+                ]
+            }
+        };
+
+        // Helper function to determine status class
+        function getStatusClass(percent) {
+            if (percent >= 100) return 'on-track';
+            if (percent >= 90) return 'at-risk';
+            return 'behind';
+        }
+
+        function getStatusText(percent) {
+            if (percent >= 100) return 'Exceeding';
+            if (percent >= 90) return 'At Risk';
+            return 'Behind';
+        }
+
+        // Draw Pipeline Donut Chart
+        function drawPipelineChart(region) {
+            const canvas = document.getElementById('pipelineChart');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const data = regionalData[region].pipelineBreakdown;
+
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Calculate total
+            const total = data.reduce((sum, item) => sum + item.value, 0);
+
+            // Draw donut
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = 50;
+            const innerRadius = 32;
+
+            let currentAngle = -Math.PI / 2;
+
+            data.forEach(item => {
+                const sliceAngle = (item.value / total) * 2 * Math.PI;
+
+                // Draw outer arc
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, currentAngle, currentAngle + sliceAngle);
+                ctx.arc(centerX, centerY, innerRadius, currentAngle + sliceAngle, currentAngle, true);
+                ctx.closePath();
+                ctx.fillStyle = item.color;
+                ctx.fill();
+
+                currentAngle += sliceAngle;
+            });
+
+            // Draw center text
+            ctx.fillStyle = '#2D4C33';
+            ctx.font = 'bold 16px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('$' + total.toFixed(1) + 'M', centerX, centerY);
+
+            // Generate legend
+            const legend = document.getElementById('pipeline-legend');
+            if (legend) {
+                legend.innerHTML = data.map(item => `
+                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.25rem 0.35rem; background: white; border-radius: 3px;">
+                        <div style="display: flex; align-items: center;">
+                            <div style="width: 8px; height: 8px; background: ${item.color}; border-radius: 2px; margin-right: 0.35rem;"></div>
+                            <span style="font-weight: 500;">${item.region}</span>
+                        </div>
+                        <strong style="color: #2D4C33;">$${item.value}M</strong>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Populate Account Lists
+        function populateAccountLists(region) {
+            const data = regionalData[region];
+
+            // Untouched accounts
+            const untouchedDiv = document.getElementById('untouched-accounts');
+            if (untouchedDiv && document.getElementById('untouched-count')) {
+                document.getElementById('untouched-count').textContent = data.untouchedAccounts.length;
+                untouchedDiv.innerHTML = data.untouchedAccounts.map(account => `
+                    <div class="account-item untouched">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div>
+                                <strong style="color: #2D4C33; font-size: 0.8rem;">${account.name}</strong>
+                                <div style="color: #666; font-size: 0.7rem; margin-top: 0.15rem;">
+                                    ${account.region} • ${account.industry}
+                                </div>
+                            </div>
+                            <div style="color: #dc3545; font-size: 0.65rem; font-weight: 600;">
+                                ${account.lastTouch}
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Engaging accounts
+            const engagingDiv = document.getElementById('engaging-accounts');
+            if (engagingDiv && document.getElementById('engaging-count')) {
+                document.getElementById('engaging-count').textContent = data.engagingAccounts.length;
+                engagingDiv.innerHTML = data.engagingAccounts.map(account => `
+                    <div class="account-item engaging">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div>
+                                <strong style="color: #2D4C33; font-size: 0.8rem;">${account.name}</strong>
+                                <div style="color: #666; font-size: 0.7rem; margin-top: 0.15rem;">
+                                    ${account.region} • ${account.industry}
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="color: #28a745; font-size: 0.75rem; font-weight: 700;">
+                                    Score ${account.score}
+                                </div>
+                                <div style="color: #666; font-size: 0.65rem;">
+                                    ${account.activities} activities
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Filter Region Function
+        function filterRegion(region) {
+            // Update button states
+            document.querySelectorAll('.region-filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById('btn-' + region).classList.add('active');
+
+            // Get regional data
+            const data = regionalData[region];
+
+            // Update Pipeline metric
+            document.getElementById('metric-pipeline').textContent = data.pipeline;
+            document.getElementById('metric-pipeline-target').textContent = '/ ' + data.pipelineTarget;
+            document.getElementById('metric-pipeline-percent').textContent = data.pipelinePercent + '%';
+            document.getElementById('progress-pipeline').style.width = data.pipelinePercent + '%';
+            document.getElementById('progress-pipeline').className = 'progress-fill ' + getStatusClass(data.pipelinePercent);
+            document.getElementById('status-pipeline').textContent = getStatusText(data.pipelinePercent);
+            document.getElementById('status-pipeline').className = 'status-badge ' + getStatusClass(data.pipelinePercent);
+
+            // Update Engagement metric
+            document.getElementById('metric-engagement').textContent = data.engagement;
+            document.getElementById('metric-engagement-target').textContent = '/ ' + data.engagementTarget;
+            document.getElementById('metric-engagement-count').textContent = data.engagementCount;
+            document.getElementById('metric-engagement-total').textContent = data.engagementTotal;
+            document.getElementById('metric-engagement-percent').textContent = data.engagementPercent + '%';
+            document.getElementById('progress-engagement').style.width = data.engagementPercent + '%';
+            document.getElementById('progress-engagement').className = 'progress-fill ' + getStatusClass(data.engagementPercent);
+            document.getElementById('status-engagement').textContent = getStatusText(data.engagementPercent);
+            document.getElementById('status-engagement').className = 'status-badge ' + getStatusClass(data.engagementPercent);
+
+            // Update Reach metric
+            document.getElementById('metric-reach').textContent = data.reach;
+            document.getElementById('metric-reach-target').textContent = '/ ' + data.reachTarget;
+            document.getElementById('metric-reach-count').textContent = data.reachCount;
+            document.getElementById('metric-reach-total').textContent = data.reachTotal;
+            document.getElementById('metric-reach-percent').textContent = data.reachPercent + '%';
+            document.getElementById('progress-reach').style.width = Math.min(data.reachPercent, 100) + '%';
+            document.getElementById('progress-reach').className = 'progress-fill ' + getStatusClass(data.reachPercent);
+            document.getElementById('status-reach').textContent = getStatusText(data.reachPercent);
+            document.getElementById('status-reach').className = 'status-badge ' + getStatusClass(data.reachPercent);
+
+            // Update Intent metric
+            document.getElementById('metric-intent').textContent = data.intent;
+            document.getElementById('metric-intent-target').textContent = '/ ' + data.intentTarget;
+            document.getElementById('metric-intent-count').textContent = data.intentCount;
+            document.getElementById('metric-intent-percent').textContent = data.intentPercent + '%';
+            document.getElementById('progress-intent').style.width = Math.min(data.intentPercent, 100) + '%';
+            document.getElementById('progress-intent').className = 'progress-fill ' + getStatusClass(data.intentPercent);
+            document.getElementById('status-intent').textContent = getStatusText(data.intentPercent);
+            document.getElementById('status-intent').className = 'status-badge ' + getStatusClass(data.intentPercent);
+
+            // Update activity feed
+            const activityFeed = document.getElementById('activity-feed');
+            if (activityFeed) {
+                activityFeed.innerHTML = '';
+                data.activities.forEach(activity => {
+                    const activityHTML = `
+                        <div style="padding: 0.6rem; background: white; border-radius: 6px; font-size: 0.75rem; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+                            <strong style="color: #2D4C33;">${activity.account}</strong> · ${activity.industry} · ${activity.activity}
+                            <span style="float: right; color: #999; font-size: 0.65rem;">${activity.time}</span>
+                        </div>
+                    `;
+                    activityFeed.innerHTML += activityHTML;
+                });
+            }
+
+            // Update chart and account lists
+            drawPipelineChart(region);
+            populateAccountLists(region);
+        }
+
+        // Initialize on load
+        window.addEventListener('load', () => {
+            populateAccountLists('global');
+            drawPipelineChart('global');
+        });
 
         // Download ads as PDF
         function downloadAds() {
@@ -4261,47 +5477,6 @@ chaos</div>
             }
         }*/
 
-        function showPage(pageId) {
-            // Hide landing page
-            document.getElementById('landingPage').style.display = 'none';
-
-            // Remove active class from all content pages
-            var allPages = document.querySelectorAll('.content-page');
-            for (var i = 0; i < allPages.length; i++) {
-                allPages[i].classList.remove('active');
-            }
-
-            // Show the selected page
-            document.getElementById(pageId).classList.add('active');
-            window.scrollTo(0, 0);
-
-            // Initialize ads and email sequence when opening Top 250 page
-            if (pageId === 'top250Page') {
-                setTimeout(function() {
-                    if (typeof updateAds === 'function') {
-                        updateAds();
-                    }
-                    if (typeof generateEmailSequence === 'function') {
-                        generateEmailSequence();
-                    }
-                    if (typeof updateRegionalEvents === 'function') {
-                        updateRegionalEvents();
-                    }
-                    if (typeof generateGrooveTemplates === 'function') {
-                        generateGrooveTemplates();
-                    }
-                }, 100);
-            }
-
-            // Initialize ads when opening P1 page
-            if (pageId === 'p1Page') {
-                setTimeout(function() {
-                    if (typeof updateAdsP1 === 'function') {
-                        updateAdsP1();
-                    }
-                }, 100);
-            }
-        }
 
         // Region Selection for P1
         function selectRegion(region) {
@@ -4412,6 +5587,283 @@ chaos</div>
 
             return "I can help with: Top 250 accounts, P1 industries (Retail, Finserv, Tech, Media), scoring methodology, customer stories, 6sense buying stages, automation engine, Influ2, regional playbooks, CommonRoom workflow, or pipeline targets. What would you like to know?";
         }
+
+        // NA Accounts Data (116 accounts)
+        const naAccounts = [
+            { name: 'Amwins', industry: 'Financial Services', segment: 'Commercial', stage: 'Consideration', owner: 'Taylor Percy' },
+            { name: 'ThirdLove', industry: 'Retail, Distribution & CPG', segment: 'SMB', stage: 'Consideration', owner: 'Amanda Baran' },
+            { name: 'AO Globe Life', industry: 'Financial Services', segment: 'Commercial', stage: 'Consideration', owner: 'Amber Fonseca' },
+            { name: 'Weave Communications, inc.', industry: 'Technology', segment: 'Commercial', stage: 'Consideration', owner: 'Spencer Brown' },
+            { name: 'Manulife Financial Corporation', industry: 'Financial Services', segment: 'Enterprise', stage: 'Consideration', owner: 'Michael Carusone' },
+            { name: 'CENTURY 21 Canada', industry: 'Financial Services', segment: 'SMB', stage: 'Consideration', owner: 'Greg Bach' },
+            { name: 'Corcentric', industry: 'Technology', segment: 'Commercial', stage: 'Consideration', owner: 'Taylor Percy' },
+            { name: 'Ozone Networks, Inc. dba OpenSea', industry: 'Technology', segment: 'Commercial', stage: 'Consideration', owner: 'Alan Yedid' },
+            { name: 'Sabre Corporation', industry: 'Technology', segment: 'Enterprise', stage: 'Decision', owner: 'Marisa Charlotte' },
+            { name: 'SHAZAM Network', industry: 'Financial Services', segment: 'Commercial', stage: 'Consideration', owner: 'Alan Yedid' },
+            { name: 'SVN', industry: 'Financial Services', segment: 'Enterprise', stage: 'Consideration', owner: 'Katie Bennett' },
+            { name: 'Hyland Software, Inc.', industry: 'Technology', segment: 'Enterprise', stage: 'Consideration', owner: 'Greg Schaefer' },
+            { name: 'CarShield', industry: 'Retail, Distribution & CPG', segment: 'Commercial', stage: 'Consideration', owner: 'Michael Kurth' },
+            { name: 'Hibu', industry: 'Media & Entertainment', segment: 'Commercial', stage: 'Consideration', owner: 'Sean Brodersen' },
+            { name: 'The Bostwick-Braun Company', industry: 'Retail, Distribution & CPG', segment: 'Commercial', stage: 'Consideration', owner: 'Michael Kurth' },
+            { name: 'Vuori', industry: 'Retail, Distribution & CPG', segment: 'SMB', stage: 'Consideration', owner: 'Courtney Day' },
+            { name: 'WithumSmith+Brown', industry: 'Financial Services', segment: 'Commercial', stage: 'Consideration', owner: 'Taylor Percy' },
+            { name: 'Turnberry Associates', industry: 'Financial Services', segment: 'Commercial', stage: 'Consideration', owner: 'Filipe Sarmento' },
+            { name: 'System Soft Technologies LLC', industry: 'Technology', segment: 'Commercial', stage: 'Consideration', owner: 'Filipe Sarmento' },
+            { name: 'Realty Austin', industry: 'Financial Services', segment: 'Commercial', stage: 'Consideration', owner: 'Adam McKenzie' },
+            { name: 'ByteDance', industry: 'Technology', segment: 'Enterprise', stage: 'Decision', owner: 'Clare O\'Dower' },
+            { name: 'Amplify', industry: 'Media & Entertainment', segment: 'Commercial', stage: 'Consideration', owner: 'Sean Brodersen' },
+            { name: 'Adorama', industry: 'Retail, Distribution & CPG', segment: 'Commercial', stage: 'Consideration', owner: 'Alan Yedid' },
+            { name: 'Foundry Commercial', industry: 'Financial Services', segment: 'Commercial', stage: 'Consideration', owner: 'Filipe Sarmento' },
+            { name: 'CarNow', industry: 'Retail, Distribution & CPG', segment: 'Commercial', stage: 'Consideration', owner: 'Cameron Chapman' },
+            { name: 'Two Sigma Insurance Quantified, LP', industry: 'Financial Services', segment: 'Enterprise', stage: 'Consideration', owner: 'Katie Bennett' },
+            { name: 'Computershare US', industry: 'Financial Services', segment: 'Enterprise', stage: 'Consideration', owner: 'Caynen Wills' },
+            { name: 'SelectQuote', industry: 'Financial Services', segment: 'Enterprise', stage: 'Consideration', owner: 'Oz Davis' },
+            { name: 'Flagship Pioneering Labs TPC, Inc.', industry: 'Financial Services', segment: 'Enterprise', stage: 'Decision', owner: 'Caynen Wills' },
+            { name: 'Clowns.com', industry: 'Media & Entertainment', segment: 'SMB', stage: 'Consideration', owner: 'Chris Dicso' },
+            { name: 'CarGurus, Inc.', industry: 'Retail, Distribution & CPG', segment: 'Commercial', stage: 'Consideration', owner: 'Alan Yedid' },
+            { name: 'Eckhart Tolle TV', industry: 'Media & Entertainment', segment: 'SMB', stage: 'Consideration', owner: 'Pierce Lundt' },
+            { name: 'The Burton Corporation', industry: 'Retail, Distribution & CPG', segment: 'Commercial', stage: 'Consideration', owner: 'Alan Yedid' },
+            { name: 'Covered California', industry: 'Financial Services', segment: 'Enterprise', stage: 'Consideration', owner: 'Andrew Burrell' },
+            { name: 'GRIFFIN MEDIA', industry: 'Media & Entertainment', segment: 'Commercial', stage: 'Consideration', owner: 'Amber Fonseca' },
+            { name: 'Transcontinental Inc.', industry: 'Media & Entertainment', segment: 'Enterprise', stage: 'Consideration', owner: 'Nate Wolverton' },
+            { name: 'Boyd Gaming Corporation', industry: 'Media & Entertainment', segment: 'Enterprise', stage: 'Consideration', owner: 'Drew McAvoy' },
+            { name: 'Mansueto Ventures', industry: 'Media & Entertainment', segment: 'Commercial', stage: 'Consideration', owner: 'Alyssa Luciani' },
+            { name: 'Houston Chronicle', industry: 'Media & Entertainment', segment: 'Commercial', stage: 'Consideration', owner: 'Amber Fonseca' },
+            { name: 'LA Times', industry: 'Media & Entertainment', segment: 'Enterprise', stage: 'Consideration', owner: 'Nate Wolverton' },
+            { name: 'The Globe and Mail', industry: 'Media & Entertainment', segment: 'Commercial', stage: 'Consideration', owner: 'Amber Fonseca' },
+            { name: 'Postmedia Network Canada Corp', industry: 'Media & Entertainment', segment: 'Enterprise', stage: 'Consideration', owner: 'Nate Wolverton' },
+            { name: 'MacMillan Publishers, Inc.', industry: 'Media & Entertainment', segment: 'Commercial', stage: 'Consideration', owner: 'Sean Brodersen' },
+            { name: 'Pearson Education Canada Inc', industry: 'Media & Entertainment', segment: 'Enterprise', stage: 'Consideration', owner: 'Nate Wolverton' },
+            { name: 'RLJ Entertainment, Inc.', industry: 'Media & Entertainment', segment: 'Enterprise', stage: 'Consideration', owner: 'Belen Martinez' },
+            { name: 'Spanx', industry: 'Retail, Distribution & CPG', segment: 'Commercial', stage: 'Target', owner: 'Cameron Chapman' },
+            { name: 'Underdog Sports', industry: 'Media & Entertainment', segment: 'Commercial', stage: 'Target', owner: 'Sean Brodersen' },
+            { name: 'Pilot.com', industry: 'Financial Services', segment: 'Commercial', stage: 'Consideration', owner: 'Taylor Robinson' },
+            { name: 'The Rockport Company, LLC', industry: 'Retail, Distribution & CPG', segment: 'Enterprise', stage: 'Consideration', owner: 'Rebekah Trice' },
+            { name: 'Aon Service Corporation', industry: 'Financial Services', segment: 'Enterprise', stage: 'Consideration', owner: 'Dave Anderson' },
+            { name: 'SVB Financial Group', industry: 'Financial Services', segment: 'Enterprise', stage: 'Consideration', owner: 'Robert Compitello' },
+            { name: 'TIAA', industry: 'Financial Services', segment: 'Enterprise', stage: 'Consideration', owner: 'Katie Bennett' },
+            { name: 'Wolters Kluwer United States, Inc.', industry: 'Media & Entertainment', segment: 'Enterprise', stage: 'Consideration', owner: 'Erick Carlson' },
+            { name: 'Lovevery Europe B.V.', industry: 'Retail, Distribution & CPG', segment: 'Commercial', stage: 'Consideration', owner: 'Samantha Modaro' },
+            { name: 'Gemalto Cogent, Inc', industry: 'Technology', segment: 'Commercial', stage: 'Consideration', owner: 'Spencer Brown' },
+            { name: 'USAA', industry: 'Financial Services', segment: 'Enterprise', stage: 'Consideration', owner: 'Jeff Buckman' },
+            { name: 'Industrial Alliance Insurance and Financial Services Inc.', industry: 'Financial Services', segment: 'Enterprise', stage: 'Consideration', owner: 'Michael Carusone' },
+            { name: 'Gray Television', industry: 'Media & Entertainment', segment: 'Enterprise', stage: 'Consideration', owner: 'Drew McAvoy' },
+            { name: 'Avid Technology, Inc.', industry: 'Technology', segment: 'Commercial', stage: 'Consideration', owner: 'Cameron Labelle' },
+            { name: 'Mutual of Omaha Insurance Company', industry: 'Financial Services', segment: 'Enterprise', stage: 'Consideration', owner: 'Oz Davis' },
+            { name: 'Swickard Auto Group', industry: 'Retail, Distribution & CPG', segment: 'Commercial', stage: 'Consideration', owner: 'Samantha Modaro' },
+            { name: 'Old National Bank', industry: 'Financial Services', segment: 'Enterprise', stage: 'Consideration', owner: 'Jon Baney' },
+            { name: 'OpenGov', industry: 'Technology', segment: 'Commercial', stage: 'Consideration', owner: 'Taylor Robinson' },
+            { name: 'Nothing Bundt Cakes', industry: 'Retail, Distribution & CPG', segment: 'Enterprise', stage: 'Consideration', owner: 'Simone Pavlovic' },
+            { name: 'Richter Management Ltd.', industry: 'Financial Services', segment: 'Commercial', stage: 'Consideration', owner: 'Adam McKenzie' },
+            { name: 'Luminar', industry: 'Retail, Distribution & CPG', segment: 'Commercial', stage: 'Consideration', owner: 'Samantha Modaro' },
+            { name: 'Saviynt', industry: 'Technology', segment: 'Commercial', stage: 'Consideration', owner: 'Amber Fonseca' },
+            { name: 'GeoComply Solutions Inc.', industry: 'Retail, Distribution & CPG', segment: 'Commercial', stage: 'Consideration', owner: 'Samantha Modaro' },
+            { name: 'ExtraHop Networks', industry: 'Technology', segment: 'Commercial', stage: 'Consideration', owner: 'Amber Fonseca' },
+            { name: 'Hearst Television, Inc.', industry: 'Technology', segment: 'Enterprise', stage: 'Decision', owner: 'Belen Martinez' },
+            { name: 'Colliers International Usa, LLC', industry: 'Financial Services', segment: 'Commercial', stage: 'Decision', owner: 'Amber Fonseca' },
+            { name: 'Jefferson Capital Systems, LLC', industry: 'Retail, Distribution & CPG', segment: 'Enterprise', stage: 'Consideration', owner: 'Simone Pavlovic' },
+            { name: 'Innovaccer US', industry: 'Technology', segment: 'Commercial', stage: 'Consideration', owner: 'Taylor Robinson' },
+            { name: 'First National of Nebraska', industry: 'Financial Services', segment: 'Enterprise', stage: 'Consideration', owner: 'Oz Davis' },
+            { name: 'Veritone', industry: 'Technology', segment: 'Commercial', stage: 'Consideration', owner: 'Samantha Modaro' },
+            { name: 'StoneX', industry: 'Financial Services', segment: 'Enterprise', stage: 'Consideration', owner: 'Katie Bennett' },
+            { name: 'Trek', industry: 'Retail, Distribution & CPG', segment: 'Enterprise', stage: 'Consideration', owner: 'Lisa Morgan' },
+            { name: 'Gen II Fund Services', industry: 'Financial Services', segment: 'Commercial', stage: 'Consideration', owner: 'Alan Yedid' },
+            { name: 'Knock', industry: 'Financial Services', segment: 'Commercial', stage: 'Consideration', owner: 'Amber Fonseca' },
+            { name: 'Urban One', industry: 'Media & Entertainment', segment: 'Commercial', stage: 'Decision', owner: 'Taylor Percy' },
+            { name: 'Zenni Optical, Inc', industry: 'Retail, Distribution & CPG', segment: 'Commercial', stage: 'Consideration', owner: 'Guy Koelewijn' },
+            { name: 'American Fidelity Assurance Company', industry: 'Financial Services', segment: 'Enterprise', stage: 'Consideration', owner: 'Jeff Buckman' },
+            { name: 'Tegna', industry: 'Media & Entertainment', segment: 'Enterprise', stage: 'Consideration', owner: 'Drew McAvoy' },
+            { name: 'Entravision Communication', industry: 'Media & Entertainment', segment: 'Commercial', stage: 'Consideration', owner: 'Rachel Kaplan' },
+            { name: 'Cumulus Media', industry: 'Media & Entertainment', segment: 'Enterprise', stage: 'Consideration', owner: 'Andrew Weisbarth' },
+            { name: 'Rogers Communications- Digital Media', industry: 'Media & Entertainment', segment: 'Enterprise', stage: 'Decision', owner: 'Nate Wolverton' },
+            { name: 'Clarivate Analytics', industry: 'Media & Entertainment', segment: 'Enterprise', stage: 'Decision', owner: 'Nate Wolverton' },
+            { name: 'Wiley', industry: 'Media & Entertainment', segment: 'Enterprise', stage: 'Consideration', owner: 'Belen Martinez' },
+            { name: 'The Associated Press', industry: 'Media & Entertainment', segment: 'Enterprise', stage: 'Consideration', owner: 'Belen Martinez' },
+            { name: 'Pearson Education Holdings Inc.', industry: 'Media & Entertainment', segment: 'Enterprise', stage: 'Consideration', owner: 'Belen Martinez' },
+            { name: 'McGraw-Hill Education', industry: 'Media & Entertainment', segment: 'Enterprise', stage: 'Consideration', owner: 'Belen Martinez' },
+            { name: 'Univision Holdings, Inc.', industry: 'Media & Entertainment', segment: 'Enterprise', stage: 'Consideration', owner: 'Drew McAvoy' },
+            { name: 'Torstar Corporation', industry: 'Media & Entertainment', segment: 'Enterprise', stage: 'Consideration', owner: 'Nate Wolverton' },
+            { name: 'Ooka Island', industry: 'Media & Entertainment', segment: 'Enterprise', stage: 'Consideration', owner: 'Belen Martinez' },
+            { name: 'Cengage Learning Holdings II, Inc.', industry: 'Media & Entertainment', segment: 'Enterprise', stage: 'Consideration', owner: 'Drew McAvoy' },
+            { name: 'Engrade', industry: 'Media & Entertainment', segment: 'Enterprise', stage: 'Consideration', owner: 'Drew McAvoy' },
+            { name: 'Aritzia Inc', industry: 'Retail, Distribution & CPG', segment: 'Enterprise', stage: 'Purchase', owner: 'Suat Ozturk' },
+            { name: 'Arc\'Teryx', industry: 'Retail, Distribution & CPG', segment: 'Enterprise', stage: 'Purchase', owner: 'Suat Ozturk' },
+            { name: 'Q4', industry: 'Financial Services', segment: 'Commercial', stage: 'Purchase', owner: 'Spencer Brown' },
+            { name: 'Wayfair, Inc.', industry: 'Retail, Distribution & CPG', segment: 'Enterprise', stage: 'Purchase', owner: 'Kaylin Carpenter' },
+            { name: 'RegEd', industry: 'Financial Services', segment: 'Enterprise', stage: 'Purchase', owner: 'Jon Engle' },
+            { name: 'Penguin Random House', industry: 'Media & Entertainment', segment: 'Enterprise', stage: 'Purchase', owner: 'Belen Martinez' },
+            { name: 'The Aaron\'s Company, Inc', industry: 'Retail, Distribution & CPG', segment: 'Enterprise', stage: 'Purchase', owner: 'Kaylin Carpenter' },
+            { name: 'Kryterion', industry: 'Technology', segment: 'Commercial', stage: 'Purchase', owner: 'Adam McKenzie' },
+            { name: 'Replacements Ltd.', industry: 'Retail, Distribution & CPG', segment: 'Commercial', stage: 'Purchase', owner: 'Sean Brodersen' },
+            { name: 'Ziff Davis', industry: 'Technology', segment: 'Enterprise', stage: 'Purchase', owner: 'William Schad' },
+            { name: 'AutoCanada Inc.', industry: 'Retail, Distribution & CPG', segment: 'Enterprise', stage: 'Purchase', owner: 'Suat Ozturk' },
+            { name: 'TD Bank', industry: 'Financial Services', segment: 'Enterprise', stage: 'Purchase', owner: 'Michael Carusone' },
+            { name: 'Truist Financial Corporation', industry: 'Financial Services', segment: 'Enterprise', stage: 'Purchase', owner: 'Brayden Rowley' },
+            { name: 'Empower Investments', industry: 'Financial Services', segment: 'Enterprise', stage: 'Purchase', owner: 'Brayden Rowley' },
+            { name: 'Petco', industry: 'Retail, Distribution & CPG', segment: 'Enterprise', stage: 'Purchase', owner: 'Tristan O\'Neil' },
+            { name: 'Seagate Technology LLC', industry: 'Technology', segment: 'Enterprise', stage: 'Purchase', owner: 'Greg Schaefer' },
+            { name: 'Unison Global', industry: 'Technology', segment: 'Enterprise', stage: 'Purchase', owner: 'Kristyn Connolly' },
+            { name: 'Herbalife Nutrition', industry: 'Retail, Distribution & CPG', segment: 'Enterprise', stage: 'Purchase', owner: 'Tristan O\'Neil' },
+            { name: 'Ontario Lottery and Gaming Corporation', industry: 'Media & Entertainment', segment: 'Enterprise', stage: 'Purchase', owner: 'Kristyn Connolly' }
+        ];
+
+        // Function to populate the accounts table
+        function populateAccountsTable(accounts) {
+            const tbody = document.getElementById('accountTableBody');
+            tbody.innerHTML = '';
+
+            accounts.forEach(account => {
+                const row = document.createElement('tr');
+
+                // Get stage class for badge
+                const stageClass = 'stage-' + account.stage.toLowerCase();
+
+                // Escape account name for onclick function
+                const escapedName = account.name.replace(/'/g, "\\'");
+                const escapedIndustry = account.industry.replace(/'/g, "\\'");
+                const escapedStage = account.stage.replace(/'/g, "\\'");
+
+                row.innerHTML = `
+                    <td><strong>${account.name}</strong></td>
+                    <td>${account.industry}</td>
+                    <td>NA</td>
+                    <td><span class="segment-badge">${account.segment}</span></td>
+                    <td><span class="stage-badge ${stageClass}">${account.stage}</span></td>
+                    <td>${account.owner}</td>
+                    <td>
+                        <button onclick="generateAccountProgram('${escapedName}', '${escapedIndustry}', '${escapedStage}')"
+                                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">
+                            Generate Program
+                        </button>
+                    </td>
+                `;
+
+                tbody.appendChild(row);
+            });
+        }
+
+        // Function to filter accounts
+        function filterAccounts() {
+            const searchTerm = document.getElementById('accountSearch').value.toLowerCase();
+            const segmentFilter = document.getElementById('segmentFilter').value;
+            const industryFilter = document.getElementById('industryFilter').value;
+            const stageFilter = document.getElementById('stageFilter').value;
+
+            const filtered = naAccounts.filter(account => {
+                const matchesSearch = account.name.toLowerCase().includes(searchTerm);
+                const matchesSegment = !segmentFilter || account.segment === segmentFilter;
+                const matchesIndustry = !industryFilter || account.industry === industryFilter;
+                const matchesStage = !stageFilter || account.stage === stageFilter;
+
+                return matchesSearch && matchesSegment && matchesIndustry && matchesStage;
+            });
+
+            populateAccountsTable(filtered);
+
+            // Update count
+            document.getElementById('accountCount').textContent =
+                `Showing ${filtered.length} of ${naAccounts.length} NA Top Accounts`;
+        }
+
+        // Function to generate complete ABM program for an account
+        function generateAccountProgram(accountName, industry, buyingStage) {
+            // Map industry to form values
+            const industryMap = {
+                'Financial Services': 'finserv',
+                'Retail, Distribution & CPG': 'retail',
+                'Technology': 'tech',
+                'Media & Entertainment': 'media'
+            };
+
+            const industryValue = industryMap[industry] || 'retail';
+
+            // Map buying stage to form values
+            const stageMap = {
+                'Target': 'target',
+                'Consideration': 'consideration',
+                'Decision': 'decision',
+                'Purchase': 'purchase'
+            };
+
+            const stageValue = stageMap[buyingStage] || 'consideration';
+
+            // Show confirmation
+            const confirmed = confirm(`Generate complete ABM program for ${accountName}?\n\nThis will create:\n• 5 Influ2 Display Ads (all sizes)\n• 5 Signal-Based Marketo Emails\n• 21-Touch Multi-Event Sales Cadence\n\nProgram will be customized for ${industry} industry at ${buyingStage} stage.`);
+
+            if (!confirmed) return;
+
+            // Navigate to Influ2 section and generate ads
+            showTop250Section('influ2');
+
+            // Wait a moment for the section to render
+            setTimeout(() => {
+                // Fill in Influ2 form
+                document.getElementById('adAccountName').value = accountName;
+                document.getElementById('adIndustry').value = industryValue;
+                document.getElementById('adBuyingStage').value = stageValue;
+
+                // Generate the ads
+                generateAds();
+
+                // Show success message and offer to continue
+                setTimeout(() => {
+                    const continueToEmails = confirm(`✓ Influ2 Ads Generated!\n\n5 display ads created for ${accountName}.\n\nGenerate Marketo Email sequence next?`);
+
+                    if (continueToEmails) {
+                        // Navigate to Marketo section
+                        showTop250Section('marketo');
+
+                        setTimeout(() => {
+                            // Fill in Marketo form
+                            const accountSelect = document.getElementById('emailAccount');
+                            // Try to find and select the account
+                            for (let i = 0; i < accountSelect.options.length; i++) {
+                                if (accountSelect.options[i].value === accountName) {
+                                    accountSelect.selectedIndex = i;
+                                    break;
+                                }
+                            }
+
+                            // Generate email sequence
+                            generateEmailSequence();
+
+                            setTimeout(() => {
+                                const continueToSales = confirm(`✓ Marketo Emails Generated!\n\n5 signal-based email sequences created for ${accountName}.\n\nGenerate Sales Cadence next?`);
+
+                                if (continueToSales) {
+                                    // Navigate to Sales Cadence section
+                                    showTop250Section('cadence');
+
+                                    setTimeout(() => {
+                                        // Fill in Sales Cadence form
+                                        const cadenceAccountSelect = document.getElementById('outreachAccount');
+                                        // Try to find and select the account
+                                        for (let i = 0; i < cadenceAccountSelect.options.length; i++) {
+                                            if (cadenceAccountSelect.options[i].value === accountName) {
+                                                cadenceAccountSelect.selectedIndex = i;
+                                                break;
+                                            }
+                                        }
+
+                                        // Generate cadence
+                                        generateCadence();
+
+                                        setTimeout(() => {
+                                            alert(`✓ Complete ABM Program Generated!\n\n✓ 5 Influ2 Display Ads\n✓ 5 Marketo Email Sequences\n✓ 21-Touch Sales Cadence\n\nAll content created for ${accountName} and ready to deploy!`);
+                                        }, 500);
+                                    }, 300);
+                                }
+                            }, 500);
+                        }, 300);
+                    }
+                }, 500);
+            }, 300);
+        }
+
+        // Initialize table when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            populateAccountsTable(naAccounts);
+        });
     </script>
 </body>
 </html>
