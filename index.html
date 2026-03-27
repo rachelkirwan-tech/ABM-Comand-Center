@@ -1912,7 +1912,23 @@
             margin-bottom: 0;
         }
 
+        .influ2-mockup-cta {
+            position: absolute;
+            background-color: #D1F470;
+            color: #11110D;
+            font-weight: 700;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50px;
+            border: none;
+        }
+
         /* 300x250 text positioning */
+        .influ2-mockup.mockup-300x250 .influ2-mockup-content {
+            padding-bottom: 50px;
+        }
         .influ2-mockup.mockup-300x250 .influ2-mockup-headline {
             font-size: 1rem;
             max-width: 85%;
@@ -1922,6 +1938,14 @@
             font-size: 0.8rem;
             margin-top: 8px;
             max-width: 85%;
+        }
+
+        .influ2-mockup.mockup-300x250 .influ2-mockup-cta {
+            left: 15px;
+            bottom: 15px;
+            width: 120px;
+            height: 35px;
+            font-size: 0.75rem;
         }
 
         /* 728x90 text positioning */
@@ -1940,6 +1964,15 @@
             display: none;
         }
 
+        .influ2-mockup.mockup-728x90 .influ2-mockup-cta {
+            right: 80px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100px;
+            height: 28px;
+            font-size: 0.65rem;
+        }
+
         /* 320x50 text positioning */
         .influ2-mockup.mockup-320x50 .influ2-mockup-content {
             padding: 6px 10px;
@@ -1956,7 +1989,20 @@
             display: none;
         }
 
+        .influ2-mockup.mockup-320x50 .influ2-mockup-cta {
+            right: 45px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 85px;
+            height: 20px;
+            font-size: 0.5rem;
+        }
+
         /* 160x600 text positioning */
+        .influ2-mockup.mockup-160x600 .influ2-mockup-content {
+            padding-bottom: 60px;
+        }
+
         .influ2-mockup.mockup-160x600 .influ2-mockup-headline {
             font-size: 0.85rem;
             max-width: 90%;
@@ -1964,11 +2010,24 @@
 
         .influ2-mockup.mockup-160x600 .influ2-mockup-body {
             font-size: 0.7rem;
-            margin-top: 8px;
+            margin-top: 18px;
             max-width: 90%;
         }
 
+        .influ2-mockup.mockup-160x600 .influ2-mockup-cta {
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 80px;
+            width: 105px;
+            height: 32px;
+            font-size: 0.65rem;
+        }
+
         /* 300x600 text positioning */
+        .influ2-mockup.mockup-300x600 .influ2-mockup-content {
+            padding-bottom: 100px;
+        }
+
         .influ2-mockup.mockup-300x600 .influ2-mockup-headline {
             font-size: 1.05rem;
             max-width: 85%;
@@ -1978,6 +2037,15 @@
             font-size: 0.85rem;
             margin-top: 10px;
             max-width: 85%;
+        }
+
+        .influ2-mockup.mockup-300x600 .influ2-mockup-cta {
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 80px;
+            width: 130px;
+            height: 38px;
+            font-size: 0.8rem;
         }
 
         .influ2-mockup-label {
@@ -7014,6 +7082,7 @@ Generate ALL sections now in the exact order specified above.`;
                                         <div class="influ2-mockup-content">
                                             <div class="influ2-mockup-headline">${versionA.headline}</div>
                                             <div class="influ2-mockup-body">${versionA.body}</div>
+                                            <div class="influ2-mockup-cta">${versionA.cta}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -7023,6 +7092,7 @@ Generate ALL sections now in the exact order specified above.`;
                                         <div class="influ2-mockup-content">
                                             <div class="influ2-mockup-headline">${versionB.headline}</div>
                                             <div class="influ2-mockup-body">${versionB.body}</div>
+                                            <div class="influ2-mockup-cta">${versionB.cta}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -7041,6 +7111,7 @@ Generate ALL sections now in the exact order specified above.`;
                                     <div class="influ2-mockup mockup-728x90">
                                         <div class="influ2-mockup-content">
                                             <div class="influ2-mockup-headline">${versionA.headline}</div>
+                                            <div class="influ2-mockup-cta">${versionA.cta}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -7049,6 +7120,7 @@ Generate ALL sections now in the exact order specified above.`;
                                     <div class="influ2-mockup mockup-728x90">
                                         <div class="influ2-mockup-content">
                                             <div class="influ2-mockup-headline">${versionB.headline}</div>
+                                            <div class="influ2-mockup-cta">${versionB.cta}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -7067,6 +7139,7 @@ Generate ALL sections now in the exact order specified above.`;
                                     <div class="influ2-mockup mockup-320x50">
                                         <div class="influ2-mockup-content">
                                             <div class="influ2-mockup-headline">${versionA.headline}</div>
+                                            <div class="influ2-mockup-cta">${versionA.cta}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -7075,6 +7148,7 @@ Generate ALL sections now in the exact order specified above.`;
                                     <div class="influ2-mockup mockup-320x50">
                                         <div class="influ2-mockup-content">
                                             <div class="influ2-mockup-headline">${versionB.headline}</div>
+                                            <div class="influ2-mockup-cta">${versionB.cta}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -7094,6 +7168,7 @@ Generate ALL sections now in the exact order specified above.`;
                                         <div class="influ2-mockup-content">
                                             <div class="influ2-mockup-headline">${versionA.headline}</div>
                                             <div class="influ2-mockup-body">${versionA.body}</div>
+                                            <div class="influ2-mockup-cta">${versionA.cta}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -7103,6 +7178,7 @@ Generate ALL sections now in the exact order specified above.`;
                                         <div class="influ2-mockup-content">
                                             <div class="influ2-mockup-headline">${versionB.headline}</div>
                                             <div class="influ2-mockup-body">${versionB.body}</div>
+                                            <div class="influ2-mockup-cta">${versionB.cta}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -7122,6 +7198,7 @@ Generate ALL sections now in the exact order specified above.`;
                                         <div class="influ2-mockup-content">
                                             <div class="influ2-mockup-headline">${versionA.headline}</div>
                                             <div class="influ2-mockup-body">${versionA.body}</div>
+                                            <div class="influ2-mockup-cta">${versionA.cta}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -7131,6 +7208,7 @@ Generate ALL sections now in the exact order specified above.`;
                                         <div class="influ2-mockup-content">
                                             <div class="influ2-mockup-headline">${versionB.headline}</div>
                                             <div class="influ2-mockup-body">${versionB.body}</div>
+                                            <div class="influ2-mockup-cta">${versionB.cta}</div>
                                         </div>
                                     </div>
                                 </div>
