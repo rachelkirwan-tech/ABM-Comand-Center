@@ -7520,24 +7520,22 @@ Generate ALL sections now in the exact order specified above.`;
 
                 const designId = designIds[size];
                 try {
-                    // Call Canva autofill-design MCP tool
-                    const response = await fetch('/api/mcp/autofill-design', {
+                    // Call Canva autofill endpoint via proxy
+                    const response = await fetch('http://localhost:3000/canva-autofill', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             designId: designId,
-                            data: {
-                                headline: adData.headline,
-                                body: adData.body,
-                                cta: adData.cta
-                            }
+                            headline: adData.headline,
+                            body: adData.body,
+                            cta: adData.cta
                         })
                     });
 
                     if (response.ok) {
                         results.push({ size, status: 'success', message: `${size} sent to Canva` });
                     } else {
-                        results.push({ size, status: 'error', message: `Failed to send ${size}` });
+                        results.push({ size, status: 'error', message: `Failed to send ${size}: ${response.statusText}` });
                     }
                 } catch (error) {
                     results.push({ size, status: 'error', message: `Error sending ${size}: ${error.message}` });
