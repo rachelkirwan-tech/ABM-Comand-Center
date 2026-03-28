@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad 728x90 Version A</title>
+    <style>
+        @font-face {
+            font-family: 'Zendesk Sans';
+            src: url('file:///Library/Fonts/ZendeskSans-Regular.otf') format('opentype');
+        }
+        @font-face {
+            font-family: 'Zendesk Sans';
+            font-weight: bold;
+            src: url('file:///Library/Fonts/ZendeskSans-Bold.otf') format('opentype');
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .ad-container {
+            width: 728px;
+            height: 90px;
+            position: relative;
+            overflow: hidden;
+            background-image: url('file:///Users/vinny.kalkofen/ABM-Comand-Center/template-728x90.png');
+            background-size: cover;
+            background-position: center;
+            background-color: #11110D;
+            font-family: 'Zendesk Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        .headline {
+            position: absolute;
+            top: 50%;
+            left: 16px;
+            max-width: 280px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: #FFFFFF;
+            line-height: 1.2;
+            transform: translateY(-50%);
+        }
+        .cta {
+            position: absolute;
+            right: 90px;
+            top: 50%;
+            width: 80px;
+            height: 24px;
+            background-color: #D1F470;
+            color: #11110D;
+            font-weight: bold;
+            font-size: 0.55rem;
+            border: none;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="ad-container">
+        <div class="headline">Boost productivity 40% with AI-powered support insights</div>
+        <button class="cta">Learn More</button>
+    </div>
+</body>
+</html>
