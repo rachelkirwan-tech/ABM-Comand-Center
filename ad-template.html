@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Template</title>
+    <style>
+        @font-face {
+            font-family: 'Zendesk Sans';
+            src: url('file:///Library/Fonts/ZendeskSans-Regular.otf') format('opentype');
+        }
+        @font-face {
+            font-family: 'Zendesk Sans';
+            font-weight: bold;
+            src: url('file:///Library/Fonts/ZendeskSans-Bold.otf') format('opentype');
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .ad-container {
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            background-color: #11110D;
+            font-family: 'Zendesk Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            border: none;
+            box-shadow: none;
+            outline: none;
+        }
+        .headline {
+            position: absolute;
+            font-weight: bold;
+            color: #FFFFFF;
+            line-height: 1.2;
+            border: none;
+            box-shadow: none;
+            outline: none;
+            text-shadow: none;
+        }
+        .body {
+            position: absolute;
+            font-weight: normal;
+            color: #FFFFFF;
+            line-height: 1.3;
+            border: none;
+            box-shadow: none;
+            outline: none;
+            text-shadow: none;
+        }
+        .cta {
+            position: absolute;
+            background-color: #D1F470;
+            color: #11110D;
+            font-weight: bold;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .cta:focus,
+        .cta:active,
+        .cta:hover {
+            outline: none;
+            box-shadow: none;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="ad-container" id="ad-container"></div>
+    <script>
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const size = params.get('size') || '300x250';
+            const version = params.get('version') || 'a';
+            
+            // Load ad copy from JSON
+            const adCopy = window.adCopyData || {};
+            const sizeData = adCopy[size];
+            const versionData = sizeData ? sizeData[`version_${version}`] : {};
+            
+            const container = document.getElementById('ad-container');
+            const dimensions = {
+                '300x250': { width: 300, height: 250, headlineTop: 16, headlineLeft: 16, headlineMaxWidth: 180, headlineFontSize: '0.95rem', bodyTop: 80, bodyLeft: 16, bodyMaxWidth: 180, bodyFontSize: '0.75rem', ctaBottom: 16, ctaLeft: 16, ctaWidth: 120, ctaHeight: 35, ctaFontSize: '0.75rem', templateBg: 'file:///Users/vinny.kalkofen/ABM-Comand-Center/template-300x250.png' },
+                '728x90': { width: 728, height: 90, headlineTop: '50%', headlineLeft: 16, headlineMaxWidth: 280, headlineFontSize: '0.7rem', headlineTransform: 'translateY(-50%)', ctaRight: 90, ctaTop: '50%', ctaWidth: 80, ctaHeight: 24, ctaFontSize: '0.55rem', ctaTransform: 'translateY(-50%)', templateBg: 'file:///Users/vinny.kalkofen/ABM-Comand-Center/template-728x90.png' },
+                '160x600': { width: 160, height: 600, headlineTop: 20, headlineLeft: 12, headlineMaxWidth: 130, headlineFontSize: '0.9rem', bodyTop: 120, bodyLeft: 12, bodyMaxWidth: 130, bodyFontSize: '0.75rem', ctaBottom: 100, ctaLeft: '50%', ctaWidth: 105, ctaHeight: 32, ctaFontSize: '0.65rem', ctaTransform: 'translateX(-50%)', templateBg: 'file:///Users/vinny.kalkofen/ABM-Comand-Center/template-160x600.png' },
+                '300x600': { width: 300, height: 600, headlineTop: 24, headlineLeft: 16, headlineMaxWidth: 240, headlineFontSize: '0.9rem', bodyTop: 140, bodyLeft: 16, bodyMaxWidth: 240, bodyFontSize: '0.75rem', ctaBottom: 100, ctaLeft: '50%', ctaWidth: 120, ctaHeight: 35, ctaFontSize: '0.75rem', ctaTransform: 'translateX(-50%)', templateBg: 'file:///Users/vinny.kalkofen/ABM-Comand-Center/template-300x600.png' },
+                '320x50': { width: 320, height: 50, headlineTop: '50%', headlineLeft: 10, headlineMaxWidth: 160, headlineFontSize: '0.7rem', headlineTransform: 'translateY(-50%)', ctaRight: 55, ctaTop: '50%', ctaWidth: 85, ctaHeight: 20, ctaFontSize: '0.55rem', ctaTransform: 'translateY(-50%)', templateBg: 'file:///Users/vinny.kalkofen/ABM-Comand-Center/template-320x50.png' }
+            };
+            
+            const dim = dimensions[size];
+            if (!dim) {
+                console.error('Unknown ad size:', size);
+                return;
+            }
+            
+            container.style.width = dim.width + 'px';
+            container.style.height = dim.height + 'px';
+            container.style.backgroundImage = 'url(' + dim.templateBg + ')';
+            
+            // Headline
+            const headline = document.createElement('div');
+            headline.className = 'headline';
+            headline.textContent = versionData.headline || 'Headline';
+            headline.style.fontSize = dim.headlineFontSize;
+            headline.style.top = typeof dim.headlineTop === 'number' ? dim.headlineTop + 'px' : dim.headlineTop;
+            headline.style.left = typeof dim.headlineLeft === 'number' ? dim.headlineLeft + 'px' : dim.headlineLeft;
+            headline.style.maxWidth = dim.headlineMaxWidth + 'px';
+            if (dim.headlineTransform) headline.style.transform = dim.headlineTransform;
+            container.appendChild(headline);
+            
+            // Body (if present)
+            if (dim.bodyTop && versionData.body) {
+                const body = document.createElement('div');
+                body.className = 'body';
+                body.textContent = versionData.body;
+                body.style.fontSize = dim.bodyFontSize;
+                body.style.top = typeof dim.bodyTop === 'number' ? dim.bodyTop + 'px' : dim.bodyTop;
+                body.style.left = typeof dim.bodyLeft === 'number' ? dim.bodyLeft + 'px' : dim.bodyLeft;
+                body.style.maxWidth = dim.bodyMaxWidth + 'px';
+                container.appendChild(body);
+            }
+            
+            // CTA
+            const cta = document.createElement('button');
+            cta.className = 'cta';
+            cta.textContent = versionData.cta || 'Button';
+            cta.style.fontSize = dim.ctaFontSize;
+            cta.style.width = dim.ctaWidth + 'px';
+            cta.style.height = dim.ctaHeight + 'px';
+            if (dim.ctaBottom) cta.style.bottom = dim.ctaBottom + 'px';
+            if (dim.ctaTop) cta.style.top = typeof dim.ctaTop === 'number' ? dim.ctaTop + 'px' : dim.ctaTop;
+            if (dim.ctaLeft) cta.style.left = typeof dim.ctaLeft === 'number' ? dim.ctaLeft + 'px' : dim.ctaLeft;
+            if (dim.ctaRight) cta.style.right = dim.ctaRight + 'px';
+            if (dim.ctaTransform) cta.style.transform = dim.ctaTransform;
+            container.appendChild(cta);
+        })();
+    </script>
+</body>
+</html>
