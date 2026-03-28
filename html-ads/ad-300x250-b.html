@@ -8,11 +8,12 @@
         @font-face {
             font-family: 'Zendesk Sans';
             src: url('file:///Library/Fonts/ZendeskSans-Regular.otf') format('opentype');
+            font-weight: 400;
         }
         @font-face {
             font-family: 'Zendesk Sans';
-            font-weight: bold;
             src: url('file:///Library/Fonts/ZendeskSans-Bold.otf') format('opentype');
+            font-weight: 700;
         }
         * {
             margin: 0;
@@ -31,53 +32,80 @@
             background-image: url('file:///Users/vinny.kalkofen/ABM-Comand-Center/template-300x250.png');
             background-size: cover;
             background-position: center;
-            background-color: #11110D;
-            font-family: 'Zendesk Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #2D4C33;
+            font-family: 'Zendesk Sans', -apple-system, BlinkMacSystemFont, sans-serif;
         }
-        .headline {
+        .content-frame {
             position: absolute;
-            top: 16px;
-            left: 16px;
-            max-width: 180px;
-            font-size: 0.95rem;
-            font-weight: bold;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+        }
+        .eyebrow {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 11px;
+            font-weight: 400;
             color: #FFFFFF;
             line-height: 1.2;
+            max-width: 200px;
+        }
+        .stat {
+            position: absolute;
+            top: 52px;
+            left: 20px;
+            font-size: 65px;
+            font-weight: 700;
+            color: #FFFFFF;
+            line-height: 0.9;
         }
         .body {
             position: absolute;
-            top: 80px;
-            left: 16px;
-            max-width: 180px;
-            font-size: 0.75rem;
-            font-weight: normal;
+            top: 122px;
+            left: 20px;
+            max-width: 220px;
+            font-size: 13px;
+            font-weight: 400;
             color: #FFFFFF;
-            line-height: 1.3;
+            line-height: 1.35;
         }
         .cta {
             position: absolute;
-            bottom: 16px;
-            left: 16px;
-            width: 120px;
-            height: 35px;
+            bottom: 24px;
+            left: 20px;
+            padding: 9px 22px;
             background-color: #D1F470;
             color: #11110D;
-            font-weight: bold;
-            font-size: 0.75rem;
+            font-weight: 700;
+            font-size: 12px;
             border: none;
-            border-radius: 50px;
-            display: flex;
+            border-radius: 20px;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
+        }
+        .logo {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: auto;
         }
     </style>
 </head>
 <body>
     <div class="ad-container">
-        <div class="headline">Missing critical support insights?</div>
-        <div class="body">Don't let customer issues pile up. Act now with intelligence.</div>
-        <button class="cta">Get Started</button>
+        <div class="content-frame"></div>
+        <div class="eyebrow">Scale CX with AI</div>
+        <div class="stat">60%</div>
+        <div class="body">of tickets resolved automatically. See how companies are transforming support.</div>
+        <button class="cta">Read Now</button>
+        <img src="file:///Users/vinny.kalkofen/ABM-Comand-Center/zendesk-logo-white.svg" alt="Zendesk" class="logo">
     </div>
 </body>
 </html>

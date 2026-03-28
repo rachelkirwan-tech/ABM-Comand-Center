@@ -45,7 +45,7 @@ async function generateAdScreenshots() {
                     await page.setViewport({
                         width: size.width,
                         height: size.height,
-                        deviceScaleFactor: 1
+                        deviceScaleFactor: 2
                     });
 
                     // Navigate to local HTML file
