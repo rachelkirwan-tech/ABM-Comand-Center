@@ -50,7 +50,7 @@ async function generateAdScreenshots() {
                     await page.setViewport({
                         width: dim.width,
                         height: dim.height,
-                        deviceScaleFactor: 1
+                        deviceScaleFactor: 2
                     });
 
                     // Create template URL with query params for size and version
