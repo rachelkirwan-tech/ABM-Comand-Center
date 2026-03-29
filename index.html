@@ -2798,6 +2798,13 @@
                                 <option value="Financial Services">Financial Services</option>
                             </select>
 
+                            <div class="influ2-section-title">Buyer Stage</div>
+                            <select id="influ2BuyerStageSelect" style="width: 100%; padding: 12px 14px; border: 1px solid #E0E0E0; background: white; color: #2D4C33; border-radius: 8px; font-size: 14px; margin-bottom: 20px; font-weight: 500;">
+                                <option value="Awareness">Awareness</option>
+                                <option value="Consideration">Consideration</option>
+                                <option value="Decision">Decision</option>
+                            </select>
+
                             <div class="influ2-section-title" style="margin-top: 20px; margin-bottom: 10px;">Content for ads to drive to</div>
                             <textarea id="influ2ContentInput" placeholder="Paste a URL or content (blog post, guide description, webinar details, etc)..." style="width: 100%; min-height: 140px; padding: 14px 16px; border: 1px solid #E0E0E0; background: #F8F9FA; color: #2D4C33; border-radius: 8px; font-family: 'Zendesk Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; font-size: 14px; resize: vertical; margin-bottom: 20px; font-weight: 500;"></textarea>
 
@@ -6519,6 +6526,7 @@ chaos</div>
         const INFLU2_MSD_PATHS = {
             globalCS: 'msd-files/Global_CS_MSD_FY27.md',
             outputSpec: 'msd-files/Output_Specs_Influ2_Ads.md',
+            buyerStageSupplement: 'msd-files/Buyer_Stage_MSD_Supplement.md',
             industries: {
                 'Retail': 'msd-files/Retail_MSD_FY27_DeptStore.md',
                 'Media and Entertainment': 'msd-files/ME_MSD_FY27.md',
@@ -6531,6 +6539,7 @@ chaos</div>
         let influ2MsdCache = {
             globalCS: null,
             outputSpec: null,
+            buyerStageSupplement: null,
             industries: {}
         };
 
@@ -6562,6 +6571,11 @@ chaos</div>
                     influ2MsdCache.outputSpec = await loadInflu2MSDFile(INFLU2_MSD_PATHS.outputSpec);
                 }
 
+                if (!influ2MsdCache.buyerStageSupplement) {
+                    console.log('Loading Buyer Stage Supplement from:', INFLU2_MSD_PATHS.buyerStageSupplement);
+                    influ2MsdCache.buyerStageSupplement = await loadInflu2MSDFile(INFLU2_MSD_PATHS.buyerStageSupplement);
+                }
+
                 if (!influ2MsdCache.industries[industry]) {
                     const industryPath = INFLU2_MSD_PATHS.industries[industry];
                     console.log(`Loading ${industry} MSD from:`, industryPath);
@@ -6571,12 +6585,14 @@ chaos</div>
                 console.log('MSD Files Status:');
                 console.log('- Global CS:', influ2MsdCache.globalCS ? `${influ2MsdCache.globalCS.length} chars` : 'not loaded');
                 console.log('- Output Spec:', influ2MsdCache.outputSpec ? `${influ2MsdCache.outputSpec.length} chars` : 'not loaded');
+                console.log('- Buyer Stage Supplement:', influ2MsdCache.buyerStageSupplement ? `${influ2MsdCache.buyerStageSupplement.length} chars` : 'not loaded');
                 console.log('- Industry MSD:', influ2MsdCache.industries[industry] ? `${influ2MsdCache.industries[industry].length} chars` : 'not loaded');
                 console.log('========================');
 
                 return {
                     globalCS: influ2MsdCache.globalCS,
                     outputSpec: influ2MsdCache.outputSpec,
+                    buyerStageSupplement: influ2MsdCache.buyerStageSupplement,
                     industry: influ2MsdCache.industries[industry]
                 };
             } catch (error) {
@@ -6584,6 +6600,7 @@ chaos</div>
                 return {
                     globalCS: '# Global CS MSD\n[File not found in msd-files/ folder]',
                     outputSpec: influ2MsdCache.outputSpec || '# Output Spec\n[File not found in msd-files/ folder]',
+                    buyerStageSupplement: influ2MsdCache.buyerStageSupplement || '# Buyer Stage Supplement\n[File not found in msd-files/ folder]',
                     industry: `# ${industry} MSD\n[File not found in msd-files/ folder - check that FY27 files are present]`
                 };
             }
@@ -6679,6 +6696,7 @@ chaos</div>
             }
 
             const industry = document.getElementById('influ2IndustrySelect').value;
+            const buyerStage = document.getElementById('influ2BuyerStageSelect').value;
 
             let content = contentInput;
             let truncationNote = '';
@@ -6704,7 +6722,7 @@ chaos</div>
             status.innerHTML = '<span class="influ2-spinner"></span> Calling API...';
 
             try {
-                const systemPrompt = buildInflu2SystemPrompt(content + truncationNote, msdFiles, industry);
+                const systemPrompt = buildInflu2SystemPrompt(content + truncationNote, msdFiles, industry, buyerStage);
 
                 // Bedrock format: system prompt goes in first message, no system parameter
                 const requestBody = {
@@ -6783,12 +6801,13 @@ chaos</div>
 
                 influ2CurrentAdContext = {
                     industry: industry,
+                    buyerStage: buyerStage,
                     contentInput: contentInput,
                     generatedOutput: adText,
                     msdFiles: msdFiles
                 };
 
-                addInflu2ChatMessage('system', `Ad package generated for ${industry}. You can now ask me questions or request changes.`);
+                addInflu2ChatMessage('system', `Ad package generated for ${industry} (${buyerStage} stage). You can now ask me questions or request changes.`);
 
                 status.className = 'influ2-status';
                 status.textContent = 'Generation complete.';
@@ -6804,12 +6823,22 @@ chaos</div>
             }
         }
 
-        function buildInflu2SystemPrompt(content, msdFiles, industry) {
+        function buildInflu2SystemPrompt(content, msdFiles, industry, buyerStage) {
+            // Build buyer stage instruction based on selected stage
+            let buyerStageInstruction = '';
+            if (buyerStage === 'Awareness') {
+                buyerStageInstruction = 'The selected buyer stage is Awareness. Awareness copy uses industry tension headlines, POV body, soft CTAs like Read now or See the data, no product names.';
+            } else if (buyerStage === 'Consideration') {
+                buyerStageInstruction = 'The selected buyer stage is Consideration. Consideration copy uses proof and result headlines, social proof body with Zendesk as enabler, mid-funnel CTAs like See how it works or Get the guide.';
+            } else if (buyerStage === 'Decision') {
+                buyerStageInstruction = 'The selected buyer stage is Decision. Decision copy uses outcome and urgency headlines, direct value body with ROI and speed, direct CTAs like Get a demo or Talk to an expert.';
+            }
+
             return `You are an expert B2B display ad copywriter for Zendesk industry marketing. Generate a complete Influ2 ad package following the exact output structure below.
 
 === WEIGHT HIERARCHY (CRITICAL - READ THIS FIRST) ===
 
-You have THREE sources of intelligence. Each has a specific purpose and weight:
+You have FOUR sources of intelligence. Each has a specific purpose and weight:
 
 1. PASTED CONTENT (75% weight) - THE DRIVER
 This is WHAT the ad says. The ad copy must promote this content. Every headline, body, and CTA connects back to what's in this text.
@@ -6828,13 +6857,20 @@ YOU MUST USE THE REAL DATA FROM THIS MSD:
 
 ${msdFiles.industry || 'Industry MSD not available'}
 
-3. GLOBAL CS MSD (10% weight) - THE PRODUCT ASSISTANT
+3. BUYER STAGE SUPPLEMENT - THE FRAMING GUIDE
+This provides guidance on how to frame copy based on the buyer's stage in the journey. The industry MSD provides the content, the stage controls tone, CTA strength, and framing.
+
+${msdFiles.buyerStageSupplement || 'Buyer Stage Supplement not available'}
+
+${buyerStageInstruction}
+
+4. GLOBAL CS MSD (10% weight) - THE PRODUCT ASSISTANT
 This provides Zendesk Customer Service product context, proof points, and platform positioning. It fills gaps when the industry MSD doesn't cover something.
 CRITICAL: Any customer names in this MSD are for CONTEXT ONLY. NEVER use customer names in ad copy - this is a legal requirement.
 
 ${msdFiles.globalCS || 'Global CS MSD not available'}
 
-TO BE CLEAR: The content is the subject. The industry MSD is the voice. The global CS MSD is the supporting actor. If the content is about a blog post on surge management, you write about surge management (content), in the voice of someone who understands M&E buyer pain points (industry MSD), with backup from Zendesk CS platform capabilities (global CS MSD).
+TO BE CLEAR: The content is the subject. The industry MSD is the voice. The buyer stage controls the framing and CTA strength. The global CS MSD is the supporting actor. If the content is about a blog post on surge management, you write about surge management (content), in the voice of someone who understands M&E buyer pain points (industry MSD), framed for the appropriate buyer stage (buyer stage supplement), with backup from Zendesk CS platform capabilities (global CS MSD).
 
 MANDATORY: Your ad copy MUST reference real data from the MSD files above. Do not write generic marketing copy. Use the specific pain points, benefit pillars, proof points, and statistics provided in the MSD.
 
