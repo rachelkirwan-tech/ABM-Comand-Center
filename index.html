@@ -6700,34 +6700,28 @@ Extract these four items first:
 
 === SECTION 2: DISPLAY ADS (ALL 9 SIZES) ===
 
-Generate ALL 9 display ad sizes. Each size gets Version A (stat-led) and Version B (tension-led).
+Return a JSON object with this exact structure. Do not include any text outside the JSON. The object must have two keys: versionA and versionB. Each version must have these exact keys:
 
-**1200x628 (REQUIRED - LinkedIn Landscape)**
-Version A and Version B. Each has: Headline (~30 chars, verb-led action statement) / Body (~80 chars, includes stat/proof) / CTA (2-3 words)
+{
+  "versionA": {
+    "large_headline": "max 25 characters, verb-led, sentence case",
+    "large_body": "max 70 characters, stat or proof point, use you and we",
+    "medium_headline": "max 20 characters, shorter version of the large headline",
+    "medium_body": "max 50 characters, shorter version of the large body",
+    "banner_headline": "max 18 characters, punchy and complete, no truncation",
+    "cta": "max 12 characters, 2 words, sentence case"
+  },
+  "versionB": {
+    "large_headline": "max 25 characters, tension or pain point, sentence case",
+    "large_body": "max 70 characters, Zendesk solution to the pain point",
+    "medium_headline": "max 20 characters, shorter version of the large headline",
+    "medium_body": "max 50 characters, shorter version of the large body",
+    "banner_headline": "max 18 characters, punchy and complete, no truncation",
+    "cta": "max 12 characters, 2 words, sentence case"
+  }
+}
 
-**1200x1200 (REQUIRED - Social Square)**
-Version A and Version B. Each has: Headline (~30 chars, verb-led action statement) / Body (~80 chars, includes stat/proof) / CTA (2-3 words)
-
-**300x250 (REQUIRED)**
-Version A and Version B. Each has: Headline (~30 chars, verb-led action statement) / Body (~80 chars, includes stat/proof) / CTA (2-3 words)
-
-**728x90 (REQUIRED - Leaderboard Banner)**
-Version A and Version B. Each has: Headline (up to 45 chars, no body copy means headline can be slightly longer) / CTA (2-3 words). NO BODY COPY.
-
-**160x600 (Wide Skyscraper)**
-Version A and Version B. Each has: Headline (~30 chars, verb-led action statement) / Body (~80 chars, includes stat/proof) / CTA (2-3 words)
-
-**300x600 (Half Page)**
-Version A and Version B. Each has: Headline (~30 chars, verb-led action statement) / Body (~80 chars, includes stat/proof) / CTA (2-3 words)
-
-**970x250 (Billboard)**
-Version A and Version B. Each has: Headline (~30 chars, verb-led action statement) / Body (~80 chars, includes stat/proof) / CTA (2-3 words)
-
-**320x50 (Mobile Banner)**
-Version A and Version B. Each has: Headline (up to 45 chars, no body copy means headline can be slightly longer) / CTA (2-3 words). NO BODY COPY.
-
-**300x50 (Mobile Banner Small)**
-Version A and Version B. Each has: Headline (up to 45 chars, no body copy means headline can be slightly longer) / CTA (2-3 words). NO BODY COPY.
+Every headline must be a complete thought. Never write a headline that would need ellipsis to make sense. Banner headlines must be 18 characters or fewer with no exceptions.
 
 === SECTION 3: LINKEDIN SPONSORED AD ===
 
@@ -7010,27 +7004,12 @@ Generate ALL sections now in the exact order specified above.`;
             headlineEl.textContent = headline;
             const hlStyle = config.headline;
 
-            // Determine line clamp based on size
-            let headlineLineClamp = 3;
-            let headlineExtraStyles = '';
-            if (isBannerAd) {
-                headlineLineClamp = 1;
-                headlineExtraStyles = 'text-overflow: ellipsis; white-space: nowrap;';
-            } else if (sizeName === '300x250') {
-                headlineLineClamp = 2;
-            }
-
             headlineEl.style.cssText = `
                 color: #FFFFFF;
                 font-weight: ${hlStyle.fontWeight || 500};
                 line-height: ${hlStyle.lineHeight || '110%'};
                 letter-spacing: ${hlStyle.letterSpacing || '0'};
                 font-size: ${hlStyle.fontSize};
-                overflow: hidden;
-                display: -webkit-box;
-                -webkit-line-clamp: ${headlineLineClamp};
-                -webkit-box-orient: vertical;
-                ${headlineExtraStyles}
             `;
             textContainer.appendChild(headlineEl);
 
@@ -7049,10 +7028,6 @@ Generate ALL sections now in the exact order specified above.`;
                     line-height: ${bodyStyle.lineHeight || '140%'};
                     font-size: ${bodyFontSize};
                     margin-top: ${bodyStyle.marginTop || '0'};
-                    overflow: hidden;
-                    display: -webkit-box;
-                    -webkit-line-clamp: 2;
-                    -webkit-box-orient: vertical;
                 `;
                 textContainer.appendChild(bodyEl);
             }
@@ -7182,63 +7157,118 @@ Generate ALL sections now in the exact order specified above.`;
 
             html += `<div class="influ2-section-divider">🖼️ Display Ads</div>`;
 
+            // Try to parse JSON response first
+            let jsonData = null;
+            try {
+                const jsonMatch = text.match(/\{[\s\S]*"versionA"[\s\S]*"versionB"[\s\S]*\}/);
+                if (jsonMatch) {
+                    jsonData = JSON.parse(jsonMatch[0]);
+                    console.log('✓ Parsed JSON response:', jsonData);
+                }
+            } catch (e) {
+                console.warn('⚠️ Failed to parse JSON, will try text parsing:', e.message);
+            }
+
             displaySizes.forEach(size => {
-                // More flexible pattern for markdown formatting
-                // Matches: **300x250** or 300x250 or 300 x 250, with or without (REQUIRED) or descriptive text
-                const sizePattern = new RegExp(
-                    `(?:\\*\\*)?\\s*${size.name.replace(/x/g, '\\s*[xX×]\\s*')}\\s*(?:\\([^)]*\\))?(?:\\s*[\\-–—]\\s*[^*\\n]*)?(?:\\*\\*)?[\\s\\S]*?` +
-                    `Version\\s*A[:\\s]*([\\s\\S]*?)` +
-                    `Version\\s*B[:\\s]*([\\s\\S]*?)` +
-                    `(?=\\*\\*\\s*\\d|===?\\s*SECTION\\s*[345]|LINKEDIN|NATIVE|FLAGS|$)`,
-                    'i'
-                );
-                const sizeMatch = text.match(sizePattern);
+                let versionA, versionB;
 
-                console.log(`Parsing ${size.name}:`, !!sizeMatch);
-                if (!sizeMatch) {
-                    console.warn(`  ❌ ${size.name} not found in API response`);
-                } else {
-                    console.log(`  ✓ ${size.name} matched successfully`);
-                    console.log(`  - Version A preview:`, sizeMatch[1].substring(0, 100));
-                    console.log(`  - Version B preview:`, sizeMatch[2].substring(0, 100));
-                    const versionA = parseInflu2AdVersion(sizeMatch[1], size.hasBody);
-                    const versionB = parseInflu2AdVersion(sizeMatch[2], size.hasBody);
+                if (jsonData && jsonData.versionA && jsonData.versionB) {
+                    // Map JSON fields to ad size
+                    const largeSizes = ['1200x628', '1200x1200', '300x600', '160x600'];
+                    const mediumSizes = ['970x250', '300x250'];
+                    const bannerSizes = ['728x90', '320x50', '300x50'];
 
-                    // Capture ad data in structured format
-                    if (!influ2CurrentAdSet) {
-                        influ2CurrentAdSet = [];
+                    if (largeSizes.includes(size.name)) {
+                        versionA = {
+                            headline: jsonData.versionA.large_headline || 'N/A',
+                            body: jsonData.versionA.large_body || '',
+                            cta: jsonData.versionA.cta || 'N/A'
+                        };
+                        versionB = {
+                            headline: jsonData.versionB.large_headline || 'N/A',
+                            body: jsonData.versionB.large_body || '',
+                            cta: jsonData.versionB.cta || 'N/A'
+                        };
+                    } else if (mediumSizes.includes(size.name)) {
+                        versionA = {
+                            headline: jsonData.versionA.medium_headline || 'N/A',
+                            body: jsonData.versionA.medium_body || '',
+                            cta: jsonData.versionA.cta || 'N/A'
+                        };
+                        versionB = {
+                            headline: jsonData.versionB.medium_headline || 'N/A',
+                            body: jsonData.versionB.medium_body || '',
+                            cta: jsonData.versionB.cta || 'N/A'
+                        };
+                    } else if (bannerSizes.includes(size.name)) {
+                        versionA = {
+                            headline: jsonData.versionA.banner_headline || 'N/A',
+                            body: '',
+                            cta: jsonData.versionA.cta || 'N/A'
+                        };
+                        versionB = {
+                            headline: jsonData.versionB.banner_headline || 'N/A',
+                            body: '',
+                            cta: jsonData.versionB.cta || 'N/A'
+                        };
                     }
-                    const config = adSizeConfigs[size.name];
-                    influ2CurrentAdSet.push({
-                        sizeName: size.name,
-                        width: config.width,
-                        height: config.height,
-                        versionA: { headline: versionA.headline, body: versionA.body || '', cta: versionA.cta },
-                        versionB: { headline: versionB.headline, body: versionB.body || '', cta: versionB.cta }
-                    });
 
-                    const cardId = `influ2-card-${size.name.replace('x', '-')}`;
-                    const isExpanded = size.expandByDefault;
+                    console.log(`✓ ${size.name} parsed from JSON`);
+                } else {
+                    // Fallback to text parsing
+                    const sizePattern = new RegExp(
+                        `(?:\\*\\*)?\\s*${size.name.replace(/x/g, '\\s*[xX×]\\s*')}\\s*(?:\\([^)]*\\))?(?:\\s*[\\-–—]\\s*[^*\\n]*)?(?:\\*\\*)?[\\s\\S]*?` +
+                        `Version\\s*A[:\\s]*([\\s\\S]*?)` +
+                        `Version\\s*B[:\\s]*([\\s\\S]*?)` +
+                        `(?=\\*\\*\\s*\\d|===?\\s*SECTION\\s*[345]|LINKEDIN|NATIVE|FLAGS|$)`,
+                        'i'
+                    );
+                    const sizeMatch = text.match(sizePattern);
 
-                    html += `<div class="influ2-ad-card display-ad-card">
-                        <div class="influ2-ad-card-header" onclick="toggleInflu2Card('${cardId}')">
-                            <span>${size.name}${size.required ? ' <span style="color: #D1F470;">(Required)</span>' : ''}</span>
-                            <span class="influ2-expand-icon ${isExpanded ? 'expanded' : ''}" id="${cardId}-icon">▶</span>
-                        </div>
-                        <div class="influ2-ad-card-content ${isExpanded ? '' : 'collapsed'}" id="${cardId}">
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
-                                <div>
-                                    <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Version A - Stat-Led</div>
-                                    <div id="preview-${size.name}-a" style="border: 1px solid #E5E5E5; border-radius: 4px; overflow: hidden;"></div>
-                                </div>
-                                <div>
-                                    <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Version B - Tension-Led</div>
-                                    <div id="preview-${size.name}-b" style="border: 1px solid #E5E5E5; border-radius: 4px; overflow: hidden;"></div>
-                                </div>
+                    console.log(`Parsing ${size.name}:`, !!sizeMatch);
+                    if (!sizeMatch) {
+                        console.warn(`  ❌ ${size.name} not found in API response`);
+                        return;
+                    }
+
+                    versionA = parseInflu2AdVersion(sizeMatch[1], size.hasBody);
+                    versionB = parseInflu2AdVersion(sizeMatch[2], size.hasBody);
+                }
+
+                // Capture ad data in structured format
+                if (!influ2CurrentAdSet) {
+                    influ2CurrentAdSet = [];
+                }
+                const config = adSizeConfigs[size.name];
+                influ2CurrentAdSet.push({
+                    sizeName: size.name,
+                    width: config.width,
+                    height: config.height,
+                    versionA: { headline: versionA.headline, body: versionA.body || '', cta: versionA.cta },
+                    versionB: { headline: versionB.headline, body: versionB.body || '', cta: versionB.cta }
+                });
+
+                const cardId = `influ2-card-${size.name.replace('x', '-')}`;
+                const isExpanded = size.expandByDefault;
+
+                html += `<div class="influ2-ad-card display-ad-card">
+                    <div class="influ2-ad-card-header" onclick="toggleInflu2Card('${cardId}')">
+                        <span>${size.name}${size.required ? ' <span style="color: #D1F470;">(Required)</span>' : ''}</span>
+                        <span class="influ2-expand-icon ${isExpanded ? 'expanded' : ''}" id="${cardId}-icon">▶</span>
+                    </div>
+                    <div class="influ2-ad-card-content ${isExpanded ? '' : 'collapsed'}" id="${cardId}">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                            <div>
+                                <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Version A - Stat-Led</div>
+                                <div id="preview-${size.name}-a" style="border: 1px solid #E5E5E5; border-radius: 4px; overflow: hidden;"></div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Version B - Tension-Led</div>
+                                <div id="preview-${size.name}-b" style="border: 1px solid #E5E5E5; border-radius: 4px; overflow: hidden;"></div>
                             </div>
                         </div>
-                    </div>`;
-                }
+                    </div>
+                </div>`;
             });
 
             // Parse LinkedIn Sponsored Ad - more flexible
