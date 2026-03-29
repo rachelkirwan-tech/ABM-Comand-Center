@@ -1585,6 +1585,8 @@
             display: flex;
             flex-direction: column;
             background: #FFFFFF;
+            max-height: 100%;
+            overflow-y: auto;
         }
 
         .influ2-header {
@@ -6761,11 +6763,20 @@ chaos</div>
         function toggleContentField() {
             const contentAdRadio = document.getElementById('influ2AdTypeContent');
             const contentSection = document.getElementById('influ2ContentSection');
+            const status = document.getElementById('influ2Status');
 
             if (contentAdRadio.checked) {
                 contentSection.style.display = 'block';
+                // Update status for Content Ad mode
+                if (status && !status.classList.contains('active') && !status.classList.contains('error')) {
+                    status.textContent = 'Ready to generate. Paste content or URL above, then click Generate.';
+                }
             } else {
                 contentSection.style.display = 'none';
+                // Update status for Air Cover Ad mode
+                if (status && !status.classList.contains('active') && !status.classList.contains('error')) {
+                    status.textContent = 'Ready to generate.';
+                }
             }
         }
 
@@ -7495,7 +7506,7 @@ Generate ALL sections now in the exact order specified above.`;
 
             // Lightweight header with industry and version info
             html += `<div style="padding: 16px 0; margin-bottom: 12px; border-bottom: 1px solid #E0E0E0;">
-                <div style="font-size: 15px; color: #2D4C33; font-weight: 600;">
+                <div style="font-size: 14px; color: #666; font-weight: 400;">
                     ${industry} — Version A: Stat-Led / Version B: Tension-Led
                 </div>
             </div>`;
