@@ -7260,6 +7260,13 @@ Generate ALL sections now in the exact order specified above.`;
                 exportContainer.id = `export-${sizeName}-${version}`;
                 exportContainer.style.cssText = 'margin-top: 12px; padding-top: 12px; border-top: 1px solid #E5E7EB; display: flex; flex-direction: column; gap: 8px;';
 
+                // Download PNG button
+                const downloadButton = document.createElement('button');
+                downloadButton.id = `download-${sizeName}-${version}`;
+                downloadButton.textContent = '⬇️ Download PNG';
+                downloadButton.style.cssText = 'width: 100%; background: #D1F470; color: #11110D; font-weight: 600; border-radius: 6px; padding: 8px 12px; border: none; cursor: pointer; font-size: 13px; font-family: inherit;';
+                downloadButton.onclick = () => downloadAdAsPng(sizeName, version);
+
                 // Copy All Text button
                 const copyButton = document.createElement('button');
                 copyButton.id = `copy-${sizeName}-${version}`;
@@ -7273,6 +7280,7 @@ Generate ALL sections now in the exact order specified above.`;
                 exportButton.style.cssText = 'width: 100%; background: #2D4C33; color: #FFFFFF; font-weight: 600; border-radius: 6px; padding: 8px 12px; border: none; cursor: pointer; font-size: 13px; font-family: inherit;';
                 exportButton.onclick = () => exportAdToCanva(sizeName, version, headline, body, cta);
 
+                exportContainer.appendChild(downloadButton);
                 exportContainer.appendChild(copyButton);
                 exportContainer.appendChild(exportButton);
                 details.appendChild(exportContainer);
@@ -7776,6 +7784,95 @@ Generate ALL sections now in the exact order specified above.`;
             } catch (error) {
                 console.error('Copy failed:', error);
                 alert('Failed to copy to clipboard. Please try again.');
+            }
+        }
+
+        // Download ad mockup as PNG using html2canvas
+        async function downloadAdAsPng(sizeName, version) {
+            const downloadButton = document.getElementById(`download-${sizeName}-${version}`);
+            if (!downloadButton) return;
+
+            // Get the preview container that holds the scaled ad
+            const previewContainer = document.getElementById(`preview-${sizeName}-${version}`);
+            if (!previewContainer) {
+                alert('Ad preview not found');
+                return;
+            }
+
+            // Find the actual ad element (not the scaled container)
+            const scaledContainer = previewContainer.querySelector('div[style*="transform: scale"]');
+            const adElement = scaledContainer ? scaledContainer.firstChild : previewContainer.firstChild;
+
+            if (!adElement) {
+                alert('Ad element not found');
+                return;
+            }
+
+            // Show loading state
+            const originalText = downloadButton.textContent;
+            downloadButton.textContent = '⏳ Capturing...';
+            downloadButton.disabled = true;
+
+            try {
+                // Get the config to determine exact dimensions
+                const config = adSizeConfigs[sizeName];
+                if (!config) {
+                    throw new Error('Ad size configuration not found');
+                }
+
+                // Capture the ad element at exact pixel dimensions
+                const canvas = await html2canvas(adElement, {
+                    scale: 1,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: null,
+                    width: config.width,
+                    height: config.height,
+                    windowWidth: config.width,
+                    windowHeight: config.height
+                });
+
+                // Convert to blob and download
+                canvas.toBlob((blob) => {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+
+                    // Get industry from context or default to generic
+                    const industry = influ2CurrentAdContext?.industry || 'Ad';
+                    const industryCode = industry.substring(0, 2).toUpperCase();
+
+                    // Determine version name
+                    const versionName = version === 'a' ? 'StatLed' : 'TensionLed';
+
+                    // Format filename: ME_StatLed_300x250.png
+                    a.download = `${industryCode}_${versionName}_${sizeName}.png`;
+
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+
+                    // Show success state
+                    downloadButton.textContent = '✓ Downloaded!';
+                    downloadButton.style.background = '#10B981';
+                    downloadButton.style.color = '#FFFFFF';
+
+                    setTimeout(() => {
+                        downloadButton.textContent = originalText;
+                        downloadButton.style.background = '#D1F470';
+                        downloadButton.style.color = '#11110D';
+                        downloadButton.disabled = false;
+                    }, 2000);
+
+                    console.log(`✅ Downloaded: ${a.download}`);
+                }, 'image/png');
+
+            } catch (error) {
+                console.error('Download failed:', error);
+                alert('Failed to download PNG. Please try again.');
+                downloadButton.textContent = originalText;
+                downloadButton.disabled = false;
             }
         }
 
