@@ -7258,13 +7258,22 @@ Generate ALL sections now in the exact order specified above.`;
             if (sizeName && version) {
                 const exportContainer = document.createElement('div');
                 exportContainer.id = `export-${sizeName}-${version}`;
-                exportContainer.style.cssText = 'margin-top: 12px; padding-top: 12px; border-top: 1px solid #E5E7EB;';
+                exportContainer.style.cssText = 'margin-top: 12px; padding-top: 12px; border-top: 1px solid #E5E7EB; display: flex; flex-direction: column; gap: 8px;';
 
+                // Copy All Text button
+                const copyButton = document.createElement('button');
+                copyButton.id = `copy-${sizeName}-${version}`;
+                copyButton.textContent = '📋 Copy All Text';
+                copyButton.style.cssText = 'width: 100%; background: #F3F4F6; color: #2D4C33; font-weight: 600; border-radius: 6px; padding: 8px 12px; border: 1px solid #E5E7EB; cursor: pointer; font-size: 13px; font-family: inherit;';
+                copyButton.onclick = () => copyAdTextToClipboard(sizeName, version, headline, body, cta);
+
+                // Export to Canva button
                 const exportButton = document.createElement('button');
                 exportButton.textContent = '📤 Export to Canva';
                 exportButton.style.cssText = 'width: 100%; background: #2D4C33; color: #FFFFFF; font-weight: 600; border-radius: 6px; padding: 8px 12px; border: none; cursor: pointer; font-size: 13px; font-family: inherit;';
                 exportButton.onclick = () => exportAdToCanva(sizeName, version, headline, body, cta);
 
+                exportContainer.appendChild(copyButton);
                 exportContainer.appendChild(exportButton);
                 details.appendChild(exportContainer);
             }
@@ -7737,6 +7746,37 @@ Generate ALL sections now in the exact order specified above.`;
         function autoResizeInflu2Textarea(textarea) {
             textarea.style.height = 'auto';
             textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+        }
+
+        // Copy ad text to clipboard as tab-separated values
+        async function copyAdTextToClipboard(sizeName, version, headline, body, cta) {
+            const copyButton = document.getElementById(`copy-${sizeName}-${version}`);
+            if (!copyButton) return;
+
+            // Format as tab-separated values (TSV) for Canva Bulk Create
+            const tsvText = `${headline}\t${body || ''}\t${cta}`;
+
+            try {
+                await navigator.clipboard.writeText(tsvText);
+
+                // Show "Copied!" confirmation
+                const originalText = copyButton.textContent;
+                copyButton.textContent = '✓ Copied!';
+                copyButton.style.background = '#D1F470';
+                copyButton.style.color = '#11110D';
+
+                // Reset after 2 seconds
+                setTimeout(() => {
+                    copyButton.textContent = originalText;
+                    copyButton.style.background = '#F3F4F6';
+                    copyButton.style.color = '#2D4C33';
+                }, 2000);
+
+                console.log(`✅ Copied to clipboard: ${sizeName} ${version}`);
+            } catch (error) {
+                console.error('Copy failed:', error);
+                alert('Failed to copy to clipboard. Please try again.');
+            }
         }
 
         // Canva export functionality
