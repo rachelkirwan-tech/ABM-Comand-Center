@@ -2358,6 +2358,7 @@
                 <li><a onclick="showTop250Section('dashboard')" class="quick-nav-link active" id="nav-dashboard">📊 Dashboard</a></li>
                 <li><a onclick="showTop250Section('journey')" class="quick-nav-link" id="nav-journey">🎯 Signal-Based Workflow</a></li>
                 <li><a onclick="showTop250Section('influ2')" class="quick-nav-link" id="nav-influ2">📱 Influ2 Ads</a></li>
+                <li><a onclick="showTop250Section('industryMarketo')" class="quick-nav-link" id="nav-industryMarketo">📬 Industry Marketo Emails</a></li>
                 <li><a onclick="showTop250Section('marketo')" class="quick-nav-link" id="nav-marketo">📧 Marketo Emails</a></li>
                 <li><a onclick="showTop250Section('cadence')" class="quick-nav-link" id="nav-cadence">📞 Sales Cadence</a></li>
                 <li><a onclick="showTop250Section('browse')" class="quick-nav-link" id="nav-browse">📋 Browse Accounts</a></li>
@@ -2865,6 +2866,177 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+
+            <!-- Industry Marketo Emails Section -->
+            <div class="top250-section" id="section-industryMarketo">
+            <section id="generate-industry-emails" class="section" style="background: linear-gradient(135deg, #2D4C33 0%, #5A8F69 100%); color: white;">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <h2 style="color: white; margin-bottom: 0.5rem; font-size: 1.8rem; font-weight: 700;">Industry Marketo Email Generator</h2>
+                    <p style="opacity: 0.95; color: white; font-size: 0.95rem;">Generate signal-triggered email sequences by industry and buyer stage</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem;">Industry Selection</label>
+                        <select id="industryEmailIndustrySelect" style="width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-size: 0.9rem;">
+                            <option value="Retail">Retail</option>
+                            <option value="Media & Entertainment">Media & Entertainment</option>
+                            <option value="Financial Services">Financial Services</option>
+                            <option value="Travel & Hospitality">Travel & Hospitality</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem;">Buyer Stage</label>
+                        <select id="industryEmailBuyerStageSelect" style="width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-size: 0.9rem;">
+                            <option value="Awareness">Awareness</option>
+                            <option value="Consideration">Consideration</option>
+                            <option value="Decision">Decision</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem;">Contact Name</label>
+                        <input type="text" id="industryEmailContact" value="Sarah" style="width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-size: 0.9rem;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem;">Account Name</label>
+                        <select id="industryEmailAccount" style="width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-size: 0.9rem;">
+                            <option value="Amwins">Amwins</option>
+                            <option value="ThirdLove">ThirdLove</option>
+                            <option value="AO Globe Life">AO Globe Life</option>
+                            <option value="Weave Communications, inc.">Weave Communications, inc.</option>
+                            <option value="Manulife Financial Corporation">Manulife Financial Corporation</option>
+                            <option value="CENTURY 21 Canada">CENTURY 21 Canada</option>
+                            <option value="Corcentric">Corcentric</option>
+                            <option value="Ozone Networks, Inc. dba OpenSea">Ozone Networks, Inc. dba OpenSea</option>
+                            <option value="Sabre Corporation">Sabre Corporation</option>
+                            <option value="SHAZAM Network">SHAZAM Network</option>
+                            <option value="SVN">SVN</option>
+                            <option value="Hyland Software, Inc.">Hyland Software, Inc.</option>
+                            <option value="CarShield">CarShield</option>
+                            <option value="Hibu">Hibu</option>
+                            <option value="The Bostwick-Braun Company">The Bostwick-Braun Company</option>
+                            <option value="Vuori">Vuori</option>
+                            <option value="WithumSmith+Brown">WithumSmith+Brown</option>
+                            <option value="Turnberry Associates">Turnberry Associates</option>
+                            <option value="System Soft Technologies LLC">System Soft Technologies LLC</option>
+                            <option value="Realty Austin">Realty Austin</option>
+                            <option value="ByteDance">ByteDance</option>
+                            <option value="Amplify">Amplify</option>
+                            <option value="Adorama">Adorama</option>
+                            <option value="Foundry Commercial">Foundry Commercial</option>
+                            <option value="CarNow">CarNow</option>
+                            <option value="Two Sigma Insurance Quantified, LP">Two Sigma Insurance Quantified, LP</option>
+                            <option value="Computershare US">Computershare US</option>
+                            <option value="SelectQuote">SelectQuote</option>
+                            <option value="Flagship Pioneering Labs TPC, Inc.">Flagship Pioneering Labs TPC, Inc.</option>
+                            <option value="Clowns.com">Clowns.com</option>
+                            <option value="CarGurus, Inc.">CarGurus, Inc.</option>
+                            <option value="Eckhart Tolle TV">Eckhart Tolle TV</option>
+                            <option value="The Burton Corporation">The Burton Corporation</option>
+                            <option value="Covered California">Covered California</option>
+                            <option value="GRIFFIN MEDIA">GRIFFIN MEDIA</option>
+                            <option value="Transcontinental Inc.">Transcontinental Inc.</option>
+                            <option value="Boyd Gaming Corporation">Boyd Gaming Corporation</option>
+                            <option value="Mansueto Ventures">Mansueto Ventures</option>
+                            <option value="Houston Chronicle">Houston Chronicle</option>
+                            <option value="LA Times">LA Times</option>
+                            <option value="The Globe and Mail">The Globe and Mail</option>
+                            <option value="Postmedia Network Canada Corp">Postmedia Network Canada Corp</option>
+                            <option value="MacMillan Publishers, Inc.">MacMillan Publishers, Inc.</option>
+                            <option value="Pearson Education Canada Inc">Pearson Education Canada Inc</option>
+                            <option value="RLJ Entertainment, Inc.">RLJ Entertainment, Inc.</option>
+                            <option value="Spanx">Spanx</option>
+                            <option value="Underdog Sports">Underdog Sports</option>
+                            <option value="Pilot.com">Pilot.com</option>
+                            <option value="The Rockport Company, LLC">The Rockport Company, LLC</option>
+                            <option value="Aon Service Corporation">Aon Service Corporation</option>
+                            <option value="SVB Financial Group">SVB Financial Group</option>
+                            <option value="TIAA">TIAA</option>
+                            <option value="Wolters Kluwer United States, Inc.">Wolters Kluwer United States, Inc.</option>
+                            <option value="Lovevery Europe B.V.">Lovevery Europe B.V.</option>
+                            <option value="Gemalto Cogent, Inc">Gemalto Cogent, Inc</option>
+                            <option value="USAA">USAA</option>
+                            <option value="Industrial Alliance Insurance and Financial Services Inc.">Industrial Alliance Insurance and Financial Services Inc.</option>
+                            <option value="Gray Television">Gray Television</option>
+                            <option value="Avid Technology, Inc.">Avid Technology, Inc.</option>
+                            <option value="Mutual of Omaha Insurance Company">Mutual of Omaha Insurance Company</option>
+                            <option value="Swickard Auto Group">Swickard Auto Group</option>
+                            <option value="Old National Bank">Old National Bank</option>
+                            <option value="OpenGov">OpenGov</option>
+                            <option value="Nothing Bundt Cakes">Nothing Bundt Cakes</option>
+                            <option value="Richter Management Ltd.">Richter Management Ltd.</option>
+                            <option value="Luminar">Luminar</option>
+                            <option value="Saviynt">Saviynt</option>
+                            <option value="GeoComply Solutions Inc.">GeoComply Solutions Inc.</option>
+                            <option value="ExtraHop Networks">ExtraHop Networks</option>
+                            <option value="Hearst Television, Inc.">Hearst Television, Inc.</option>
+                            <option value="Colliers International Usa, LLC">Colliers International Usa, LLC</option>
+                            <option value="Jefferson Capital Systems, LLC">Jefferson Capital Systems, LLC</option>
+                            <option value="Innovaccer US">Innovaccer US</option>
+                            <option value="First National of Nebraska">First National of Nebraska</option>
+                            <option value="Veritone">Veritone</option>
+                            <option value="StoneX">StoneX</option>
+                            <option value="Trek">Trek</option>
+                            <option value="Gen II Fund Services">Gen II Fund Services</option>
+                            <option value="Knock">Knock</option>
+                            <option value="Urban One">Urban One</option>
+                            <option value="Zenni Optical, Inc">Zenni Optical, Inc</option>
+                            <option value="American Fidelity Assurance Company">American Fidelity Assurance Company</option>
+                            <option value="Tegna">Tegna</option>
+                            <option value="Entravision Communication">Entravision Communication</option>
+                            <option value="Cumulus Media">Cumulus Media</option>
+                            <option value="Rogers Communications- Digital Media">Rogers Communications- Digital Media</option>
+                            <option value="Clarivate Analytics">Clarivate Analytics</option>
+                            <option value="Wiley">Wiley</option>
+                            <option value="The Associated Press">The Associated Press</option>
+                            <option value="Pearson Education Holdings Inc.">Pearson Education Holdings Inc.</option>
+                            <option value="McGraw-Hill Education">McGraw-Hill Education</option>
+                            <option value="Univision Holdings, Inc.">Univision Holdings, Inc.</option>
+                            <option value="Torstar Corporation">Torstar Corporation</option>
+                            <option value="Ooka Island">Ooka Island</option>
+                            <option value="Cengage Learning Holdings II, Inc.">Cengage Learning Holdings II, Inc.</option>
+                            <option value="Engrade">Engrade</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem;">Signal Type</label>
+                        <select id="industryEmailSignal" style="width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-size: 0.9rem;">
+                            <option value="job_change">Job Change (LinkedIn)</option>
+                            <option value="repo_activity">Repo Activity (GitHub)</option>
+                            <option value="intent_spike">Intent Spike (6Sense)</option>
+                            <option value="hiring">Hiring Signal (Job Posts)</option>
+                            <option value="community">Community Activity (Slack/Discord)</option>
+                            <option value="product_usage">Product Usage (PQL)</option>
+                            <option value="funding">Funding Event (Crunchbase)</option>
+                            <option value="web_visit">Web Visit (Pricing/Docs)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <button onclick="generateIndustryEmailSequence()" style="background: #D1F470; color: #11110D; border: none; padding: 0.75rem 2rem; border-radius: 25px; font-weight: 600; cursor: pointer; font-size: 0.9rem;">Generate Email Sequence</button>
+                    <button onclick="downloadIndustryEmailText()" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white; padding: 0.75rem 2rem; border-radius: 25px; font-weight: 600; cursor: pointer; font-size: 0.9rem;">Download Email Text</button>
+                </div>
+
+                <div id="industryEmailStatus" style="margin-bottom: 1.5rem; text-align: center; font-size: 0.9rem; color: white; font-weight: 500; min-height: 24px;">
+                    Ready to generate. Select your inputs above and click Generate.
+                </div>
+
+                <div style="overflow-x: auto; margin-bottom: 2rem;">
+                    <div id="industryEmailSequenceContainer" style="display: flex; gap: 1.5rem; padding-bottom: 1rem;">
+                        <!-- Emails will be generated here by JavaScript -->
+                    </div>
+                </div>
+
+                <div style="text-align: center;">
+                    <div id="industryEmailCopyConfirm" style="margin-top: 0.75rem; font-size: 0.9rem; color: #D1F470; font-weight: 600; display: none;">✓ Sequence ready to download!</div>
+                </div>
+            </section>
             </div>
 
 
@@ -4060,6 +4232,7 @@ chaos</div>
                     'dashboard': 'Dashboard',
                     'journey': 'Signal-Based Workflow',
                     'influ2': 'Influ2 Ads',
+                    'industryMarketo': 'Industry Marketo Emails',
                     'marketo': 'Marketo Emails',
                     'cadence': 'Sales Cadence',
                     'browse': 'Browse Accounts'
@@ -5090,6 +5263,273 @@ chaos</div>
             document.getElementById('copyConfirm').style.display = 'block';
             setTimeout(function() {
                 document.getElementById('copyConfirm').style.display = 'none';
+            }, 3000);
+        }
+
+        // Generate Industry Email Sequence using AI
+        async function generateIndustryEmailSequence() {
+            const industry = document.getElementById('industryEmailIndustrySelect').value;
+            const buyerStage = document.getElementById('industryEmailBuyerStageSelect').value;
+            const contact = document.getElementById('industryEmailContact').value;
+            const account = document.getElementById('industryEmailAccount').value;
+            const signal = document.getElementById('industryEmailSignal').value;
+            const statusEl = document.getElementById('industryEmailStatus');
+            const container = document.getElementById('industryEmailSequenceContainer');
+
+            if (!contact || !account) {
+                statusEl.textContent = 'Please fill in contact name and account name.';
+                statusEl.style.color = '#FFD700';
+                return;
+            }
+
+            statusEl.textContent = 'Loading industry intelligence...';
+            statusEl.style.color = 'white';
+            container.innerHTML = '';
+
+            const signalDisplayMap = {
+                'job_change': 'Job Change (LinkedIn)',
+                'repo_activity': 'Repo Activity (GitHub)',
+                'intent_spike': 'Intent Spike (6Sense)',
+                'hiring': 'Hiring Signal (Job Posts)',
+                'community': 'Community Activity (Slack/Discord)',
+                'product_usage': 'Product Usage (PQL)',
+                'funding': 'Funding Event (Crunchbase)',
+                'web_visit': 'Web Visit (Pricing/Docs)'
+            };
+
+            try {
+                // Fetch industry MSD and buyer stage supplement
+                const industryMsdPath = INFLU2_MSD_PATHS.industries[industry];
+                const buyerStagePath = INFLU2_MSD_PATHS.buyerStageSupplement;
+
+                statusEl.textContent = 'Fetching MSD files...';
+
+                const [industryMsdResponse, buyerStageResponse] = await Promise.all([
+                    fetch(industryMsdPath),
+                    fetch(buyerStagePath)
+                ]);
+
+                if (!industryMsdResponse.ok || !buyerStageResponse.ok) {
+                    throw new Error('Failed to load MSD files');
+                }
+
+                const industryMsd = await industryMsdResponse.text();
+                const buyerStageMsd = await buyerStageResponse.text();
+
+                statusEl.textContent = 'Generating email sequence with AI...';
+
+                // Build Bedrock prompt
+                const prompt = `You are a B2B email marketing expert for Zendesk. Generate a 5-email nurture sequence for the following context:
+
+INDUSTRY: ${industry}
+BUYER STAGE: ${buyerStage}
+SIGNAL TYPE: ${signalDisplayMap[signal]}
+CONTACT NAME: ${contact}
+ACCOUNT NAME: ${account}
+
+INDUSTRY MSD:
+${industryMsd}
+
+BUYER STAGE RULES:
+${buyerStageMsd}
+
+INSTRUCTIONS:
+1. Generate exactly 5 emails for this sequence, timed as: Day 0 (initial signal trigger), +1 Week, +2 Weeks, +3 Weeks, +4 Weeks
+2. Each email must include these exact fields in this format:
+   EMAIL [number]
+   SUBJECT: [subject line]
+   PREVIEW: [preview text]
+   HERO: [hero headline - keep to 2 lines max]
+   CTA: [CTA button text - 2-4 words]
+   BODY: [email body copy - 2-3 paragraphs]
+
+3. Use the INDUSTRY MSD to inform:
+   - Industry-specific pain points and stats
+   - Relevant use cases and benefits
+   - Appropriate customer examples
+
+4. Use the BUYER STAGE RULES to control:
+   - Tone and messaging approach
+   - CTA strength and directness
+   - Content type and educational level
+
+5. Use the SIGNAL TYPE (${signalDisplayMap[signal]}) to:
+   - Frame the opening hook and context
+   - Reference why we're reaching out now
+   - Maintain relevance throughout the sequence
+
+6. Personalize with ${contact} and ${account} throughout
+7. Follow the exact format above - each email must have all 5 fields
+8. Do not add extra commentary, just the structured email content`;
+
+                // Call Bedrock
+                const bedrockResponse = await fetch('https://j9cd9sz6kk.execute-api.us-east-1.amazonaws.com/prod/bedrock-proxy', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        prompt: prompt,
+                        modelId: 'us.anthropic.claude-sonnet-4-5-20250929-v1:0',
+                        maxTokens: 4000
+                    })
+                });
+
+                if (!bedrockResponse.ok) {
+                    const errorData = await bedrockResponse.text();
+                    throw new Error(`Bedrock API error: ${errorData}`);
+                }
+
+                const data = await bedrockResponse.json();
+                const aiResponse = data.content[0].text;
+
+                statusEl.textContent = 'Parsing email sequence...';
+
+                // Parse the AI response to extract 5 emails
+                const emails = parseIndustryEmailSequence(aiResponse);
+
+                if (emails.length !== 5) {
+                    throw new Error(`Expected 5 emails, got ${emails.length}`);
+                }
+
+                // Store for download
+                window.industryEmailsData = {
+                    industry,
+                    buyerStage,
+                    contact,
+                    account,
+                    signal: signalDisplayMap[signal],
+                    emails
+                };
+
+                // Render email cards
+                const timingLabels = ['Day 0', '+1 Week', '+2 Weeks', '+3 Weeks', '+4 Weeks'];
+
+                emails.forEach((email, index) => {
+                    const emailHTML = `<div class="email-card" id="industryEmailCard${index + 1}" style="background: white; color: #333; border-radius: 8px; overflow: hidden; width: 280px; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <div style="background: #f8f9fa; padding: 0.6rem 0.9rem; border-bottom: 1px solid #e0e0e0;">
+                            <div style="font-size: 0.6rem; color: #666; margin-bottom: 0.2rem; font-weight: 600; text-transform: uppercase;">Email ${index + 1} - ${timingLabels[index]}</div>
+                            <div style="font-size: 0.7rem; color: #11110D; font-weight: 600;">${signalDisplayMap[signal]}</div>
+                        </div>
+                        <div style="background: #fff; border-bottom: 1px solid #e0e0e0; padding: 0.6rem 0.9rem;">
+                            <div style="margin-bottom: 0.5rem;">
+                                <div style="font-size: 0.6rem; color: #666; font-weight: 600; margin-bottom: 0.2rem;">SUBJECT:</div>
+                                <div style="font-size: 0.75rem; font-weight: 600; color: #11110D; line-height: 1.2;">${email.subject}</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.6rem; color: #666; font-weight: 600; margin-bottom: 0.2rem;">PREVIEW:</div>
+                                <div style="font-size: 0.7rem; color: #666; font-style: italic; line-height: 1.2;">${email.preview}</div>
+                            </div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); padding: 1rem 0.9rem; text-align: center;">
+                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 0.6rem; line-height: 1.2;">${email.hero}</div>
+                            <button style="background: #D1F470; color: #11110D; border: none; padding: 0.4rem 0.9rem; border-radius: 6px; font-weight: 600; font-size: 0.7rem; cursor: pointer;">${email.cta}</button>
+                        </div>
+                        <div style="padding: 0.9rem;">
+                            <div style="font-size: 0.7rem; line-height: 1.4; color: #333;">${email.body}
+                                <div style="text-align: center; margin-top: 0.9rem;"><button style="background: #D1F470; color: #11110D; border: none; padding: 0.4rem 0.9rem; border-radius: 6px; font-weight: 600; font-size: 0.7rem; cursor: pointer;">${email.cta}</button></div>
+                            </div>
+                        </div>
+                        <div style="background: #2D4C33; color: white; padding: 0.9rem; text-align: center;">
+                            <div style="font-size: 0.8rem; font-weight: 600; margin-bottom: 0.3rem;">Customer service is changing--fast</div>
+                            <div style="font-size: 0.65rem; margin-bottom: 0.6rem; opacity: 0.9;">Start your CX transformation today.</div>
+                            <div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+                                <button style="background: #D1F470; color: #11110D; border: none; padding: 0.4rem 0.7rem; border-radius: 5px; font-weight: 600; font-size: 0.65rem; cursor: pointer;">Start trial</button>
+                                <button style="background: transparent; color: white; border: 2px solid white; padding: 0.4rem 0.7rem; border-radius: 5px; font-weight: 600; font-size: 0.65rem; cursor: pointer;">Get demo</button>
+                            </div>
+                        </div>
+                    </div>`;
+                    container.innerHTML += emailHTML;
+                });
+
+                statusEl.textContent = '✓ Email sequence generated successfully!';
+                statusEl.style.color = '#D1F470';
+
+                document.getElementById('industryEmailCopyConfirm').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('industryEmailCopyConfirm').style.display = 'none';
+                }, 3000);
+
+            } catch (error) {
+                console.error('Error generating industry email sequence:', error);
+                statusEl.textContent = `Error: ${error.message}`;
+                statusEl.style.color = '#FFD700';
+                container.innerHTML = '<div style="color: white; padding: 2rem; text-align: center;">Failed to generate emails. Please try again.</div>';
+            }
+        }
+
+        // Parse AI response into structured email objects
+        function parseIndustryEmailSequence(aiResponse) {
+            const emails = [];
+            const emailBlocks = aiResponse.split(/EMAIL \d+/i).filter(block => block.trim());
+
+            emailBlocks.forEach(block => {
+                const subjectMatch = block.match(/SUBJECT:\s*(.+)/i);
+                const previewMatch = block.match(/PREVIEW:\s*(.+)/i);
+                const heroMatch = block.match(/HERO:\s*(.+?)(?=CTA:|$)/is);
+                const ctaMatch = block.match(/CTA:\s*(.+)/i);
+                const bodyMatch = block.match(/BODY:\s*(.+?)(?=EMAIL \d+|$)/is);
+
+                if (subjectMatch && previewMatch && heroMatch && ctaMatch && bodyMatch) {
+                    emails.push({
+                        subject: subjectMatch[1].trim(),
+                        preview: previewMatch[1].trim(),
+                        hero: heroMatch[1].trim().replace(/\n/g, '<br>'),
+                        cta: ctaMatch[1].trim(),
+                        body: bodyMatch[1].trim().replace(/\n\n/g, '</p><p style="margin: 0 0 1rem 0;">').replace(/^/, '<p style="margin: 0 0 1rem 0;">').replace(/$/, '</p>')
+                    });
+                }
+            });
+
+            return emails;
+        }
+
+        // Download Industry Email Text
+        function downloadIndustryEmailText() {
+            if (!window.industryEmailsData) {
+                alert('Please generate emails first');
+                return;
+            }
+
+            const { industry, buyerStage, contact, account, signal, emails } = window.industryEmailsData;
+
+            let textContent = '======================================\n';
+            textContent += `${account} - INDUSTRY EMAIL SEQUENCE\n`;
+            textContent += `Industry: ${industry}\n`;
+            textContent += `Buyer Stage: ${buyerStage}\n`;
+            textContent += `Signal: ${signal}\n`;
+            textContent += `Contact: ${contact}\n`;
+            textContent += '======================================\n\n';
+
+            const timingLabels = ['Day 0 (Initial)', '+1 Week', '+2 Weeks', '+3 Weeks', '+4 Weeks'];
+
+            emails.forEach((email, index) => {
+                textContent += '----------------------------------------\n';
+                textContent += `EMAIL ${index + 1} - ${timingLabels[index]}\n`;
+                textContent += '----------------------------------------\n\n';
+                textContent += `SUBJECT LINE:\n${email.subject}\n\n`;
+                textContent += `PREVIEW TEXT:\n${email.preview}\n\n`;
+                textContent += `HERO HEADLINE:\n${email.hero.replace(/<br>/g, '\n')}\n\n`;
+                textContent += `HERO CTA:\n${email.cta}\n\n`;
+                textContent += `EMAIL BODY:\n${email.body.replace(/<p[^>]*>/g, '').replace(/<\/p>/g, '\n')}\n\n`;
+                textContent += `BODY CTA:\n${email.cta}\n\n`;
+                textContent += 'FOOTER:\nCustomer service is changing--fast\nStart your CX transformation today.\nCTAs: Start your free trial | Get a demo\n\n';
+            });
+
+            textContent += '======================================\n';
+            textContent += 'END OF SEQUENCE\n';
+            textContent += '======================================\n';
+
+            const blob = new Blob([textContent], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `${account}_${industry}_${buyerStage}_${signal.replace(/\s/g, '_')}_Email_Sequence.txt`;
+            link.click();
+
+            document.getElementById('industryEmailCopyConfirm').innerHTML = '✓ Email text file downloaded!';
+            document.getElementById('industryEmailCopyConfirm').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('industryEmailCopyConfirm').style.display = 'none';
             }, 3000);
         }
 
