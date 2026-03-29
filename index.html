@@ -6953,6 +6953,7 @@ VOICE AND TONE RULES:
 - No em dashes in copy
 - Never use: empower, leverage, seamless, unlock, transform
 - No possessive on Zendesk ("Zendesk products" not "Zendesk's products")
+- NEVER combine percentages with plus signs. Do not write "50%+" or "80%+". Instead write "over 50%" or "more than 80%"
 
 VERSION A (Stat-Led): Headline is a verb-led action statement. Body contains the key stat from the MSD as proof.
 VERSION B (Tension-Led): Headline frames the pain point as a question or challenge. Body positions Zendesk as the resolution.
@@ -7063,10 +7064,10 @@ Generate ALL sections now in the exact order specified above.`;
             },
             '300x600': {
                 width: 300, height: 600,
-                textContainer: { left: '6%', top: '4%', maxWidth: '88%', overflow: 'hidden' },
+                textContainer: { left: '6%', top: '8%', maxWidth: '88%', overflow: 'hidden' },
                 headline: { fontSize: `${AD_TYPE_SCALE['300x600'].headline.size}px`, fontWeight: AD_TYPE_SCALE['300x600'].headline.weight, lineHeight: '110%' },
-                body: { fontSize: `${AD_TYPE_SCALE['300x600'].body.size}px`, fontWeight: AD_TYPE_SCALE['300x600'].body.weight, lineHeight: '110%', marginTop: '10px' },
-                cta: { fontSize: `${AD_TYPE_SCALE['300x600'].cta.size}px`, fontWeight: AD_TYPE_SCALE['300x600'].cta.weight, padding: '7px 20px', marginTop: '18px' }
+                body: { fontSize: `${AD_TYPE_SCALE['300x600'].body.size}px`, fontWeight: AD_TYPE_SCALE['300x600'].body.weight, lineHeight: '110%', marginTop: '24px' },
+                cta: { fontSize: `${AD_TYPE_SCALE['300x600'].cta.size}px`, fontWeight: AD_TYPE_SCALE['300x600'].cta.weight, padding: '7px 20px', marginTop: '48px' }
             },
             '160x600': {
                 width: 160, height: 600,
@@ -7820,9 +7821,9 @@ Generate ALL sections now in the exact order specified above.`;
                     throw new Error('Ad size configuration not found');
                 }
 
-                // Capture the ad element at exact pixel dimensions
+                // Capture the ad element at exact pixel dimensions with 3x scale for crisp output
                 const canvas = await html2canvas(adElement, {
-                    scale: 1,
+                    scale: 3,
                     useCORS: true,
                     allowTaint: true,
                     backgroundColor: null,
@@ -8195,6 +8196,7 @@ VOICE AND TONE RULES:
 - No em dashes in copy
 - Never use: empower, leverage, seamless, unlock, transform
 - No possessive on Zendesk ("Zendesk products" not "Zendesk's products")
+- NEVER combine percentages with plus signs. Do not write "50%+" or "80%+". Instead write "over 50%" or "more than 80%"
 
 VERSION A (Stat-Led): Headline is a verb-led action statement. Body contains the key stat from the MSD as proof.
 VERSION B (Tension-Led): Headline frames the pain point as a question or challenge. Body positions Zendesk as the resolution.
