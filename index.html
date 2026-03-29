@@ -2066,6 +2066,10 @@
             to { transform: rotate(360deg); }
         }
 
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         /* Chat Panel Styles */
         .influ2-chat-header {
             padding: 20px;
@@ -7221,7 +7225,7 @@ Generate ALL sections now in the exact order specified above.`;
             return container;
         }
 
-        function createAdCopyTextBlock(headline, body, cta) {
+        function createAdCopyTextBlock(headline, body, cta, sizeName = null, version = null) {
             const details = document.createElement('div');
             details.style.cssText = 'background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 8px; padding: 12px; margin-top: 8px; font-family: \'Zendesk Sans\', -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;';
 
@@ -7247,8 +7251,23 @@ Generate ALL sections now in the exact order specified above.`;
 
             details.appendChild(makeLabel('CTA'));
             const ctaValue = makeValue(cta);
-            ctaValue.style.marginBottom = '0';
+            ctaValue.style.marginBottom = '12px';
             details.appendChild(ctaValue);
+
+            // Add Canva export section if sizeName and version are provided
+            if (sizeName && version) {
+                const exportContainer = document.createElement('div');
+                exportContainer.id = `export-${sizeName}-${version}`;
+                exportContainer.style.cssText = 'margin-top: 12px; padding-top: 12px; border-top: 1px solid #E5E7EB;';
+
+                const exportButton = document.createElement('button');
+                exportButton.textContent = '📤 Export to Canva';
+                exportButton.style.cssText = 'width: 100%; background: #2D4C33; color: #FFFFFF; font-weight: 600; border-radius: 6px; padding: 8px 12px; border: none; cursor: pointer; font-size: 13px; font-family: inherit;';
+                exportButton.onclick = () => exportAdToCanva(sizeName, version, headline, body, cta);
+
+                exportContainer.appendChild(exportButton);
+                details.appendChild(exportContainer);
+            }
 
             return details;
         }
@@ -7605,7 +7624,7 @@ Generate ALL sections now in the exact order specified above.`;
                                     previewAContainer.style.height = `${config.height * scale}px`;
                                     previewAContainer.appendChild(scaledContainer);
 
-                                    const detailsBlockA = createAdCopyTextBlock(versionA.headline, versionA.body, versionA.cta);
+                                    const detailsBlockA = createAdCopyTextBlock(versionA.headline, versionA.body, versionA.cta, sizeName, 'a');
                                     previewAContainer.appendChild(detailsBlockA);
 
                                     console.log(`✅ Rendered ${sizeName} Version A preview`);
@@ -7633,7 +7652,7 @@ Generate ALL sections now in the exact order specified above.`;
                                     previewBContainer.style.height = `${config.height * scale}px`;
                                     previewBContainer.appendChild(scaledContainer);
 
-                                    const detailsBlockB = createAdCopyTextBlock(versionB.headline, versionB.body, versionB.cta);
+                                    const detailsBlockB = createAdCopyTextBlock(versionB.headline, versionB.body, versionB.cta, sizeName, 'b');
                                     previewBContainer.appendChild(detailsBlockB);
 
                                     console.log(`✅ Rendered ${sizeName} Version B preview`);
@@ -7718,6 +7737,74 @@ Generate ALL sections now in the exact order specified above.`;
         function autoResizeInflu2Textarea(textarea) {
             textarea.style.height = 'auto';
             textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+        }
+
+        // Canva export functionality
+        async function exportAdToCanva(sizeName, version, headline, body, cta) {
+            const exportContainer = document.getElementById(`export-${sizeName}-${version}`);
+            if (!exportContainer) return;
+
+            // Get or create the design ID placeholder (this would normally come from autofill)
+            // For now, we'll assume there's a design_id mapping or prompt the user
+            const designId = prompt(`Enter the Canva Design ID for ${sizeName} Version ${version.toUpperCase()}:`);
+
+            if (!designId) {
+                alert('Design ID is required to export');
+                return;
+            }
+
+            // Show loading indicator
+            exportContainer.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 8px; color: #2D4C33; font-size: 13px;">
+                    <div style="width: 16px; height: 16px; border: 2px solid #2D4C33; border-top-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
+                    <span>Exporting from Canva...</span>
+                </div>
+            `;
+
+            try {
+                // Step 1: Call autofill (if needed - skip for now since we assume it's already filled)
+                // Step 2: Call export endpoint
+                const response = await fetch('http://localhost:3000/canva-export', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        design_id: designId
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Export failed: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+
+                if (!data.success || !data.urls || data.urls.length === 0) {
+                    throw new Error('No download URLs returned');
+                }
+
+                // Show download button
+                const downloadUrl = data.urls[0].url;
+                exportContainer.innerHTML = `
+                    <a href="${downloadUrl}" download="${sizeName}-${version}.png" target="_blank" style="display: block; width: 100%; background: #D1F470; color: #11110D; font-weight: 600; border-radius: 6px; padding: 8px 12px; text-align: center; text-decoration: none; font-size: 13px; font-family: inherit;">
+                        ⬇️ Download PNG
+                    </a>
+                `;
+
+                console.log(`✅ Export successful for ${sizeName} ${version}`);
+
+            } catch (error) {
+                console.error('Export error:', error);
+                exportContainer.innerHTML = `
+                    <div style="color: #DC2626; font-size: 12px; margin-bottom: 8px;">
+                        Export failed: ${error.message}
+                    </div>
+                    <button onclick="exportAdToCanva('${sizeName}', '${version}', '${headline.replace(/'/g, "\\'")}', '${body.replace(/'/g, "\\'")}', '${cta.replace(/'/g, "\\'")}')" style="width: 100%; background: #2D4C33; color: #FFFFFF; font-weight: 600; border-radius: 6px; padding: 8px 12px; border: none; cursor: pointer; font-size: 13px; font-family: inherit;">
+                        🔄 Retry Export
+                    </button>
+                `;
+            }
         }
 
         function downloadCanvaCsv() {
@@ -8165,7 +8252,7 @@ For questions about MSDs, provide clear, actionable answers based on the loaded 
                         previewAContainer.style.height = `${config.height * scale}px`;
                         previewAContainer.appendChild(scaledContainer);
 
-                        const detailsBlockA = createAdCopyTextBlock(adData.versionA.headline, adData.versionA.body, adData.versionA.cta);
+                        const detailsBlockA = createAdCopyTextBlock(adData.versionA.headline, adData.versionA.body, adData.versionA.cta, size, 'a');
                         previewAContainer.appendChild(detailsBlockA);
                     }
                 }
@@ -8191,7 +8278,7 @@ For questions about MSDs, provide clear, actionable answers based on the loaded 
                         previewBContainer.style.height = `${config.height * scale}px`;
                         previewBContainer.appendChild(scaledContainer);
 
-                        const detailsBlockB = createAdCopyTextBlock(adData.versionB.headline, adData.versionB.body, adData.versionB.cta);
+                        const detailsBlockB = createAdCopyTextBlock(adData.versionB.headline, adData.versionB.body, adData.versionB.cta, size, 'b');
                         previewBContainer.appendChild(detailsBlockB);
                     }
                 }
