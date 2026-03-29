@@ -7161,12 +7161,15 @@ Generate ALL sections now in the exact order specified above.`;
             headlineEl.textContent = headline;
             const hlStyle = config.headline;
 
+            // Check for font size override in fontConfig
+            const headlineFontSize = fontConfig[sizeName]?.headline || hlStyle.fontSize;
+
             headlineEl.style.cssText = `
                 color: #FFFFFF;
                 font-weight: ${hlStyle.fontWeight || 500};
                 line-height: ${hlStyle.lineHeight || '110%'};
                 letter-spacing: ${hlStyle.letterSpacing || '0'};
-                font-size: ${hlStyle.fontSize};
+                font-size: ${headlineFontSize};
             `;
             textContainer.appendChild(headlineEl);
 
@@ -7176,8 +7179,8 @@ Generate ALL sections now in the exact order specified above.`;
                 bodyEl.textContent = body;
                 const bodyStyle = config.body;
 
-                // Special handling for 300x250
-                const bodyFontSize = sizeName === '300x250' ? '10px' : bodyStyle.fontSize;
+                // Check for font size override in fontConfig, otherwise use special handling for 300x250
+                let bodyFontSize = fontConfig[sizeName]?.body || (sizeName === '300x250' ? '10px' : bodyStyle.fontSize);
 
                 bodyEl.style.cssText = `
                     color: #FFFFFF;
@@ -7194,6 +7197,10 @@ Generate ALL sections now in the exact order specified above.`;
             const ctaEl = document.createElement('div');
             ctaEl.textContent = cta;
             const ctaStyle = config.cta;
+
+            // Check for font size override in fontConfig
+            const ctaFontSize = fontConfig[sizeName]?.cta || ctaStyle.fontSize;
+
             let ctaCss = `
                 display: inline-block;
                 background: #D1F470;
@@ -7202,7 +7209,7 @@ Generate ALL sections now in the exact order specified above.`;
                 border-radius: ${ctaStyle.borderRadius || '100px'};
                 border: none;
                 cursor: default;
-                font-size: ${ctaStyle.fontSize};
+                font-size: ${ctaFontSize};
                 padding: ${ctaStyle.padding};
                 margin-top: ${ctaStyle.marginTop || '0'};
             `;
@@ -7705,6 +7712,9 @@ Generate ALL sections now in the exact order specified above.`;
         let influ2CurrentAdContext = null;
         let influ2CurrentAdSet = null;
 
+        // Font configuration override - allows chatbot to adjust font sizes per ad size
+        let fontConfig = {};
+
         function autoResizeInflu2Textarea(textarea) {
             textarea.style.height = 'auto';
             textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
@@ -8002,6 +8012,7 @@ ${influ2MsdCache.globalCS.substring(0, 1500)}...
 2. Refine existing ad copy based on user feedback
 3. Regenerate specific ad elements (headlines, body copy, CTAs) while keeping others intact
 4. Provide strategic guidance on messaging and positioning
+5. Adjust font sizes for headlines, body copy, and CTAs on specific ad sizes
 
 WHEN USER REQUESTS CHANGES:
 - Parse their feedback to understand what needs to change
@@ -8024,6 +8035,18 @@ Version B
 Headline: [text]
 Body: [text]
 CTA: [text]
+
+RESPONSE FORMAT FOR FONT SIZE ADJUSTMENTS:
+When user requests font size changes (e.g., "make the body font bigger on 300x250" or "reduce headline size on 728x90"), use this exact format:
+
+FONT_ADJUST:
+SIZE: [ad size like 1200x628, 1200x1200, 970x250, 300x250, 300x600, 160x600, 728x90, 320x50, 300x50]
+ELEMENT: [headline, body, or cta]
+FONTSIZE: [new size with unit, e.g., 28px, 16px, 12px]
+
+You can output multiple FONT_ADJUST blocks if the user requests changes to multiple sizes or elements. Available ad sizes are: 1200x628, 1200x1200, 970x250, 300x250, 300x600, 160x600, 728x90, 320x50, 300x50. Banner ads (728x90, 320x50, 300x50) do not have body text.
+
+After outputting FONT_ADJUST commands, provide a friendly confirmation message explaining what you've changed.
 
 For questions about MSDs, provide clear, actionable answers based on the loaded content.`;
 
@@ -8083,6 +8106,96 @@ For questions about MSDs, provide clear, actionable answers based on the loaded 
                 updateInflu2DisplayedAds(assistantMessage);
                 addInflu2ChatMessage('system', 'Ad copy updated on the left panel.');
             }
+
+            if (assistantMessage.includes('FONT_ADJUST:')) {
+                handleInflu2FontAdjustments(assistantMessage);
+                addInflu2ChatMessage('system', 'Font sizes updated. Ads re-rendered.');
+            }
+        }
+
+        function handleInflu2FontAdjustments(message) {
+            // Parse FONT_ADJUST blocks from the message
+            const fontAdjustPattern = /FONT_ADJUST:\s*\nSIZE:\s*([^\n]+)\s*\nELEMENT:\s*([^\n]+)\s*\nFONTSIZE:\s*([^\n]+)/gi;
+            let match;
+            const adjustments = [];
+
+            while ((match = fontAdjustPattern.exec(message)) !== null) {
+                const size = match[1].trim();
+                const element = match[2].trim().toLowerCase();
+                const fontSize = match[3].trim();
+                adjustments.push({ size, element, fontSize });
+            }
+
+            if (adjustments.length === 0) return;
+
+            // Apply font adjustments to fontConfig
+            adjustments.forEach(({ size, element, fontSize }) => {
+                if (!fontConfig[size]) {
+                    fontConfig[size] = {};
+                }
+                fontConfig[size][element] = fontSize;
+                console.log(`Font adjustment: ${size} ${element} = ${fontSize}`);
+            });
+
+            // Re-render all affected ads
+            if (!influ2CurrentAdSet) return;
+
+            adjustments.forEach(({ size }) => {
+                const adData = influ2CurrentAdSet.find(ad => ad.sizeName === size);
+                if (!adData) return;
+
+                // Re-render Version A
+                const previewAContainer = document.getElementById(`preview-${size}-a`);
+                if (previewAContainer) {
+                    previewAContainer.innerHTML = '';
+                    const config = adSizeConfigs[size];
+                    const adPreviewA = renderAdPreview(size, adData.versionA.headline, adData.versionA.body, adData.versionA.cta);
+                    if (adPreviewA) {
+                        const cardWidth = previewAContainer.offsetWidth || 500;
+                        const scale = Math.min(cardWidth / config.width, 1);
+                        const scaledContainer = document.createElement('div');
+                        scaledContainer.style.cssText = `
+                            transform: scale(${scale});
+                            transform-origin: top left;
+                            width: ${config.width}px;
+                            height: ${config.height}px;
+                        `;
+                        scaledContainer.appendChild(adPreviewA);
+                        previewAContainer.style.width = `${config.width * scale}px`;
+                        previewAContainer.style.height = `${config.height * scale}px`;
+                        previewAContainer.appendChild(scaledContainer);
+
+                        const detailsBlockA = createAdCopyTextBlock(adData.versionA.headline, adData.versionA.body, adData.versionA.cta);
+                        previewAContainer.appendChild(detailsBlockA);
+                    }
+                }
+
+                // Re-render Version B
+                const previewBContainer = document.getElementById(`preview-${size}-b`);
+                if (previewBContainer) {
+                    previewBContainer.innerHTML = '';
+                    const config = adSizeConfigs[size];
+                    const adPreviewB = renderAdPreview(size, adData.versionB.headline, adData.versionB.body, adData.versionB.cta);
+                    if (adPreviewB) {
+                        const cardWidth = previewBContainer.offsetWidth || 500;
+                        const scale = Math.min(cardWidth / config.width, 1);
+                        const scaledContainer = document.createElement('div');
+                        scaledContainer.style.cssText = `
+                            transform: scale(${scale});
+                            transform-origin: top left;
+                            width: ${config.width}px;
+                            height: ${config.height}px;
+                        `;
+                        scaledContainer.appendChild(adPreviewB);
+                        previewBContainer.style.width = `${config.width * scale}px`;
+                        previewBContainer.style.height = `${config.height * scale}px`;
+                        previewBContainer.appendChild(scaledContainer);
+
+                        const detailsBlockB = createAdCopyTextBlock(adData.versionB.headline, adData.versionB.body, adData.versionB.cta);
+                        previewBContainer.appendChild(detailsBlockB);
+                    }
+                }
+            });
         }
 
         function updateInflu2DisplayedAds(regeneratedText) {
