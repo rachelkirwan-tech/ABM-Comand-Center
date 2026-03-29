@@ -2832,7 +2832,7 @@
                         </div>
 
                         <div class="influ2-section influ2-output" id="influ2Output">
-                            <div class="influ2-section-title">Complete Influ2 Ad Package</div>
+                            <div class="influ2-section-title">Your Ad Package</div>
                             <div id="influ2OutputContent"></div>
                         </div>
                     </div>
@@ -6831,7 +6831,7 @@ chaos</div>
                 console.log('Extracted ad text length:', adText ? adText.length : 0);
                 console.log('First 200 chars:', adText ? adText.substring(0, 200) : 'N/A');
 
-                displayInflu2Ads(adText);
+                displayInflu2Ads(adText, industry);
 
                 influ2CurrentAdContext = {
                     industry: industry,
@@ -6845,8 +6845,16 @@ chaos</div>
                 const adTypeLabel = adType === 'Content' ? 'Content Ad' : 'Air Cover Ad';
                 addInflu2ChatMessage('system', `${adTypeLabel} package generated for ${industry} (${buyerStage} stage). You can now ask me questions or request changes.`);
 
+                // Check if campaign name is filled to show appropriate status message
+                const campaignInput = document.getElementById('influ2CampaignName');
+                const hasCampaignName = campaignInput && campaignInput.value.trim().length > 0;
+
                 status.className = 'influ2-status';
-                status.textContent = 'Generation complete.';
+                if (hasCampaignName) {
+                    status.textContent = 'Package ready. Download your ads below.';
+                } else {
+                    status.textContent = 'Package ready. Enter a campaign name below to download.';
+                }
 
             } catch (error) {
                 console.log('=== API ERROR ===');
@@ -7416,7 +7424,7 @@ Generate ALL sections now in the exact order specified above.`;
             return details;
         }
 
-        function displayInflu2Ads(text) {
+        function displayInflu2Ads(text, industry) {
             const outputContent = document.getElementById('influ2OutputContent');
 
             console.log('=== PARSING FULL AD RESPONSE ===');
@@ -7429,23 +7437,16 @@ Generate ALL sections now in the exact order specified above.`;
 
             let html = '';
 
-            // Parse Core Extraction - more flexible pattern
-            const extractionMatch = text.match(/(?:===?\s*)?(?:SECTION\s*1|CORE\s*EXTRACTION)(?:\s*===?)?([\s\S]*?)(?====?\s*(?:SECTION\s*2|DISPLAY\s*ADS)|$)/i);
-            console.log('Core extraction matched:', !!extractionMatch);
-            let industryName = 'Retail';
-            if (extractionMatch) {
-                const extraction = extractionMatch[1].trim();
-                const industryMatch = extraction.match(/(?:Industry|3\.)[:\s]*([^\n]+)/i);
-                if (industryMatch) {
-                    industryName = industryMatch[1].trim();
-                }
-            }
-
             // Lightweight header with industry and version info
-            html += `<div style="padding: 16px 0; margin-bottom: 20px; border-bottom: 1px solid #E0E0E0;">
+            html += `<div style="padding: 16px 0; margin-bottom: 12px; border-bottom: 1px solid #E0E0E0;">
                 <div style="font-size: 15px; color: #2D4C33; font-weight: 600;">
-                    ${industryName} — Version A: Stat-Led / Version B: Tension-Led
+                    ${industry} — Version A: Stat-Led / Version B: Tension-Led
                 </div>
+            </div>`;
+
+            // Instruction text for campaign name
+            html += `<div style="font-size: 13px; color: #717171; margin-bottom: 24px; line-height: 1.5;">
+                Enter a campaign name below to enable downloads. Campaign name is used in file naming for organization.
             </div>`;
 
             // Parse Display Ads by size
@@ -7470,13 +7471,13 @@ Generate ALL sections now in the exact order specified above.`;
 
             // Version download buttons
             html += `<div style="display: flex; gap: 12px; margin: 16px 0 24px 0; flex-wrap: wrap;">
-                <button id="downloadVersionABtn" onclick="downloadVersionPackage('A')" disabled style="background: #D1D1D1; color: #717171; font-weight: 700; border-radius: 8px; padding: 12px 24px; border: none; cursor: not-allowed; font-size: 16px;">
+                <button id="downloadVersionABtn" onclick="downloadVersionPackage('A')" disabled title="Enter campaign name to download" style="background: #D1D1D1; color: #717171; font-weight: 700; border-radius: 8px; padding: 12px 24px; border: none; cursor: not-allowed; font-size: 16px; opacity: 0.5; transition: opacity 0.2s;">
                     📦 Download Version A Package
                 </button>
-                <button id="downloadVersionBBtn" onclick="downloadVersionPackage('B')" disabled style="background: #D1D1D1; color: #717171; font-weight: 700; border-radius: 8px; padding: 12px 24px; border: none; cursor: not-allowed; font-size: 16px;">
+                <button id="downloadVersionBBtn" onclick="downloadVersionPackage('B')" disabled title="Enter campaign name to download" style="background: #D1D1D1; color: #717171; font-weight: 700; border-radius: 8px; padding: 12px 24px; border: none; cursor: not-allowed; font-size: 16px; opacity: 0.5; transition: opacity 0.2s;">
                     📦 Download Version B Package
                 </button>
-                <button id="downloadCanvaCsvBtn" onclick="downloadCanvaCsv()" disabled style="background: #D1D1D1; color: #717171; font-weight: 700; border-radius: 8px; padding: 12px 24px; border: none; cursor: not-allowed; font-size: 16px;">
+                <button id="downloadCanvaCsvBtn" onclick="downloadCanvaCsv()" disabled title="Enter campaign name to download" style="background: #D1D1D1; color: #717171; font-weight: 700; border-radius: 8px; padding: 12px 24px; border: none; cursor: not-allowed; font-size: 16px; opacity: 0.5; transition: opacity 0.2s;">
                     📊 Download CSV for Canva
                 </button>
             </div>`;
@@ -8134,6 +8135,7 @@ Generate ALL sections now in the exact order specified above.`;
             const versionABtn = document.getElementById('downloadVersionABtn');
             const versionBBtn = document.getElementById('downloadVersionBBtn');
             const canvaCsvBtn = document.getElementById('downloadCanvaCsvBtn');
+            const status = document.getElementById('influ2Status');
 
             const buttons = [versionABtn, versionBBtn, canvaCsvBtn];
 
@@ -8141,7 +8143,7 @@ Generate ALL sections now in the exact order specified above.`;
                 if (btn) {
                     btn.disabled = !hasText;
                     if (hasText) {
-                        // Enable - restore original colors
+                        // Enable - restore original colors with full opacity
                         if (btn.id === 'downloadCanvaCsvBtn') {
                             btn.style.background = '#2D4C33';
                             btn.style.color = '#FFFFFF';
@@ -8150,14 +8152,29 @@ Generate ALL sections now in the exact order specified above.`;
                             btn.style.color = '#11110D';
                         }
                         btn.style.cursor = 'pointer';
+                        btn.style.opacity = '1';
+                        btn.title = '';
                     } else {
-                        // Disable - gray out
+                        // Disable - gray out with 50% opacity
                         btn.style.background = '#D1D1D1';
                         btn.style.color = '#717171';
                         btn.style.cursor = 'not-allowed';
+                        btn.style.opacity = '0.5';
+                        btn.title = 'Enter campaign name to download';
                     }
                 }
             });
+
+            // Update status text if generation is complete
+            if (status && !status.classList.contains('active')) {
+                if (hasText) {
+                    status.className = 'influ2-status';
+                    status.textContent = 'Package ready. Download your ads below.';
+                } else {
+                    status.className = 'influ2-status';
+                    status.textContent = 'Package ready. Enter a campaign name below to download.';
+                }
+            }
         }
 
         async function downloadVersionPackage(version) {
