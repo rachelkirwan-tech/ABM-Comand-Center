@@ -6507,15 +6507,15 @@ chaos</div>
         const INFLU2_API_URL = 'https://ai-gateway.zende.sk/bedrock/model/us.anthropic.claude-sonnet-4-6/invoke';
         const INFLU2_API_TOKEN = 'JBZ7clGsOaeHHGhh9REwQYth55V';
 
-        // MSD File Paths (served through http://localhost:8000)
+        // MSD File Paths (FY27 files in msd-files/)
         const INFLU2_MSD_PATHS = {
-            globalCS: '/msd-files/global-cs.md',
-            outputSpec: '/msd-files/Output_Specs_Influ2_Ads.md',
+            globalCS: 'msd-files/Global_CS_MSD_FY27.md',
+            outputSpec: 'msd-files/Output_Specs_Influ2_Ads.md',
             industries: {
-                'Retail': '/msd-files/industries/retail.md',
-                'Media and Entertainment': '/msd-files/industries/me.md',
-                'Technology': '/msd-files/industries/tech.md',
-                'Financial Services': '/msd-files/industries/finserv.md'
+                'Retail': 'msd-files/Retail_MSD_FY27_DeptStore.md',
+                'Media and Entertainment': 'msd-files/ME_MSD_FY27.md',
+                'Technology': 'msd-files/Tech_MSD_FY27.md',
+                'Financial Services': 'msd-files/FinServ_MSD_FY27.md'
             }
         };
 
@@ -6535,7 +6535,7 @@ chaos</div>
                 return await response.text();
             } catch (error) {
                 console.warn(`Could not load MSD file ${path}:`, error);
-                return `[MSD file not accessible: ${path.split('/').pop()}]\n\nNote: MSD files must be served through the HTTP server or converted to an accessible format.`;
+                return `[MSD file not accessible: ${path.split('/').pop()}]\n\nNote: FY27 MSD files are in the msd-files/ folder of this repository.`;
             }
         }
 
@@ -6574,9 +6574,9 @@ chaos</div>
             } catch (error) {
                 console.error('Error loading MSD files:', error);
                 return {
-                    globalCS: '# Global CS MSD\n[File not accessible - using placeholder]',
-                    outputSpec: influ2MsdCache.outputSpec || '# Output Spec\n[File not accessible - using placeholder]',
-                    industry: `# ${industry} MSD\n[File not accessible - using placeholder]`
+                    globalCS: '# Global CS MSD\n[File not found in msd-files/ folder]',
+                    outputSpec: influ2MsdCache.outputSpec || '# Output Spec\n[File not found in msd-files/ folder]',
+                    industry: `# ${industry} MSD\n[File not found in msd-files/ folder - check that FY27 files are present]`
                 };
             }
         }
@@ -6810,14 +6810,25 @@ ${content}
 2. ${industry.toUpperCase()} INDUSTRY MSD (15% weight) - THE DIRECTION
 This is HOW the ad says it. It tells you who the buyer is, what keeps them up at night, what stats are approved, and how to talk to them. It shapes the framing, not the subject.
 CRITICAL: Any customer names in this MSD are for CONTEXT ONLY. NEVER use customer names in ad copy - this is a legal requirement.
+
+YOU MUST USE THE REAL DATA FROM THIS MSD:
+- Use the specific pain points listed in the MSD when writing headlines and body copy
+- Reference the benefit pillars (e.g., "Scale support", "Reduce costs", "Improve CSAT") from the MSD
+- Include the actual proof points and statistics from the MSD (e.g., "Zendesk data shows AI resolves 51% of inquiries")
+- Match the buyer language and terminology from the MSD
+- DO NOT use generic marketing language - use the specific data provided in the MSD below
+
 ${msdFiles.industry || 'Industry MSD not available'}
 
 3. GLOBAL CS MSD (10% weight) - THE PRODUCT ASSISTANT
 This provides Zendesk Customer Service product context, proof points, and platform positioning. It fills gaps when the industry MSD doesn't cover something.
 CRITICAL: Any customer names in this MSD are for CONTEXT ONLY. NEVER use customer names in ad copy - this is a legal requirement.
+
 ${msdFiles.globalCS || 'Global CS MSD not available'}
 
 TO BE CLEAR: The content is the subject. The industry MSD is the voice. The global CS MSD is the supporting actor. If the content is about a blog post on surge management, you write about surge management (content), in the voice of someone who understands M&E buyer pain points (industry MSD), with backup from Zendesk CS platform capabilities (global CS MSD).
+
+MANDATORY: Your ad copy MUST reference real data from the MSD files above. Do not write generic marketing copy. Use the specific pain points, benefit pillars, proof points, and statistics provided in the MSD.
 
 === OUTPUT SPECIFICATION ===
 ${msdFiles.outputSpec || 'Output specification not available - follow standard Influ2 format'}
@@ -6861,9 +6872,9 @@ EXAMPLES OF GOOD COPY BY TIER:
 Version A (Stat-Led) examples:
 
 large_headline: "Scale fan support with AI" (24 chars)
-large_body: "AI resolves 50%+ of fan inquiries and boosts efficiency by 30%." (65 chars)
+large_body: "AI resolves over 50% of fan inquiries and boosts efficiency by 30%." (68 chars)
 medium_headline: "Scale with AI" (13 chars)
-medium_body: "AI resolves 50%+ of fan inquiries." (34 chars)
+medium_body: "AI resolves over 50% of fan inquiries." (39 chars)
 banner_headline: "Scale with AI" (13 chars)
 cta: "Read now" (8 chars)
 
