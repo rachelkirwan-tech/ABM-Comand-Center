@@ -6975,16 +6975,16 @@ Generate ALL sections now in the exact order specified above.`;
         // AD_TYPE_SCALE: Zendesk type hierarchy for all 9 ad sizes
         const AD_TYPE_SCALE = {
             '1200x628': {
-                baseParagraph: 18,
-                headline: { size: 45, weight: 600 },      // 2.5x base (H2)
-                body: { size: 18, weight: 400 },          // 1x base (Paragraph)
-                cta: { size: 16, weight: 700 }
+                baseParagraph: 16,
+                headline: { size: 36, weight: 500 },
+                body: { size: 16, weight: 400 },
+                cta: { size: 15, weight: 600 }
             },
             '1200x1200': {
-                baseParagraph: 22,
-                headline: { size: 55, weight: 600 },      // 2.5x base (H2)
-                body: { size: 22, weight: 400 },          // 1x base (Paragraph)
-                cta: { size: 20, weight: 700 }
+                baseParagraph: 20,
+                headline: { size: 42, weight: 500 },
+                body: { size: 20, weight: 400 },
+                cta: { size: 18, weight: 600 }
             },
             '970x250': {
                 baseParagraph: 15,
@@ -7031,16 +7031,16 @@ Generate ALL sections now in the exact order specified above.`;
         const adSizeConfigs = {
             '1200x628': {
                 width: 1200, height: 628,
-                textContainer: { left: '5%', top: '12%', maxWidth: '48%' },
-                headline: { fontSize: `${AD_TYPE_SCALE['1200x628'].headline.size}px`, fontWeight: AD_TYPE_SCALE['1200x628'].headline.weight, lineHeight: '105%' },
-                body: { fontSize: `${AD_TYPE_SCALE['1200x628'].body.size}px`, fontWeight: AD_TYPE_SCALE['1200x628'].body.weight, lineHeight: '145%', marginTop: '14px' },
+                textContainer: { left: '5%', top: '18%', maxWidth: '45%' },
+                headline: { fontSize: `${AD_TYPE_SCALE['1200x628'].headline.size}px`, fontWeight: AD_TYPE_SCALE['1200x628'].headline.weight, lineHeight: '115%' },
+                body: { fontSize: `${AD_TYPE_SCALE['1200x628'].body.size}px`, fontWeight: AD_TYPE_SCALE['1200x628'].body.weight, lineHeight: '150%', marginTop: '14px' },
                 cta: { fontSize: `${AD_TYPE_SCALE['1200x628'].cta.size}px`, fontWeight: AD_TYPE_SCALE['1200x628'].cta.weight, padding: '10px 26px', marginTop: '20px' }
             },
             '1200x1200': {
                 width: 1200, height: 1200,
-                textContainer: { left: '5%', top: '5%', maxWidth: '42%' },
-                headline: { fontSize: `${AD_TYPE_SCALE['1200x1200'].headline.size}px`, fontWeight: AD_TYPE_SCALE['1200x1200'].headline.weight, lineHeight: '105%' },
-                body: { fontSize: `${AD_TYPE_SCALE['1200x1200'].body.size}px`, fontWeight: AD_TYPE_SCALE['1200x1200'].body.weight, lineHeight: '145%', marginTop: '16px' },
+                textContainer: { left: '5%', top: '18%', maxWidth: '42%' },
+                headline: { fontSize: `${AD_TYPE_SCALE['1200x1200'].headline.size}px`, fontWeight: AD_TYPE_SCALE['1200x1200'].headline.weight, lineHeight: '115%' },
+                body: { fontSize: `${AD_TYPE_SCALE['1200x1200'].body.size}px`, fontWeight: AD_TYPE_SCALE['1200x1200'].body.weight, lineHeight: '150%', marginTop: '16px' },
                 cta: { fontSize: `${AD_TYPE_SCALE['1200x1200'].cta.size}px`, fontWeight: AD_TYPE_SCALE['1200x1200'].cta.weight, padding: '12px 30px', marginTop: '24px' }
             },
             '970x250': {
