@@ -7326,32 +7326,21 @@ Generate ALL sections now in the exact order specified above.`;
             // Parse Core Extraction - more flexible pattern
             const extractionMatch = text.match(/(?:===?\s*)?(?:SECTION\s*1|CORE\s*EXTRACTION)(?:\s*===?)?([\s\S]*?)(?====?\s*(?:SECTION\s*2|DISPLAY\s*ADS)|$)/i);
             console.log('Core extraction matched:', !!extractionMatch);
+            let industryName = 'Retail';
             if (extractionMatch) {
                 const extraction = extractionMatch[1].trim();
-                const insightMatch = extraction.match(/(?:Strongest insight|1\.)[:\s]*([^\n]+)/i);
-                const painMatch = extraction.match(/(?:Buyer pain|2\.)[:\s]*([^\n]+)/i);
                 const industryMatch = extraction.match(/(?:Industry|3\.)[:\s]*([^\n]+)/i);
-                const personaMatch = extraction.match(/(?:Persona|4\.)[:\s]*([^\n]+)/i);
-
-                html += `<div class="influ2-summary-bar">
-                    <div class="influ2-summary-item">
-                        <div class="influ2-summary-label">Strongest Insight</div>
-                        <div class="influ2-summary-value">${insightMatch ? insightMatch[1].trim() : 'N/A'}</div>
-                    </div>
-                    <div class="influ2-summary-item">
-                        <div class="influ2-summary-label">Buyer Pain</div>
-                        <div class="influ2-summary-value">${painMatch ? painMatch[1].trim() : 'N/A'}</div>
-                    </div>
-                    <div class="influ2-summary-item">
-                        <div class="influ2-summary-label">Industry</div>
-                        <div class="influ2-summary-value">${industryMatch ? industryMatch[1].trim() : 'Retail'}</div>
-                    </div>
-                    <div class="influ2-summary-item">
-                        <div class="influ2-summary-label">Persona</div>
-                        <div class="influ2-summary-value">${personaMatch ? personaMatch[1].trim() : 'N/A'}</div>
-                    </div>
-                </div>`;
+                if (industryMatch) {
+                    industryName = industryMatch[1].trim();
+                }
             }
+
+            // Lightweight header with industry and version info
+            html += `<div style="padding: 16px 0; margin-bottom: 20px; border-bottom: 1px solid #E0E0E0;">
+                <div style="font-size: 15px; color: #2D4C33; font-weight: 600;">
+                    ${industryName} — Version A: Stat-Led / Version B: Tension-Led
+                </div>
+            </div>`;
 
             // Parse Display Ads by size
             const displaySizes = [
