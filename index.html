@@ -8215,15 +8215,21 @@ VERSION B (Tension-Led): Headline frames the pain point as a question or challen
 
 `;
 
-            if (influ2CurrentAdContext) {
+            if (influ2CurrentAdContext && influ2CurrentAdSet) {
                 prompt += `CURRENT AD PACKAGE CONTEXT:
 Industry: ${influ2CurrentAdContext.industry}
 Content URL/Description: ${influ2CurrentAdContext.contentInput.substring(0, 500)}...
 
-Generated Ad Copy:
-${influ2CurrentAdContext.generatedOutput}
+CURRENT AD COPY (what you are editing):
+`;
+                // Add current ad copy for all sizes
+                influ2CurrentAdSet.forEach(ad => {
+                    prompt += `${ad.sizeName}:
+Version A - Headline: ${ad.versionA.headline} | Body: ${ad.versionA.body} | CTA: ${ad.versionA.cta}
+Version B - Headline: ${ad.versionB.headline} | Body: ${ad.versionB.body} | CTA: ${ad.versionB.cta}
 
 `;
+                });
             }
 
             if (influ2MsdCache.globalCS || influ2MsdCache.outputSpec || Object.keys(influ2MsdCache.industries).length > 0) {
@@ -8252,27 +8258,29 @@ ${influ2MsdCache.globalCS.substring(0, 1500)}...
 4. Provide strategic guidance on messaging and positioning
 5. Adjust font sizes for headlines, body copy, and CTAs on specific ad sizes
 
-WHEN USER REQUESTS CHANGES:
-- Parse their feedback to understand what needs to change
-- If they reference specific stats or content, make that exact change
-- If they want to remove elements, update accordingly
-- If they want tone/style changes, adjust the specific elements
-- Output the regenerated copy in the same structured format as the original
-- Use clear section headers like "REGENERATED: 300x250 Display Ad" so the system can update the display
+WHEN USER REQUESTS COPY CHANGES:
+When a user asks to modify ad copy (e.g., "make the headline shorter", "change the CTA to Get started", "use a different stat"), provide a conversational explanation of your changes, then output the updated copy using this EXACT tag format at the end of your response:
 
-RESPONSE FORMAT FOR REGENERATIONS:
-When regenerating ad copy, use this format:
+[HEADLINE_A]new headline text here[/HEADLINE_A]
+[BODY_A]new body text here[/BODY_A]
+[CTA_A]new CTA text here[/CTA_A]
+[HEADLINE_B]new headline text here[/HEADLINE_B]
+[BODY_B]new body text here[/BODY_B]
+[CTA_B]new CTA text here[/CTA_B]
 
-REGENERATED: [Ad Type and Size]
-Version A
-Headline: [text]
-Body: [text]
-CTA: [text]
+IMPORTANT RULES FOR COPY CHANGES:
+- If the user only asks to change one element (e.g., just the headline), still output ALL SIX tags but keep unchanged elements exactly as they are
+- These tags apply to ALL 9 display ad sizes - the system will automatically adapt the copy to each size
+- Do NOT include size names in the tags - just the copy
+- The tags must appear at the very end of your response after your explanation
+- Example: "I've shortened the headline as requested. Here's the updated copy:
 
-Version B
-Headline: [text]
-Body: [text]
-CTA: [text]
+[HEADLINE_A]Scale with AI[/HEADLINE_A]
+[BODY_A]Zendesk data shows AI resolves over 50% of inquiries.[/BODY_A]
+[CTA_A]Learn more[/CTA_A]
+[HEADLINE_B]Fans won't wait[/HEADLINE_B]
+[BODY_B]AI keeps you surge-ready 24/7.[/BODY_B]
+[CTA_B]Get started[/CTA_B]"
 
 RESPONSE FORMAT FOR FONT SIZE ADJUSTMENTS:
 When user requests font size changes (e.g., "make the body font bigger on 300x250" or "reduce headline size on 728x90"), use this exact format:
@@ -8340,6 +8348,14 @@ For questions about MSDs, provide clear, actionable answers based on the loaded 
         }
 
         function handleInflu2PotentialRegeneration(assistantMessage) {
+            // Check for new tag format for copy changes
+            if (assistantMessage.includes('[HEADLINE_A]') || assistantMessage.includes('[BODY_A]') || assistantMessage.includes('[CTA_A]')) {
+                handleInflu2CopyUpdate(assistantMessage);
+                addInflu2ChatMessage('system', 'Ad mockups updated with new copy.');
+                return;
+            }
+
+            // Legacy REGENERATED format (keep for backwards compatibility)
             if (assistantMessage.includes('REGENERATED:')) {
                 updateInflu2DisplayedAds(assistantMessage);
                 addInflu2ChatMessage('system', 'Ad copy updated on the left panel.');
@@ -8349,6 +8365,89 @@ For questions about MSDs, provide clear, actionable answers based on the loaded 
                 handleInflu2FontAdjustments(assistantMessage);
                 addInflu2ChatMessage('system', 'Font sizes updated. Ads re-rendered.');
             }
+        }
+
+        function handleInflu2CopyUpdate(message) {
+            // Parse the new tag format for copy updates
+            const headlineA = message.match(/\[HEADLINE_A\](.*?)\[\/HEADLINE_A\]/s)?.[1]?.trim();
+            const bodyA = message.match(/\[BODY_A\](.*?)\[\/BODY_A\]/s)?.[1]?.trim();
+            const ctaA = message.match(/\[CTA_A\](.*?)\[\/CTA_A\]/s)?.[1]?.trim();
+            const headlineB = message.match(/\[HEADLINE_B\](.*?)\[\/HEADLINE_B\]/s)?.[1]?.trim();
+            const bodyB = message.match(/\[BODY_B\](.*?)\[\/BODY_B\]/s)?.[1]?.trim();
+            const ctaB = message.match(/\[CTA_B\](.*?)\[\/CTA_B\]/s)?.[1]?.trim();
+
+            if (!influ2CurrentAdSet || influ2CurrentAdSet.length === 0) {
+                console.error('No ad set available to update');
+                return;
+            }
+
+            // Update influ2CurrentAdSet with new copy
+            influ2CurrentAdSet.forEach(ad => {
+                if (headlineA) ad.versionA.headline = headlineA;
+                if (bodyA) ad.versionA.body = bodyA;
+                if (ctaA) ad.versionA.cta = ctaA;
+                if (headlineB) ad.versionB.headline = headlineB;
+                if (bodyB) ad.versionB.body = bodyB;
+                if (ctaB) ad.versionB.cta = ctaB;
+            });
+
+            // Re-render all ad mockups with updated copy
+            influ2CurrentAdSet.forEach(ad => {
+                const sizeName = ad.sizeName;
+                const config = adSizeConfigs[sizeName];
+
+                // Re-render Version A
+                const previewAContainer = document.getElementById(`preview-${sizeName}-a`);
+                if (previewAContainer && config) {
+                    previewAContainer.innerHTML = '';
+                    const adPreviewA = renderAdPreview(sizeName, ad.versionA.headline, ad.versionA.body, ad.versionA.cta);
+                    if (adPreviewA) {
+                        const cardWidth = previewAContainer.offsetWidth || 500;
+                        const scale = Math.min(cardWidth / config.width, 1);
+                        const scaledContainer = document.createElement('div');
+                        scaledContainer.style.cssText = `
+                            transform: scale(${scale});
+                            transform-origin: top left;
+                            width: ${config.width}px;
+                            height: ${config.height}px;
+                        `;
+                        scaledContainer.appendChild(adPreviewA);
+                        previewAContainer.style.width = `${config.width * scale}px`;
+                        previewAContainer.style.height = `${config.height * scale}px`;
+                        previewAContainer.appendChild(scaledContainer);
+
+                        const detailsBlockA = createAdCopyTextBlock(ad.versionA.headline, ad.versionA.body, ad.versionA.cta, sizeName, 'a');
+                        previewAContainer.appendChild(detailsBlockA);
+                    }
+                }
+
+                // Re-render Version B
+                const previewBContainer = document.getElementById(`preview-${sizeName}-b`);
+                if (previewBContainer && config) {
+                    previewBContainer.innerHTML = '';
+                    const adPreviewB = renderAdPreview(sizeName, ad.versionB.headline, ad.versionB.body, ad.versionB.cta);
+                    if (adPreviewB) {
+                        const cardWidth = previewBContainer.offsetWidth || 500;
+                        const scale = Math.min(cardWidth / config.width, 1);
+                        const scaledContainer = document.createElement('div');
+                        scaledContainer.style.cssText = `
+                            transform: scale(${scale});
+                            transform-origin: top left;
+                            width: ${config.width}px;
+                            height: ${config.height}px;
+                        `;
+                        scaledContainer.appendChild(adPreviewB);
+                        previewBContainer.style.width = `${config.width * scale}px`;
+                        previewBContainer.style.height = `${config.height * scale}px`;
+                        previewBContainer.appendChild(scaledContainer);
+
+                        const detailsBlockB = createAdCopyTextBlock(ad.versionB.headline, ad.versionB.body, ad.versionB.cta, sizeName, 'b');
+                        previewBContainer.appendChild(detailsBlockB);
+                    }
+                }
+            });
+
+            console.log('✅ Ad mockups updated with new copy');
         }
 
         function handleInflu2FontAdjustments(message) {
