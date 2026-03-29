@@ -54,6 +54,12 @@
 
 ## Ad Copy Direction by Stage
 
+### Global Copy Rules (All Stages)
+
+Never use the phrase "Zendesk AI" in any ad copy. The correct terminology is "AI agents" or simply "AI" when referencing Zendesk's AI capabilities. "Zendesk AI" is an internal product name, not customer-facing ad language. Also never use "AI-powered" as a modifier. Say what the AI does, not that it is AI-powered.
+
+---
+
 ### Awareness Stage Copy Rules
 
 **Headline approach:** Lead with the industry tension or a stat that reframes the problem. The buyer does not know they need Zendesk. The headline should make them pause and think about their own situation.
