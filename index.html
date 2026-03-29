@@ -1584,7 +1584,7 @@
             border-left: 2px solid rgba(255,255,255,0.2);
             display: flex;
             flex-direction: column;
-            background: rgba(0,0,0,0.2);
+            background: #0F1B2D;
         }
 
         .influ2-header {
@@ -2073,7 +2073,7 @@
         /* Chat Panel Styles */
         .influ2-chat-header {
             padding: 20px;
-            background: rgba(0,0,0,0.3);
+            background: #0F1B2D;
             color: white;
             border-bottom: 2px solid rgba(255,255,255,0.1);
         }
@@ -2082,6 +2082,7 @@
             font-size: 18px;
             font-weight: bold;
             margin-bottom: 5px;
+            color: white;
         }
 
         .influ2-chat-subtitle {
@@ -2128,15 +2129,15 @@
         }
 
         .influ2-chat-message.assistant .influ2-message-bubble {
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.08);
+            color: #E5E7EB;
+            border: 1px solid rgba(255,255,255,0.15);
             border-bottom-left-radius: 4px;
         }
 
         .influ2-message-time {
             font-size: 11px;
-            color: rgba(255,255,255,0.5);
+            color: rgba(255,255,255,0.4);
             margin-top: 4px;
             padding: 0 5px;
         }
@@ -2147,7 +2148,7 @@
 
         .influ2-chat-input-container {
             padding: 15px;
-            background: rgba(0,0,0,0.2);
+            background: #0F1B2D;
             border-top: 1px solid rgba(255,255,255,0.1);
         }
 
@@ -2159,8 +2160,8 @@
         .influ2-chat-input {
             flex: 1;
             padding: 12px;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.15);
+            background: #1A2A3D;
             color: white;
             border-radius: 6px;
             font-family: 'Zendesk Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
@@ -2172,6 +2173,12 @@
 
         .influ2-chat-input::placeholder {
             color: rgba(255,255,255,0.4);
+        }
+
+        .influ2-chat-input:focus {
+            outline: none;
+            border-color: #D1F470;
+            background: #1F2D42;
         }
 
         .influ2-chat-send-btn {
@@ -2792,6 +2799,9 @@
 
                             <div class="influ2-section-title" style="margin-top: 20px; margin-bottom: 10px;">Content for ads to drive to</div>
                             <textarea id="influ2ContentInput" placeholder="Paste a URL or content (blog post, guide description, webinar details, etc)..." style="width: 100%; min-height: 140px; padding: 14px 16px; border: 1px solid #E0E0E0; background: #F8F9FA; color: #2D4C33; border-radius: 8px; font-family: 'Zendesk Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; font-size: 14px; resize: vertical; margin-bottom: 20px; font-weight: 500;"></textarea>
+
+                            <div class="influ2-section-title" style="margin-top: 0; margin-bottom: 10px;">Campaign name</div>
+                            <input type="text" id="influ2CampaignName" placeholder="M&E-SalesPlay" style="width: 100%; padding: 12px 14px; border: 1px solid #E0E0E0; background: white; color: #2D4C33; border-radius: 8px; font-size: 14px; margin-bottom: 20px; font-weight: 500;">
 
                             <button class="influ2-generate-btn" id="influ2GenerateBtn" onclick="generateInflu2Ads()">
                                 Generate Complete Ad Package
@@ -7851,15 +7861,41 @@ Generate ALL sections now in the exact order specified above.`;
                     const a = document.createElement('a');
                     a.href = url;
 
-                    // Get industry from context or default to generic
-                    const industry = influ2CurrentAdContext?.industry || 'Ad';
-                    const industryCode = industry.substring(0, 2).toUpperCase();
+                    // Get campaign name from input field
+                    const campaignInput = document.getElementById('influ2CampaignName');
+                    const campaignName = campaignInput?.value.trim() || 'Campaign';
+
+                    // Get full industry name and format it (remove spaces)
+                    const industry = influ2CurrentAdContext?.industry || 'Industry';
+                    const industryFormatted = industry.replace(/\s+and\s+/g, '').replace(/\s+/g, '');
 
                     // Determine version name
                     const versionName = version === 'a' ? 'StatLed' : 'TensionLed';
 
-                    // Format filename: ME_StatLed_300x250.png
-                    a.download = `${industryCode}_${versionName}_${sizeName}.png`;
+                    // Get the headline for this specific ad size and version to extract copy word
+                    const adData = influ2CurrentAdSet?.find(ad => ad.sizeName === sizeName);
+                    const versionKey = version === 'a' ? 'versionA' : 'versionB';
+                    const headline = adData?.[versionKey]?.headline || '';
+
+                    // Extract first word from headline, clean it up
+                    const firstWord = headline.split(/\s+/)[0]?.replace(/[^a-zA-Z0-9]/g, '') || 'Copy';
+
+                    // Check if both versions start with the same word - if so, use second word
+                    const otherVersionKey = version === 'a' ? 'versionB' : 'versionA';
+                    const otherHeadline = adData?.[otherVersionKey]?.headline || '';
+                    const otherFirstWord = otherHeadline.split(/\s+/)[0]?.replace(/[^a-zA-Z0-9]/g, '') || '';
+                    const copyWord = (firstWord === otherFirstWord && headline.split(/\s+/).length > 1)
+                        ? headline.split(/\s+/)[1]?.replace(/[^a-zA-Z0-9]/g, '') || firstWord
+                        : firstWord;
+
+                    // Format date as YYYYMMDD
+                    const today = new Date();
+                    const dateStr = today.getFullYear() +
+                        String(today.getMonth() + 1).padStart(2, '0') +
+                        String(today.getDate()).padStart(2, '0');
+
+                    // Format filename: {campaign-name}_{industry}_{version}_{copy-word}_{date}.png
+                    a.download = `${campaignName}_${industryFormatted}_${versionName}_${copyWord}_${dateStr}.png`;
 
                     document.body.appendChild(a);
                     a.click();
@@ -8000,6 +8036,23 @@ Generate ALL sections now in the exact order specified above.`;
 
             const versionKey = version === 'A' ? 'versionA' : 'versionB';
 
+            // Get campaign name from input field
+            const campaignInput = document.getElementById('influ2CampaignName');
+            const campaignName = campaignInput?.value.trim() || 'Campaign';
+
+            // Get full industry name and format it (remove spaces)
+            const industry = influ2CurrentAdContext?.industry || 'Industry';
+            const industryFormatted = industry.replace(/\s+and\s+/g, '').replace(/\s+/g, '');
+
+            // Determine version name
+            const versionName = version === 'A' ? 'StatLed' : 'TensionLed';
+
+            // Format date as YYYYMMDD
+            const today = new Date();
+            const dateStr = today.getFullYear() +
+                String(today.getMonth() + 1).padStart(2, '0') +
+                String(today.getDate()).padStart(2, '0');
+
             // Show loading indicator
             const statusMsg = document.createElement('div');
             statusMsg.id = 'download-status';
@@ -8020,7 +8073,7 @@ Generate ALL sections now in the exact order specified above.`;
                     const adPreview = renderAdPreview(ad.sizeName, copyData.headline, copyData.body, copyData.cta);
                     if (adPreview) {
                         hiddenContainer.appendChild(adPreview);
-                        adElements.push({ element: adPreview, sizeName: ad.sizeName });
+                        adElements.push({ element: adPreview, sizeName: ad.sizeName, ad: ad });
                     }
                 }
 
@@ -8029,7 +8082,7 @@ Generate ALL sections now in the exact order specified above.`;
 
                 // Capture each ad with html2canvas
                 const zip = new JSZip();
-                for (const { element, sizeName } of adElements) {
+                for (const { element, sizeName, ad } of adElements) {
                     statusMsg.textContent = `Capturing ${sizeName}...`;
                     const canvas = await html2canvas(element, {
                         scale: 1,
@@ -8039,13 +8092,30 @@ Generate ALL sections now in the exact order specified above.`;
                     });
 
                     const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-                    zip.file(`${sizeName}.png`, blob);
+
+                    // Get the headline for this specific ad to extract copy word
+                    const headline = ad[versionKey]?.headline || '';
+
+                    // Extract first word from headline, clean it up
+                    const firstWord = headline.split(/\s+/)[0]?.replace(/[^a-zA-Z0-9]/g, '') || 'Copy';
+
+                    // Check if both versions start with the same word - if so, use second word
+                    const otherVersionKey = version === 'A' ? 'versionB' : 'versionA';
+                    const otherHeadline = ad[otherVersionKey]?.headline || '';
+                    const otherFirstWord = otherHeadline.split(/\s+/)[0]?.replace(/[^a-zA-Z0-9]/g, '') || '';
+                    const copyWord = (firstWord === otherFirstWord && headline.split(/\s+/).length > 1)
+                        ? headline.split(/\s+/)[1]?.replace(/[^a-zA-Z0-9]/g, '') || firstWord
+                        : firstWord;
+
+                    // Format filename: {campaign-name}_{industry}_{version}_{copy-word}_{date}_{size}.png
+                    const filename = `${campaignName}_${industryFormatted}_${versionName}_${copyWord}_${dateStr}_${sizeName}.png`;
+                    zip.file(filename, blob);
                 }
 
                 // Generate and download zip
                 statusMsg.textContent = 'Generating ZIP file...';
                 const zipBlob = await zip.generateAsync({ type: 'blob' });
-                saveAs(zipBlob, `ME_Version${version}_AdPackage.zip`);
+                saveAs(zipBlob, `${campaignName}_${industryFormatted}_${versionName}_${dateStr}.zip`);
 
                 // Cleanup
                 document.body.removeChild(hiddenContainer);
