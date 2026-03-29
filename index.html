@@ -7031,17 +7031,17 @@ Generate ALL sections now in the exact order specified above.`;
         const adSizeConfigs = {
             '1200x628': {
                 width: 1200, height: 628,
-                textContainer: { left: '5%', top: '18%', maxWidth: '45%' },
+                textContainer: { left: '60px', top: '80px', maxWidth: '540px' },
                 headline: { fontSize: `${AD_TYPE_SCALE['1200x628'].headline.size}px`, fontWeight: AD_TYPE_SCALE['1200x628'].headline.weight, lineHeight: '115%' },
-                body: { fontSize: `${AD_TYPE_SCALE['1200x628'].body.size}px`, fontWeight: AD_TYPE_SCALE['1200x628'].body.weight, lineHeight: '150%', marginTop: '14px' },
-                cta: { fontSize: `${AD_TYPE_SCALE['1200x628'].cta.size}px`, fontWeight: AD_TYPE_SCALE['1200x628'].cta.weight, padding: '10px 26px', marginTop: '20px' }
+                body: { fontSize: `${AD_TYPE_SCALE['1200x628'].body.size}px`, fontWeight: AD_TYPE_SCALE['1200x628'].body.weight, lineHeight: '150%', marginTop: '12px' },
+                cta: { fontSize: `${AD_TYPE_SCALE['1200x628'].cta.size}px`, fontWeight: AD_TYPE_SCALE['1200x628'].cta.weight, padding: '12px 32px', marginTop: '24px', borderRadius: '24px' }
             },
             '1200x1200': {
                 width: 1200, height: 1200,
-                textContainer: { left: '5%', top: '18%', maxWidth: '42%' },
+                textContainer: { left: '60px', top: '90px', maxWidth: '580px' },
                 headline: { fontSize: `${AD_TYPE_SCALE['1200x1200'].headline.size}px`, fontWeight: AD_TYPE_SCALE['1200x1200'].headline.weight, lineHeight: '115%' },
-                body: { fontSize: `${AD_TYPE_SCALE['1200x1200'].body.size}px`, fontWeight: AD_TYPE_SCALE['1200x1200'].body.weight, lineHeight: '150%', marginTop: '16px' },
-                cta: { fontSize: `${AD_TYPE_SCALE['1200x1200'].cta.size}px`, fontWeight: AD_TYPE_SCALE['1200x1200'].cta.weight, padding: '12px 30px', marginTop: '24px' }
+                body: { fontSize: `${AD_TYPE_SCALE['1200x1200'].body.size}px`, fontWeight: AD_TYPE_SCALE['1200x1200'].body.weight, lineHeight: '150%', marginTop: '14px' },
+                cta: { fontSize: `${AD_TYPE_SCALE['1200x1200'].cta.size}px`, fontWeight: AD_TYPE_SCALE['1200x1200'].cta.weight, padding: '16px 40px', marginTop: '28px', borderRadius: '28px' }
             },
             '970x250': {
                 width: 970, height: 250,
@@ -7199,7 +7199,7 @@ Generate ALL sections now in the exact order specified above.`;
                 background: #D1F470;
                 color: #11110D;
                 font-weight: ${ctaStyle.fontWeight || 700};
-                border-radius: 100px;
+                border-radius: ${ctaStyle.borderRadius || '100px'};
                 border: none;
                 cursor: default;
                 font-size: ${ctaStyle.fontSize};
