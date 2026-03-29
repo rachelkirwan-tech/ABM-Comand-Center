@@ -2813,7 +2813,7 @@
                                 </label>
                                 <label style="display: inline-flex; align-items: center; cursor: pointer;">
                                     <input type="radio" name="influ2AdType" value="Awareness" id="influ2AdTypeAwareness" onchange="toggleContentField()" style="margin-right: 8px; width: 18px; height: 18px; cursor: pointer;">
-                                    <span style="font-size: 14px; color: #2D4C33; font-weight: 500;">Awareness Ad</span>
+                                    <span style="font-size: 14px; color: #2D4C33; font-weight: 500;">Air Cover Ad</span>
                                 </label>
                             </div>
 
@@ -6842,7 +6842,7 @@ chaos</div>
                     msdFiles: msdFiles
                 };
 
-                const adTypeLabel = adType === 'Content' ? 'Content Ad' : 'Awareness Ad';
+                const adTypeLabel = adType === 'Content' ? 'Content Ad' : 'Air Cover Ad';
                 addInflu2ChatMessage('system', `${adTypeLabel} package generated for ${industry} (${buyerStage} stage). You can now ask me questions or request changes.`);
 
                 status.className = 'influ2-status';
