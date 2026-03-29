@@ -6997,6 +6997,7 @@ Generate ALL sections now in the exact order specified above.`;
             let textCss = `
                 position: absolute;
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+                overflow: hidden;
             `;
             Object.keys(tcStyle).forEach(key => {
                 const cssProp = key.replace(/([A-Z])/g, '-$1').toLowerCase();
@@ -7008,12 +7009,28 @@ Generate ALL sections now in the exact order specified above.`;
             const headlineEl = document.createElement('div');
             headlineEl.textContent = headline;
             const hlStyle = config.headline;
+
+            // Determine line clamp based on size
+            let headlineLineClamp = 3;
+            let headlineExtraStyles = '';
+            if (isBannerAd) {
+                headlineLineClamp = 1;
+                headlineExtraStyles = 'text-overflow: ellipsis; white-space: nowrap;';
+            } else if (sizeName === '300x250') {
+                headlineLineClamp = 2;
+            }
+
             headlineEl.style.cssText = `
                 color: #FFFFFF;
                 font-weight: ${hlStyle.fontWeight || 500};
                 line-height: ${hlStyle.lineHeight || '110%'};
                 letter-spacing: ${hlStyle.letterSpacing || '0'};
                 font-size: ${hlStyle.fontSize};
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: ${headlineLineClamp};
+                -webkit-box-orient: vertical;
+                ${headlineExtraStyles}
             `;
             textContainer.appendChild(headlineEl);
 
@@ -7022,12 +7039,20 @@ Generate ALL sections now in the exact order specified above.`;
                 const bodyEl = document.createElement('div');
                 bodyEl.textContent = body;
                 const bodyStyle = config.body;
+
+                // Special handling for 300x250
+                const bodyFontSize = sizeName === '300x250' ? '10px' : bodyStyle.fontSize;
+
                 bodyEl.style.cssText = `
                     color: #FFFFFF;
                     font-weight: ${bodyStyle.fontWeight || 400};
                     line-height: ${bodyStyle.lineHeight || '140%'};
-                    font-size: ${bodyStyle.fontSize};
+                    font-size: ${bodyFontSize};
                     margin-top: ${bodyStyle.marginTop || '0'};
+                    overflow: hidden;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
                 `;
                 textContainer.appendChild(bodyEl);
             }
