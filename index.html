@@ -1832,223 +1832,6 @@
             font-weight: 500;
         }
 
-        /* Visual Ad Mockup Styling */
-        .influ2-mockup-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-
-        .influ2-mockup {
-            position: relative;
-            overflow: hidden;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            border-radius: 8px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        /* Fixed dimension containers for each ad size */
-        .influ2-mockup.mockup-300x250 {
-            width: 300px;
-            height: 250px;
-            background-image: url('template-300x250.png');
-        }
-
-        .influ2-mockup.mockup-728x90 {
-            width: 728px;
-            height: 90px;
-            background-image: url('template-728x90.png');
-        }
-
-        .influ2-mockup.mockup-320x50 {
-            width: 320px;
-            height: 50px;
-            background-image: url('template-320x50.png');
-        }
-
-        .influ2-mockup.mockup-160x600 {
-            width: 160px;
-            height: 600px;
-            background-image: url('template-160x600.png');
-        }
-
-        .influ2-mockup.mockup-300x600 {
-            width: 300px;
-            height: 600px;
-            background-image: url('template-300x600.png');
-        }
-
-        .influ2-mockup-content {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .influ2-mockup-headline {
-            font-family: 'Zendesk Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-weight: 700;
-            color: #FFFFFF;
-            line-height: 1.2;
-            position: absolute;
-        }
-
-        .influ2-mockup-body {
-            font-family: 'Zendesk Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-weight: 400;
-            color: #FFFFFF;
-            line-height: 1.3;
-            position: absolute;
-        }
-
-        .influ2-mockup-cta {
-            font-family: 'Zendesk Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            position: absolute;
-            background-color: #D1F470;
-            color: #11110D;
-            font-weight: 700;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50px;
-            border: none;
-        }
-
-        /* 300x250: Safe zones - headline top 16px left 16px max-width 180px, body top 80px left 16px max-width 180px, CTA bottom 16px left 16px */
-        .influ2-mockup.mockup-300x250 .influ2-mockup-headline {
-            font-size: 0.95rem;
-            top: 16px;
-            left: 16px;
-            max-width: 180px;
-        }
-
-        .influ2-mockup.mockup-300x250 .influ2-mockup-body {
-            font-size: 0.75rem;
-            top: 80px;
-            left: 16px;
-            max-width: 180px;
-        }
-
-        .influ2-mockup.mockup-300x250 .influ2-mockup-cta {
-            bottom: 16px;
-            left: 16px;
-            width: 120px;
-            height: 35px;
-            font-size: 0.75rem;
-        }
-
-        /* 728x90: Safe zones - headline max-width 280px top 50% left 16px translateY(-50%), CTA right 90px top 50% translateY(-50%) */
-        .influ2-mockup.mockup-728x90 .influ2-mockup-headline {
-            font-size: 0.7rem;
-            top: 50%;
-            left: 16px;
-            max-width: 280px;
-            transform: translateY(-50%);
-        }
-
-        .influ2-mockup.mockup-728x90 .influ2-mockup-body {
-            display: none;
-        }
-
-        .influ2-mockup.mockup-728x90 .influ2-mockup-cta {
-            right: 90px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 80px;
-            height: 24px;
-            font-size: 0.55rem;
-        }
-
-        /* 320x50: Safe zones - headline max-width 160px top 50% left 10px translateY(-50%), CTA right 55px top 50% translateY(-50%) */
-        .influ2-mockup.mockup-320x50 .influ2-mockup-headline {
-            font-size: 0.7rem;
-            top: 50%;
-            left: 10px;
-            max-width: 160px;
-            transform: translateY(-50%);
-        }
-
-        .influ2-mockup.mockup-320x50 .influ2-mockup-body {
-            display: none;
-        }
-
-        .influ2-mockup.mockup-320x50 .influ2-mockup-cta {
-            right: 55px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 85px;
-            height: 20px;
-            font-size: 0.55rem;
-        }
-
-        /* 160x600: Safe zones - headline max-width 130px top 20px left 12px, body max-width 130px top 120px left 12px, CTA bottom 100px left 50% translateX(-50%) */
-        .influ2-mockup.mockup-160x600 .influ2-mockup-headline {
-            font-size: 0.9rem;
-            top: 20px;
-            left: 12px;
-            max-width: 130px;
-        }
-
-        .influ2-mockup.mockup-160x600 .influ2-mockup-body {
-            font-size: 0.75rem;
-            top: 120px;
-            left: 12px;
-            max-width: 130px;
-        }
-
-        .influ2-mockup.mockup-160x600 .influ2-mockup-cta {
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 100px;
-            width: 105px;
-            height: 32px;
-            font-size: 0.65rem;
-        }
-
-        /* 300x600: Safe zones - headline max-width 240px top 24px left 16px, body max-width 240px top 140px left 16px, CTA bottom 100px left 50% translateX(-50%) */
-        .influ2-mockup.mockup-300x600 .influ2-mockup-headline {
-            font-size: 0.9rem;
-            top: 24px;
-            left: 16px;
-            max-width: 240px;
-        }
-
-        .influ2-mockup.mockup-300x600 .influ2-mockup-body {
-            font-size: 0.75rem;
-            top: 140px;
-            left: 16px;
-            max-width: 240px;
-        }
-
-        .influ2-mockup.mockup-300x600 .influ2-mockup-cta {
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 100px;
-            width: 120px;
-            height: 35px;
-            font-size: 0.75rem;
-        }
-            bottom: 80px;
-            width: 130px;
-            height: 38px;
-            font-size: 0.8rem;
-        }
-
-        .influ2-mockup-label {
-            font-size: 0.7rem;
-            color: #D1F470;
-            margin-bottom: 8px;
-            font-weight: 600;
-            text-align: center;
-        }
 
         .influ2-ad-card-header {
             background: rgba(255,255,255,0.1);
@@ -3557,7 +3340,7 @@
             <!-- Ad Generator Section -->
             <section class="section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
                 <h2 style="color: white;">Generate Influ2 Display Ads</h2>
-                <p style="color: rgba(255,255,255,0.9);">Create personalized ads across all 5 Influ2 display sizes</p>
+                <p style="color: rgba(255,255,255,0.9);">Create personalized ads across all 9 display sizes (LinkedIn, social, and programmatic)</p>
 
                 <div class="ad-controls">
                     <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
@@ -6505,7 +6288,7 @@ chaos</div>
             const stageValue = stageMap[buyingStage] || 'consideration';
 
             // Show confirmation
-            const confirmed = confirm(`Generate complete ABM program for ${accountName}?\n\nThis will create:\n• 5 Influ2 Display Ads (all sizes)\n• 5 Signal-Based Marketo Emails\n• 21-Touch Multi-Event Sales Cadence\n\nProgram will be customized for ${industry} industry at ${buyingStage} stage.`);
+            const confirmed = confirm(`Generate complete ABM program for ${accountName}?\n\nThis will create:\n• 9 Influ2 Display Ads (all sizes)\n• 5 Signal-Based Marketo Emails\n• 21-Touch Multi-Event Sales Cadence\n\nProgram will be customized for ${industry} industry at ${buyingStage} stage.`);
 
             if (!confirmed) return;
 
@@ -6566,7 +6349,7 @@ chaos</div>
                                         generateCadence();
 
                                         setTimeout(() => {
-                                            alert(`✓ Complete ABM Program Generated!\n\n✓ 5 Influ2 Display Ads\n✓ 5 Marketo Email Sequences\n✓ 21-Touch Sales Cadence\n\nAll content created for ${accountName} and ready to deploy!`);
+                                            alert(`✓ Complete ABM Program Generated!\n\n✓ 9 Influ2 Display Ads\n✓ 5 Marketo Email Sequences\n✓ 21-Touch Sales Cadence\n\nAll content created for ${accountName} and ready to deploy!`);
                                         }, 500);
                                     }, 300);
                                 }
@@ -6786,7 +6569,7 @@ chaos</div>
                     temperature: 0.7,
                     messages: [{
                         role: 'user',
-                        content: systemPrompt + '\n\nGenerate the complete Influ2 ad package now. Include ALL 5 sections in order: 1) Core Extraction (4 items), 2) Display Ads (all 6 sizes with Version A and B for each), 3) LinkedIn Sponsored Ad (Version A and B), 4) Native Ad (Version A and B), 5) Flags. Follow the exact format and structure specified in the system prompt.'
+                        content: systemPrompt + '\n\nGenerate the complete Influ2 ad package now. Include ALL 5 sections in order: 1) Core Extraction (4 items), 2) Display Ads (all 9 sizes with Version A and B for each), 3) LinkedIn Sponsored Ad (Version A and B), 4) Native Ad (Version A and B), 5) Flags. Follow the exact format and structure specified in the system prompt.'
                     }]
                 };
 
@@ -6912,9 +6695,15 @@ Extract these four items first:
 3. Industry: ${industry}
 4. Persona: CX Director, IT leader, or ops exec (derived from industry MSD)
 
-=== SECTION 2: DISPLAY ADS (ALL 6 SIZES) ===
+=== SECTION 2: DISPLAY ADS (ALL 9 SIZES) ===
 
-Generate ALL 6 display ad sizes. Each size gets Version A (stat-led) and Version B (tension-led).
+Generate ALL 9 display ad sizes. Each size gets Version A (stat-led) and Version B (tension-led).
+
+**1200x628 (REQUIRED - LinkedIn Landscape)**
+Version A and Version B. Each has: Headline (5-7 words) / Body (10-15 words) / CTA (2-3 words)
+
+**1200x1200 (REQUIRED - Social Square)**
+Version A and Version B. Each has: Headline (5-7 words) / Body (10-15 words) / CTA (2-3 words)
 
 **300x250 (REQUIRED)**
 Version A and Version B. Each has: Headline (5-7 words) / Body (10-15 words) / CTA (2-3 words)
@@ -6928,7 +6717,13 @@ Version A and Version B. Same format as 300x250: Headline / Body / CTA
 **300x600**
 Version A and Version B. Same format as 300x250: Headline / Body / CTA
 
+**970x250 (Billboard)**
+Version A and Version B. Same format as 300x250: Headline / Body / CTA
+
 **320x50**
+Version A and Version B. Same format as 728x90: Headline / CTA only. NO BODY COPY.
+
+**300x50**
 Version A and Version B. Same format as 728x90: Headline / CTA only. NO BODY COPY.
 
 === SECTION 3: LINKEDIN SPONSORED AD ===
@@ -7028,11 +6823,15 @@ Generate ALL sections now in the exact order specified above.`;
 
             // Parse Display Ads by size
             const displaySizes = [
+                { name: '1200x628', required: true, hasBody: true, expandByDefault: true },
+                { name: '1200x1200', required: true, hasBody: true, expandByDefault: true },
                 { name: '300x250', required: true, hasBody: true, expandByDefault: true },
                 { name: '728x90', required: true, hasBody: false, expandByDefault: true },
                 { name: '160x600', required: false, hasBody: true, expandByDefault: false },
                 { name: '300x600', required: false, hasBody: true, expandByDefault: false },
-                { name: '320x50', required: false, hasBody: false, expandByDefault: false }
+                { name: '970x250', required: false, hasBody: true, expandByDefault: false },
+                { name: '320x50', required: false, hasBody: false, expandByDefault: false },
+                { name: '300x50', required: false, hasBody: false, expandByDefault: false }
             ];
 
             html += `<div class="influ2-section-divider">🖼️ Display Ads</div>`;
@@ -7073,150 +6872,85 @@ Generate ALL sections now in the exact order specified above.`;
                         </div>
                         <div class="influ2-ad-card-content ${isExpanded ? '' : 'collapsed'}" id="${cardId}">`;
 
-                    // Add visual mockups for 300x250 test
+                    // Brand template reference for 300x250
                     if (size.name === '300x250') {
                         html += `<div style="margin-bottom: 20px;">
-                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Visual Mockup</div>
-                            <div class="influ2-mockup-grid">
-                                <div>
-                                    <div class="influ2-mockup-label">Version A - Stat-Led</div>
-                                    <div class="influ2-mockup mockup-300x250">
-                                        <div class="influ2-mockup-content">
-                                            <div class="influ2-mockup-headline">${versionA.headline}</div>
-                                            <div class="influ2-mockup-body">${versionA.body}</div>
-                                            <div class="influ2-mockup-cta">${versionA.cta}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="influ2-mockup-label">Version B - Tension-Led</div>
-                                    <div class="influ2-mockup mockup-300x250">
-                                        <div class="influ2-mockup-content">
-                                            <div class="influ2-mockup-headline">${versionB.headline}</div>
-                                            <div class="influ2-mockup-body">${versionB.body}</div>
-                                            <div class="influ2-mockup-cta">${versionB.cta}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Brand Template Reference</div>
+                            <img src="brand_ad_examples/300x250.png" alt="300x250 Brand Template" style="max-width: 100%; height: auto; border: 1px solid #E5E5E5; border-radius: 4px; margin-bottom: 16px;">
                         </div>
-                        <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy Reference (for export)</div>`;
+                        <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy for Canva Autofill</div>`;
                     }
 
-                    // 728x90 Leaderboard mockups (headline only) - side by side flex layout
+                    // Brand template reference for 728x90
                     if (size.name === '728x90') {
                         html += `<div style="margin-bottom: 20px;">
-                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Visual Mockups</div>
-                            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                                <div>
-                                    <div class="influ2-mockup-label">Version A - Stat-Led</div>
-                                    <div class="influ2-mockup mockup-728x90">
-                                        <div class="influ2-mockup-content">
-                                            <div class="influ2-mockup-headline">${versionA.headline}</div>
-                                            <div class="influ2-mockup-cta">${versionA.cta}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="influ2-mockup-label">Version B - Tension-Led</div>
-                                    <div class="influ2-mockup mockup-728x90">
-                                        <div class="influ2-mockup-content">
-                                            <div class="influ2-mockup-headline">${versionB.headline}</div>
-                                            <div class="influ2-mockup-cta">${versionB.cta}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Brand Template Reference</div>
+                            <img src="brand_ad_examples/728x90.png" alt="728x90 Brand Template" style="max-width: 100%; height: auto; border: 1px solid #E5E5E5; border-radius: 4px; margin-bottom: 16px;">
                         </div>
-                        <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy Reference (for export)</div>`;
+                        <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy for Canva Autofill</div>`;
                     }
 
-                    // 320x50 Mobile Banner mockups (headline only)
+                    // Brand template reference for 320x50
                     if (size.name === '320x50') {
                         html += `<div style="margin-bottom: 20px;">
-                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Visual Mockups</div>
-                            <div class="influ2-mockup-grid">
-                                <div>
-                                    <div class="influ2-mockup-label">Version A - Stat-Led</div>
-                                    <div class="influ2-mockup mockup-320x50">
-                                        <div class="influ2-mockup-content">
-                                            <div class="influ2-mockup-headline">${versionA.headline}</div>
-                                            <div class="influ2-mockup-cta">${versionA.cta}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="influ2-mockup-label">Version B - Tension-Led</div>
-                                    <div class="influ2-mockup mockup-320x50">
-                                        <div class="influ2-mockup-content">
-                                            <div class="influ2-mockup-headline">${versionB.headline}</div>
-                                            <div class="influ2-mockup-cta">${versionB.cta}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Brand Template Reference</div>
+                            <img src="brand_ad_examples/320x50.png" alt="320x50 Brand Template" style="max-width: 100%; height: auto; border: 1px solid #E5E5E5; border-radius: 4px; margin-bottom: 16px;">
                         </div>
-                        <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy Reference (for export)</div>`;
+                        <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy for Canva Autofill</div>`;
                     }
 
-                    // 160x600 Skyscraper mockups (headline + body)
+                    // Brand template reference for 160x600
                     if (size.name === '160x600') {
                         html += `<div style="margin-bottom: 20px;">
-                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Visual Mockups</div>
-                            <div class="influ2-mockup-grid" style="grid-template-columns: 1fr 1fr; gap: 12px;">
-                                <div>
-                                    <div class="influ2-mockup-label">Version A - Stat-Led</div>
-                                    <div class="influ2-mockup mockup-160x600">
-                                        <div class="influ2-mockup-content">
-                                            <div class="influ2-mockup-headline">${versionA.headline}</div>
-                                            <div class="influ2-mockup-body">${versionA.body}</div>
-                                            <div class="influ2-mockup-cta">${versionA.cta}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="influ2-mockup-label">Version B - Tension-Led</div>
-                                    <div class="influ2-mockup mockup-160x600">
-                                        <div class="influ2-mockup-content">
-                                            <div class="influ2-mockup-headline">${versionB.headline}</div>
-                                            <div class="influ2-mockup-body">${versionB.body}</div>
-                                            <div class="influ2-mockup-cta">${versionB.cta}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Brand Template Reference</div>
+                            <img src="brand_ad_examples/160x600.png" alt="160x600 Brand Template" style="max-width: 100%; height: auto; border: 1px solid #E5E5E5; border-radius: 4px; margin-bottom: 16px;">
                         </div>
-                        <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy Reference (for export)</div>`;
+                        <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy for Canva Autofill</div>`;
                     }
 
-                    // 300x600 Half Page mockups (headline + body)
+                    // Brand template reference for 300x600
                     if (size.name === '300x600') {
                         html += `<div style="margin-bottom: 20px;">
-                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Visual Mockups</div>
-                            <div class="influ2-mockup-grid" style="grid-template-columns: 1fr 1fr; gap: 12px;">
-                                <div>
-                                    <div class="influ2-mockup-label">Version A - Stat-Led</div>
-                                    <div class="influ2-mockup mockup-300x600">
-                                        <div class="influ2-mockup-content">
-                                            <div class="influ2-mockup-headline">${versionA.headline}</div>
-                                            <div class="influ2-mockup-body">${versionA.body}</div>
-                                            <div class="influ2-mockup-cta">${versionA.cta}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="influ2-mockup-label">Version B - Tension-Led</div>
-                                    <div class="influ2-mockup mockup-300x600">
-                                        <div class="influ2-mockup-content">
-                                            <div class="influ2-mockup-headline">${versionB.headline}</div>
-                                            <div class="influ2-mockup-body">${versionB.body}</div>
-                                            <div class="influ2-mockup-cta">${versionB.cta}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Brand Template Reference</div>
+                            <img src="brand_ad_examples/300x600.png" alt="300x600 Brand Template" style="max-width: 100%; height: auto; border: 1px solid #E5E5E5; border-radius: 4px; margin-bottom: 16px;">
                         </div>
-                        <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy Reference (for export)</div>`;
+                        <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy for Canva Autofill</div>`;
+                    }
+
+                    // Brand template reference for 1200x628
+                    if (size.name === '1200x628') {
+                        html += `<div style="margin-bottom: 20px;">
+                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Brand Template Reference</div>
+                            <img src="brand_ad_examples/1200x628.png" alt="1200x628 Brand Template" style="max-width: 100%; height: auto; border: 1px solid #E5E5E5; border-radius: 4px; margin-bottom: 16px;">
+                        </div>
+                        <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy for Canva Autofill</div>`;
+                    }
+
+                    // Brand template reference for 1200x1200
+                    if (size.name === '1200x1200') {
+                        html += `<div style="margin-bottom: 20px;">
+                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Brand Template Reference</div>
+                            <img src="brand_ad_examples/1200x1200.png" alt="1200x1200 Brand Template" style="max-width: 100%; height: auto; border: 1px solid #E5E5E5; border-radius: 4px; margin-bottom: 16px;">
+                        </div>
+                        <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy for Canva Autofill</div>`;
+                    }
+
+                    // Brand template reference for 970x250
+                    if (size.name === '970x250') {
+                        html += `<div style="margin-bottom: 20px;">
+                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Brand Template Reference</div>
+                            <img src="brand_ad_examples/970x250.png" alt="970x250 Brand Template" style="max-width: 100%; height: auto; border: 1px solid #E5E5E5; border-radius: 4px; margin-bottom: 16px;">
+                        </div>
+                        <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy for Canva Autofill</div>`;
+                    }
+
+                    // Brand template reference for 300x50
+                    if (size.name === '300x50') {
+                        html += `<div style="margin-bottom: 20px;">
+                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Brand Template Reference</div>
+                            <img src="brand_ad_examples/300x50.png" alt="300x50 Brand Template" style="max-width: 100%; height: auto; border: 1px solid #E5E5E5; border-radius: 4px; margin-bottom: 16px;">
+                        </div>
+                        <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy for Canva Autofill</div>`;
                     }
 
                     html += `<div class="influ2-version-grid">
@@ -7391,22 +7125,64 @@ Generate ALL sections now in the exact order specified above.`;
             console.log('HTML length:', html.length);
             console.log('Output element:', outputContent);
 
-            // Add Canva export buttons if ads were successfully parsed
+            // Add CSV download + brand template preview if ads were successfully parsed
             if (influ2CurrentAdSet) {
-                html += `<div style="display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap;">
-                    <button class="influ2-generate-btn" onclick="sendAdsToCanva('versionA')" style="flex: 1; min-width: 220px;">
-                        📤 Send Version A to Canva
+                html += `<div style="display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; align-items: center;">
+                    <button class="influ2-generate-btn" onclick="downloadCanvaCsv()" style="flex: 1; min-width: 220px;">
+                        ⬇️ Download CSV for Canva
                     </button>
-                    <button class="influ2-generate-btn" onclick="sendAdsToCanva('versionB')" style="flex: 1; min-width: 220px;">
-                        📤 Send Version B to Canva
-                    </button>
+                    <div style="color: #999; font-size: 13px;">CSV includes headline, body, cta for each ad version.</div>
                 </div>
-                <div id="canvaStatusContainer" style="margin-top: 16px;"></div>`;
+                <div class="influ2-section-divider">🖼️ Brand Template Previews</div>
+                <div id="brandTemplatePreview" style="display:grid; gap:16px; grid-template-columns: repeat(auto-fill,minmax(240px,1fr));"></div>`;
             }
 
             if (outputContent) {
                 outputContent.innerHTML = html;
                 document.getElementById('influ2Output').classList.add('visible');
+
+                // Populate preview section with the template images and ad copy
+                const previewContainer = document.getElementById('brandTemplatePreview');
+                if (previewContainer && influ2CurrentAdSet) {
+                    const templateFiles = {
+                        '1200x628': 'brand_ad_examples/1200x628.png',
+                        '1200x1200': 'brand_ad_examples/1200x1200.png',
+                        '300x250': 'brand_ad_examples/300x250.png',
+                        '160x600': 'brand_ad_examples/160x600.png',
+                        '300x600': 'brand_ad_examples/300x600.png',
+                        '970x250': 'brand_ad_examples/970x250.png',
+                        '728x90': 'brand_ad_examples/728x90.png',
+                        '320x50': 'brand_ad_examples/320x50.png',
+                        '300x50': 'brand_ad_examples/300x50.png'
+                    };
+
+                    previewContainer.innerHTML = '';
+
+                    Object.keys(templateFiles).forEach(size => {
+                        const versionA = influ2CurrentAdSet.versionA?.[size] || { headline: 'N/A', body: 'N/A', cta: 'N/A' };
+                        const versionB = influ2CurrentAdSet.versionB?.[size] || { headline: 'N/A', body: 'N/A', cta: 'N/A' };
+
+                        previewContainer.innerHTML += `
+                            <div style="border: 1px solid #e0e0e0; border-radius: 12px; padding: 12px; background: #fff; color: #111;">
+                                <div style="font-size: 14px; font-weight: 700; margin-bottom: 8px;">${size} Preview</div>
+                                <div style="display: flex; gap: 8px;">
+                                    <img src="${templateFiles[size]}" alt="${size} template" style="width: 120px; height: auto; border-radius: 6px; object-fit: contain;" />
+                                    <div style="flex: 1; font-size: 12px; line-height: 1.3;">
+                                        <div style="font-weight: 600; color: #2D4C33; margin-bottom: 4px;">Version A</div>
+                                        <div><strong>Headline:</strong> ${escapeHtml(versionA.headline)}</div>
+                                        <div><strong>Body:</strong> ${escapeHtml(versionA.body)}</div>
+                                        <div><strong>CTA:</strong> ${escapeHtml(versionA.cta)}</div>
+                                        <div style="margin-top: 8px; font-weight: 600; color: #D1F470;">Version B</div>
+                                        <div><strong>Headline:</strong> ${escapeHtml(versionB.headline)}</div>
+                                        <div><strong>Body:</strong> ${escapeHtml(versionB.body)}</div>
+                                        <div><strong>CTA:</strong> ${escapeHtml(versionB.cta)}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+
                 console.log('✅ Output rendered successfully');
             } else {
                 console.error('❌ Output element not found!');
@@ -7479,74 +7255,51 @@ Generate ALL sections now in the exact order specified above.`;
             textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
         }
 
-        async function sendAdsToCanva(version) {
-            if (!influ2CurrentAdSet || !influ2CurrentAdSet[version]) {
-                alert('No ad data available for export');
+        function downloadCanvaCsv() {
+            const adSet = influ2CurrentAdSet;
+            if (!adSet) {
+                alert('No ad data available for CSV export');
                 return;
             }
 
-            const statusContainer = document.getElementById('canvaStatusContainer');
-            const adSizes = ['300x250', '728x90', '160x600', '320x50', '300x600'];
-            const designIds = {
-                '300x250': 'DAHE6HgGqDs',
-                '728x90': 'DAHE5rq6fLs',
-                '160x600': 'DAHE5fk2qVI',
-                '320x50': 'DAHE5jtZB_w',
-                '300x600': 'DAHE5rdfclQ'
-            };
-
-            // Show loading state
-            statusContainer.innerHTML = `<div style="padding: 16px; background: #F0F0F0; border-radius: 8px; color: #666; font-size: 13px;">
-                ⏳ Sending ads to Canva...
-            </div>`;
-
-            const results = [];
-
-            for (const size of adSizes) {
-                const adData = influ2CurrentAdSet[version][size];
-                if (!adData) continue;
-
-                const designId = designIds[size];
-                try {
-                    // Call Canva autofill endpoint via proxy
-                    const response = await fetch('http://localhost:3000/canva-autofill', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            designId: designId,
-                            headline: adData.headline,
-                            body: adData.body,
-                            cta: adData.cta
-                        })
-                    });
-
-                    if (response.ok) {
-                        results.push({ size, status: 'success', message: `${size} sent to Canva` });
-                    } else {
-                        results.push({ size, status: 'error', message: `Failed to send ${size}: ${response.statusText}` });
-                    }
-                } catch (error) {
-                    results.push({ size, status: 'error', message: `Error sending ${size}: ${error.message}` });
-                }
-            }
-
-            // Display results
-            const successCount = results.filter(r => r.status === 'success').length;
-            const errorCount = results.filter(r => r.status === 'error').length;
-
-            let resultHtml = `<div style="padding: 16px; background: ${errorCount === 0 ? '#E8F5E9' : '#FFF3E0'}; border-radius: 8px; border-left: 4px solid ${errorCount === 0 ? '#4CAF50' : '#FF9800'};">
-                <div style="color: ${errorCount === 0 ? '#2E7D32' : '#E65100'}; font-weight: 600; margin-bottom: 8px;">
-                    ${errorCount === 0 ? '✅ All ads sent successfully!' : `⚠️ ${successCount} sent, ${errorCount} failed`}
-                </div>
-                <div style="font-size: 12px; color: #666; line-height: 1.5;">`;
-
-            results.forEach(r => {
-                const icon = r.status === 'success' ? '✓' : '✗';
-                resultHtml += `<div>${icon} ${r.message}</div>`;
+            const rows = [];
+            ['1200x628','1200x1200','300x250','160x600','300x600','970x250','728x90','320x50','300x50'].forEach(size => {
+                ['versionA', 'versionB'].forEach(versionKey => {
+                    const record = adSet[versionKey]?.[size];
+                    if (!record) return;
+                    rows.push({ headline: record.headline || '', body: record.body || '', cta: record.cta || '' });
+                });
             });
 
-            resultHtml += `</div></div>`;
-            statusContainer.innerHTML = resultHtml;
+            if (rows.length === 0) {
+                alert('No ad copy rows to export');
+                return;
+            }
+
+            const csvLines = ['headline,body,cta'];
+            rows.forEach(row => {
+                csvLines.push(`${escapeCsv(row.headline)},${escapeCsv(row.body)},${escapeCsv(row.cta)}`);
+            });
+
+            const blob = new Blob([csvLines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'ad-copy-canva-bulk.csv';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        function escapeCsv(value) {
+            const v = (value || '').toString().replace(/"/g, '""');
+            return /[",\n]/.test(v) ? `"${v}"` : v;
+        }
+
+        function escapeHtml(str) {
+            if (str == null) return '';
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
         }
 
         function handleInflu2ChatKeydown(event) {
@@ -7772,7 +7525,7 @@ For questions about MSDs, provide clear, actionable answers based on the loaded 
             const outputContent = document.getElementById('influ2OutputContent');
             if (!outputContent || !influ2CurrentAdContext) return;
 
-            const displaySizes = ['300x250', '728x90', '160x600', '300x600', '320x50'];
+            const displaySizes = ['1200x628', '1200x1200', '300x250', '728x90', '160x600', '300x600', '970x250', '320x50', '300x50'];
 
             displaySizes.forEach(size => {
                 const pattern = new RegExp(`REGENERATED:.*${size.replace('x', '\\s*x\\s*')}[\\s\\S]*?Version A([\\s\\S]*?)Version B([\\s\\S]*?)(?=REGENERATED:|$)`, 'i');
