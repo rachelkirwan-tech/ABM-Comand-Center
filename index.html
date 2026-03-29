@@ -2801,9 +2801,6 @@
                             <div class="influ2-section-title" style="margin-top: 20px; margin-bottom: 10px;">Content for ads to drive to</div>
                             <textarea id="influ2ContentInput" placeholder="Paste a URL or content (blog post, guide description, webinar details, etc)..." style="width: 100%; min-height: 140px; padding: 14px 16px; border: 1px solid #E0E0E0; background: #F8F9FA; color: #2D4C33; border-radius: 8px; font-family: 'Zendesk Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; font-size: 14px; resize: vertical; margin-bottom: 20px; font-weight: 500;"></textarea>
 
-                            <div class="influ2-section-title" style="margin-top: 0; margin-bottom: 10px;">Campaign name</div>
-                            <input type="text" id="influ2CampaignName" placeholder="M&E-SalesPlay" style="width: 100%; padding: 12px 14px; border: 1px solid #E0E0E0; background: white; color: #2D4C33; border-radius: 8px; font-size: 14px; margin-bottom: 20px; font-weight: 500;">
-
                             <button class="influ2-generate-btn" id="influ2GenerateBtn" onclick="generateInflu2Ads()">
                                 Generate Complete Ad Package
                             </button>
@@ -7369,15 +7366,22 @@ Generate ALL sections now in the exact order specified above.`;
                 { name: '300x50', required: false, hasBody: false, expandByDefault: false }
             ];
 
+            // Campaign name input field
+            html += `<div style="margin: 24px 0 16px 0;">
+                <div style="font-size: 13px; font-weight: 700; color: #2D4C33; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px;">Campaign name</div>
+                <input type="text" id="influ2CampaignName" placeholder="M&E-SalesPlay" oninput="toggleDownloadButtons()" style="width: 100%; padding: 12px 14px; border: 1px solid #E0E0E0; background: white; color: #2D4C33; border-radius: 8px; font-size: 14px; font-weight: 500; margin-bottom: 6px;">
+                <div style="font-size: 12px; color: #717171; font-style: italic;">Required for file naming.</div>
+            </div>`;
+
             // Version download buttons
-            html += `<div style="display: flex; gap: 12px; margin: 24px 0; flex-wrap: wrap;">
-                <button onclick="downloadVersionPackage('A')" style="background: #D1F470; color: #11110D; font-weight: 700; border-radius: 8px; padding: 12px 24px; border: none; cursor: pointer; font-size: 16px;">
+            html += `<div style="display: flex; gap: 12px; margin: 16px 0 24px 0; flex-wrap: wrap;">
+                <button id="downloadVersionABtn" onclick="downloadVersionPackage('A')" disabled style="background: #D1D1D1; color: #717171; font-weight: 700; border-radius: 8px; padding: 12px 24px; border: none; cursor: not-allowed; font-size: 16px;">
                     📦 Download Version A Package
                 </button>
-                <button onclick="downloadVersionPackage('B')" style="background: #D1F470; color: #11110D; font-weight: 700; border-radius: 8px; padding: 12px 24px; border: none; cursor: pointer; font-size: 16px;">
+                <button id="downloadVersionBBtn" onclick="downloadVersionPackage('B')" disabled style="background: #D1D1D1; color: #717171; font-weight: 700; border-radius: 8px; padding: 12px 24px; border: none; cursor: not-allowed; font-size: 16px;">
                     📦 Download Version B Package
                 </button>
-                <button onclick="downloadCanvaCsv()" style="background: #2D4C33; color: #FFFFFF; font-weight: 700; border-radius: 8px; padding: 12px 24px; border: none; cursor: pointer; font-size: 16px;">
+                <button id="downloadCanvaCsvBtn" onclick="downloadCanvaCsv()" disabled style="background: #D1D1D1; color: #717171; font-weight: 700; border-radius: 8px; padding: 12px 24px; border: none; cursor: not-allowed; font-size: 16px;">
                     📊 Download CSV for Canva
                 </button>
             </div>`;
@@ -8026,6 +8030,39 @@ Generate ALL sections now in the exact order specified above.`;
             link.click();
             document.body.removeChild(link);
             URL.revokeObjectURL(url);
+        }
+
+        function toggleDownloadButtons() {
+            const campaignInput = document.getElementById('influ2CampaignName');
+            const hasText = campaignInput && campaignInput.value.trim().length > 0;
+
+            const versionABtn = document.getElementById('downloadVersionABtn');
+            const versionBBtn = document.getElementById('downloadVersionBBtn');
+            const canvaCsvBtn = document.getElementById('downloadCanvaCsvBtn');
+
+            const buttons = [versionABtn, versionBBtn, canvaCsvBtn];
+
+            buttons.forEach(btn => {
+                if (btn) {
+                    btn.disabled = !hasText;
+                    if (hasText) {
+                        // Enable - restore original colors
+                        if (btn.id === 'downloadCanvaCsvBtn') {
+                            btn.style.background = '#2D4C33';
+                            btn.style.color = '#FFFFFF';
+                        } else {
+                            btn.style.background = '#D1F470';
+                            btn.style.color = '#11110D';
+                        }
+                        btn.style.cursor = 'pointer';
+                    } else {
+                        // Disable - gray out
+                        btn.style.background = '#D1D1D1';
+                        btn.style.color = '#717171';
+                        btn.style.cursor = 'not-allowed';
+                    }
+                }
+            });
         }
 
         async function downloadVersionPackage(version) {
