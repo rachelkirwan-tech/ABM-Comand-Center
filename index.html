@@ -7216,30 +7216,32 @@ Generate ALL sections now in the exact order specified above.`;
 
         function createAdCopyTextBlock(headline, body, cta) {
             const details = document.createElement('div');
-            details.style.cssText = 'padding: 10px 0; border-top: 1px solid #eee; margin-top: 8px; font-family: \'Zendesk Sans\', -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;';
+            details.style.cssText = 'background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 8px; padding: 12px; margin-top: 8px; font-family: \'Zendesk Sans\', -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;';
 
             const makeLabel = (text) => {
                 const el = document.createElement('div');
                 el.textContent = text;
-                el.style.cssText = 'font-size: 11px; font-weight: 600; color: #2D4C33; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;';
+                el.style.cssText = 'font-size: 11px; font-weight: 600; color: #6B7280; text-transform: uppercase; margin-bottom: 2px;';
                 return el;
             };
 
-            const makeValue = (text, options = {}) => {
+            const makeValue = (text) => {
                 const el = document.createElement('div');
                 el.textContent = text || 'N/A';
-                el.style.cssText = `font-size: ${options.fontSize || '14px'}; font-weight: ${options.fontWeight || 400}; color: ${options.color || '#333'}; margin-bottom: ${options.marginBottom || '4px'};`;
+                el.style.cssText = 'font-size: 13px; font-weight: 400; color: #111827; margin-bottom: 8px; user-select: all; cursor: text;';
                 return el;
             };
 
-            details.appendChild(makeLabel('Headline'));
-            details.appendChild(makeValue(headline, { fontSize: '14px', color: '#333', marginBottom: '4px' }));
+            details.appendChild(makeLabel('HEADLINE'));
+            details.appendChild(makeValue(headline));
 
-            details.appendChild(makeLabel('Body'));
-            details.appendChild(makeValue(body || 'No body for banner', { fontSize: '13px', color: '#555', marginBottom: '4px' }));
+            details.appendChild(makeLabel('BODY'));
+            details.appendChild(makeValue(body || 'No body for banner'));
 
             details.appendChild(makeLabel('CTA'));
-            details.appendChild(makeValue(cta, { fontSize: '13px', color: '#555', marginBottom: '0' }));
+            const ctaValue = makeValue(cta);
+            ctaValue.style.marginBottom = '0';
+            details.appendChild(ctaValue);
 
             return details;
         }
