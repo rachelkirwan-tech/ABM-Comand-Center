@@ -6838,18 +6838,21 @@ Generate ALL sections now in the exact order specified above.`;
 
             displaySizes.forEach(size => {
                 // More flexible pattern for markdown formatting
-                // Matches: **300x250** or 300x250 or 300 x 250, with or without (REQUIRED)
+                // Matches: **300x250** or 300x250 or 300 x 250, with or without (REQUIRED) or descriptive text
                 const sizePattern = new RegExp(
-                    `(?:\\*\\*)?\\s*${size.name.replace(/x/g, '\\s*[xX×]\\s*')}\\s*(?:\\(REQUIRED\\))?(?:\\*\\*)?[\\s\\S]*?` +
+                    `(?:\\*\\*)?\\s*${size.name.replace(/x/g, '\\s*[xX×]\\s*')}\\s*(?:\\([^)]*\\))?(?:\\s*[\\-–—]\\s*[^*\\n]*)?(?:\\*\\*)?[\\s\\S]*?` +
                     `Version\\s*A[:\\s]*([\\s\\S]*?)` +
                     `Version\\s*B[:\\s]*([\\s\\S]*?)` +
-                    `(?=\\*\\*\\d|===?\\s*SECTION\\s*[345]|LINKEDIN|NATIVE|FLAGS|$)`,
+                    `(?=\\*\\*\\s*\\d|===?\\s*SECTION\\s*[345]|LINKEDIN|NATIVE|FLAGS|$)`,
                     'i'
                 );
                 const sizeMatch = text.match(sizePattern);
 
                 console.log(`Parsing ${size.name}:`, !!sizeMatch);
-                if (sizeMatch) {
+                if (!sizeMatch) {
+                    console.warn(`  ❌ ${size.name} not found in API response`);
+                } else {
+                    console.log(`  ✓ ${size.name} matched successfully`);
                     console.log(`  - Version A preview:`, sizeMatch[1].substring(0, 100));
                     console.log(`  - Version B preview:`, sizeMatch[2].substring(0, 100));
                     const versionA = parseInflu2AdVersion(sizeMatch[1], size.hasBody);
@@ -6872,86 +6875,12 @@ Generate ALL sections now in the exact order specified above.`;
                         </div>
                         <div class="influ2-ad-card-content ${isExpanded ? '' : 'collapsed'}" id="${cardId}">`;
 
-                    // Brand template reference for 300x250
-                    if (size.name === '300x250') {
-                        html += `<div style="margin-bottom: 20px;">
-                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Brand Template Reference</div>
-                            <img src="brand_ad_examples/300x250.png" alt="300x250 Brand Template" style="max-width: 100%; height: auto; border: 1px solid #E5E5E5; border-radius: 4px; margin-bottom: 16px;">
-                        </div>
-                        <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy for Canva Autofill</div>`;
-                    }
-
-                    // Brand template reference for 728x90
-                    if (size.name === '728x90') {
-                        html += `<div style="margin-bottom: 20px;">
-                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Brand Template Reference</div>
-                            <img src="brand_ad_examples/728x90.png" alt="728x90 Brand Template" style="max-width: 100%; height: auto; border: 1px solid #E5E5E5; border-radius: 4px; margin-bottom: 16px;">
-                        </div>
-                        <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy for Canva Autofill</div>`;
-                    }
-
-                    // Brand template reference for 320x50
-                    if (size.name === '320x50') {
-                        html += `<div style="margin-bottom: 20px;">
-                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Brand Template Reference</div>
-                            <img src="brand_ad_examples/320x50.png" alt="320x50 Brand Template" style="max-width: 100%; height: auto; border: 1px solid #E5E5E5; border-radius: 4px; margin-bottom: 16px;">
-                        </div>
-                        <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy for Canva Autofill</div>`;
-                    }
-
-                    // Brand template reference for 160x600
-                    if (size.name === '160x600') {
-                        html += `<div style="margin-bottom: 20px;">
-                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Brand Template Reference</div>
-                            <img src="brand_ad_examples/160x600.png" alt="160x600 Brand Template" style="max-width: 100%; height: auto; border: 1px solid #E5E5E5; border-radius: 4px; margin-bottom: 16px;">
-                        </div>
-                        <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy for Canva Autofill</div>`;
-                    }
-
-                    // Brand template reference for 300x600
-                    if (size.name === '300x600') {
-                        html += `<div style="margin-bottom: 20px;">
-                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Brand Template Reference</div>
-                            <img src="brand_ad_examples/300x600.png" alt="300x600 Brand Template" style="max-width: 100%; height: auto; border: 1px solid #E5E5E5; border-radius: 4px; margin-bottom: 16px;">
-                        </div>
-                        <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy for Canva Autofill</div>`;
-                    }
-
-                    // Brand template reference for 1200x628
-                    if (size.name === '1200x628') {
-                        html += `<div style="margin-bottom: 20px;">
-                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Brand Template Reference</div>
-                            <img src="brand_ad_examples/1200x628.png" alt="1200x628 Brand Template" style="max-width: 100%; height: auto; border: 1px solid #E5E5E5; border-radius: 4px; margin-bottom: 16px;">
-                        </div>
-                        <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy for Canva Autofill</div>`;
-                    }
-
-                    // Brand template reference for 1200x1200
-                    if (size.name === '1200x1200') {
-                        html += `<div style="margin-bottom: 20px;">
-                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Brand Template Reference</div>
-                            <img src="brand_ad_examples/1200x1200.png" alt="1200x1200 Brand Template" style="max-width: 100%; height: auto; border: 1px solid #E5E5E5; border-radius: 4px; margin-bottom: 16px;">
-                        </div>
-                        <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy for Canva Autofill</div>`;
-                    }
-
-                    // Brand template reference for 970x250
-                    if (size.name === '970x250') {
-                        html += `<div style="margin-bottom: 20px;">
-                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Brand Template Reference</div>
-                            <img src="brand_ad_examples/970x250.png" alt="970x250 Brand Template" style="max-width: 100%; height: auto; border: 1px solid #E5E5E5; border-radius: 4px; margin-bottom: 16px;">
-                        </div>
-                        <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy for Canva Autofill</div>`;
-                    }
-
-                    // Brand template reference for 300x50
-                    if (size.name === '300x50') {
-                        html += `<div style="margin-bottom: 20px;">
-                            <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Brand Template Reference</div>
-                            <img src="brand_ad_examples/300x50.png" alt="300x50 Brand Template" style="max-width: 100%; height: auto; border: 1px solid #E5E5E5; border-radius: 4px; margin-bottom: 16px;">
-                        </div>
-                        <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy for Canva Autofill</div>`;
-                    }
+                    // Brand template reference - universal for all sizes
+                    html += `<div style="margin-bottom: 20px;">
+                        <div style="font-size: 0.8rem; font-weight: 600; color: #2D4C33; margin-bottom: 12px;">Brand Template Reference</div>
+                        <img src="brand_ad_examples/${size.name}.png" alt="${size.name} Brand Template" style="max-width: 100%; height: auto; border: 1px solid #E5E5E5; border-radius: 4px; margin-bottom: 16px;">
+                    </div>
+                    <div style="font-size: 0.75rem; color: #999; margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E5E5;">Copy for Canva Autofill</div>`;
 
                     html += `<div class="influ2-version-grid">
                                 <div class="influ2-version-box">
@@ -7532,7 +7461,7 @@ For questions about MSDs, provide clear, actionable answers based on the loaded 
                 const match = regeneratedText.match(pattern);
 
                 if (match) {
-                    const hasBody = !['728x90', '320x50'].includes(size);
+                    const hasBody = !['728x90', '320x50', '300x50'].includes(size);
                     const versionA = parseInflu2AdVersion(match[1], hasBody);
                     const versionB = parseInflu2AdVersion(match[2], hasBody);
 
