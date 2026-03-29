@@ -3991,7 +3991,7 @@ chaos</div>
             document.getElementById('knowledgePage').classList.remove('active');
         }
 
-        function showPage(pageId) {
+        function showPage(pageId, skipHistoryPush = false) {
             document.getElementById('landingPage').style.display = 'none';
             document.getElementById('top250Page').classList.remove('active');
             document.getElementById('p1Page').classList.remove('active');
@@ -4000,11 +4000,24 @@ chaos</div>
             document.getElementById(pageId).classList.add('active');
             window.scrollTo(0, 0);
 
+            // Push to browser history (unless this is a popstate event)
+            if (!skipHistoryPush) {
+                const pageTitle = {
+                    'landingPage': 'ABM Command Center',
+                    'top250Page': 'Top 250 Strategy',
+                    'p1Page': '1:Many',
+                    'aiProspectsPage': 'Top 100 AI Prospects',
+                    'knowledgePage': 'Knowledge Base'
+                }[pageId] || 'ABM Command Center';
+
+                window.history.pushState({ page: pageId }, pageTitle, `#${pageId}`);
+            }
+
             // Draw chart when page is shown and show dashboard by default
             if (pageId === 'top250Page') {
                 setTimeout(() => {
                     drawPipelineChart('global');
-                    showTop250Section('dashboard');
+                    showTop250Section('dashboard', skipHistoryPush);
                 }, 100);
             }
 
@@ -4019,7 +4032,7 @@ chaos</div>
         }
 
         // Top 250 Sub-section Navigation
-        function showTop250Section(sectionId) {
+        function showTop250Section(sectionId, skipHistoryPush = false) {
             // Hide all sections
             document.querySelectorAll('.top250-section').forEach(section => {
                 section.classList.remove('active');
@@ -4038,6 +4051,20 @@ chaos</div>
 
             // Scroll to top
             window.scrollTo(0, 0);
+
+            // Push to browser history (unless this is a popstate event)
+            if (!skipHistoryPush) {
+                const sectionTitle = {
+                    'dashboard': 'Dashboard',
+                    'journey': 'Signal-Based Workflow',
+                    'influ2': 'Influ2 Ads',
+                    'marketo': 'Marketo Emails',
+                    'cadence': 'Sales Cadence',
+                    'browse': 'Browse Accounts'
+                }[sectionId] || 'Top 250 Strategy';
+
+                window.history.pushState({ page: 'top250Page', section: sectionId }, sectionTitle, `#top250Page-${sectionId}`);
+            }
 
             // Draw chart if dashboard is shown
             if (sectionId === 'dashboard') {
@@ -4454,6 +4481,35 @@ chaos</div>
             populateAccountLists('global');
             drawPipelineChart('global');
         });
+
+        // Handle browser back/forward navigation (supports trackpad gestures and keyboard shortcuts)
+        window.addEventListener('popstate', (event) => {
+            if (event.state) {
+                if (event.state.page && event.state.section) {
+                    // Navigate to Top 250 page section (e.g., Dashboard, Influ2 Ads, etc.)
+                    showPage(event.state.page, true);
+                    setTimeout(() => {
+                        showTop250Section(event.state.section, true);
+                    }, 100);
+                } else if (event.state.page) {
+                    // Navigate to main page (e.g., Landing, Top 250, P1, etc.)
+                    showPage(event.state.page, true);
+                }
+            } else {
+                // No state - go back to landing page
+                document.getElementById('landingPage').style.display = 'block';
+                document.getElementById('top250Page').classList.remove('active');
+                document.getElementById('p1Page').classList.remove('active');
+                document.getElementById('aiProspectsPage').classList.remove('active');
+                document.getElementById('knowledgePage').classList.remove('active');
+                window.scrollTo(0, 0);
+            }
+        });
+
+        // Initialize history state on page load
+        if (!window.history.state) {
+            window.history.replaceState({ page: 'landingPage' }, 'ABM Command Center', '#landingPage');
+        }
 
         // Download ads as PDF
         function downloadAds() {
