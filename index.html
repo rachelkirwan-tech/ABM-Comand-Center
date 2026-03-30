@@ -5298,23 +5298,16 @@ chaos</div>
             };
 
             try {
-                // Fetch industry MSD and buyer stage supplement
-                const industryMsdPath = INFLU2_MSD_PATHS.industries[industry];
-                const buyerStagePath = INFLU2_MSD_PATHS.buyerStageSupplement;
+                // Use the same MSD loading function as Influ2 Ads page
+                statusEl.textContent = 'Loading industry intelligence...';
 
-                statusEl.textContent = 'Fetching MSD files...';
-
-                const [industryMsdResponse, buyerStageResponse] = await Promise.all([
-                    fetch(industryMsdPath),
-                    fetch(buyerStagePath)
-                ]);
-
-                if (!industryMsdResponse.ok || !buyerStageResponse.ok) {
+                const msdFiles = await loadAllInflu2MSDFiles(industry);
+                if (!msdFiles) {
                     throw new Error('Failed to load MSD files');
                 }
 
-                const industryMsd = await industryMsdResponse.text();
-                const buyerStageMsd = await buyerStageResponse.text();
+                const industryMsd = msdFiles.industry;
+                const buyerStageMsd = msdFiles.buyerStageSupplement;
 
                 statusEl.textContent = 'Generating email sequence with AI...';
 
